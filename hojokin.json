@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19",
+ "updated": "2026-11-20",
  "items": [
   {
    "id": "mlit-jidounten",
@@ -468,11 +468,11 @@
    "checked": "2026-11-19"
   },
   {
-   "id": "hokkaido-unyu-feeder",
+   "id": "mlit-feeder",
    "name": "地域公共交通確保維持改善事業（地域内フィーダー系統補助）",
-   "org": "国土交通省（北海道運輸局）",
+   "org": "国土交通省（申請窓口は各地方運輸局）",
    "level": "国",
-   "pref": "北海道",
+   "pref": "全国",
    "city": "",
    "who": "地域公共交通活性化再生法に基づく協議会（市町村などで構成）。乗合タクシーなどを運行する事業者は協議会の計画を通じて対象になる",
    "roles": [
@@ -484,14 +484,14 @@
     "経営支援"
    ],
    "amount": "運行費の赤字の1/2以内。乗用タクシーで運行する場合は上限100万円（令和7年度資料）",
-   "period": "補助の年度は10月1日〜翌年9月30日。申請時期は確認中",
+   "period": "補助の年度は10月1日〜翌年9月30日。申請時期は地域の運輸局で確認",
    "status": "受付時期を確認中",
    "deadline": "",
    "useKind": "関連する",
    "use": "乗合タクシーで地域の足を守りながら、将来ロボタクシーに置き換える路線や需要のデータを集められる。",
    "steps": [],
-   "url": "https://wwwtb.mlit.go.jp/hokkaido/content/000355959.pdf",
-   "checked": "2026-11-19"
+   "url": "https://www.mlit.go.jp/sogoseisaku/transport/sosei_transport_tk_000041.html",
+   "checked": "2026-11-20"
   },
   {
    "id": "aomori-kokyokotsu-jinzai",
