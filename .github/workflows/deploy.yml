@@ -21,13 +21,8 @@ jobs:
         run: echo "FTP_PASSWORD がまだ設定されていないため、反映をスキップします。"
       - uses: actions/checkout@v4
         if: env.FTP_PASSWORD != ''
-      - name: さくらのサーバーへ送る
+      - name: さくらのサーバーへ送る（SFTP）
         if: env.FTP_PASSWORD != ''
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: colors2.sakura.ne.jp
-          username: colors2
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          local-dir: ./site/
-          server-dir: www/robotaxi-lab/
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          lftp -u "colors2,$FTP_PASSWORD" sftp://colors2.sakura.ne.jp -e "set sftp:auto-confirm yes; set net:max-retries 3; set net:timeout 30; mirror -R --verbose=1 --only-newer --no-perms ./site/ /home/colors2/www/robotaxi-lab/; bye"
