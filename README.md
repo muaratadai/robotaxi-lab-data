@@ -1,7 +1,7 @@
-# ロボタクシー実践ラボ 補助金データ
+# robotaxi-lab-data
 
-ロボタクシー実践ラボ「あなたが使える補助金」コーナーのデータです。
+ロボタクシー実践ラボ（ https://robotaxi-lab.com/ ）のデータとサイトのファイル。
 
-- 本番ページ: https://robotaxi-lab.com/hojokin/
-- データ: hojokin.json（毎週日曜に更新）
-- 運営: アイベリー株式会社
+- `zakkuri.json`：毎日ざっくりニュース（本番サイトが直接読み込む）
+- `hojokin.json`：あなたが使える補助金（本番サイトが直接読み込む）
+- `site/`：本番サイトのファイル。`main` に push すると、GitHub Actions がさくらのサーバー（ /home/colors2/www/robotaxi-lab ）へ自動で送る

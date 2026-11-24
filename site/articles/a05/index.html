@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="/">
+<title>XPeng、ロボタクシー「YOYO」の招待制の登録を中国で開始。高精度の地図とLiDARを使わず、カメラ中心で走る｜ロボタクシー実践ラボ</title>
+<meta name="description" content="中国の電気自動車メーカーXPeng（シャオペン）は、2026年10月8日、自社のロボタクシー事業の名前を「XPENG YOYO（ヨーヨー）」と発表し、同じ日に、招待コードを持つ人に限った乗車の登録を中国で始めました。これまで乗れたのは社員だ">
+<link rel="canonical" href="https://robotaxi-lab.com/articles/a05/">
+<meta property="og:site_name" content="ロボタクシー実践ラボ"><meta property="og:type" content="article"><meta property="og:title" content="XPeng、ロボタクシー「YOYO」の招待制の登録を中国で開始。高精度の地図とLiDARを使わず、カメラ中心で走る｜ロボタクシー実践ラボ"><meta property="og:description" content="中国の電気自動車メーカーXPeng（シャオペン）は、2026年10月8日、自社のロボタクシー事業の名前を「XPENG YOYO（ヨーヨー）」と発表し、同じ日に、招待コードを持つ人に限った乗車の登録を中国で始めました。これまで乗れたのは社員だ"><meta property="og:url" content="https://robotaxi-lab.com/articles/a05/"><meta property="og:image" content="https://robotaxi-lab.com/img/r005_1.png"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Roboto+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}a.nl{text-decoration:none}.acard,.iv,.hdr-cta,a.db{text-decoration:none}
+
+/* Layout: site header + category tabs, one article at a time in a reading column with a side rail; navy/amber identity from the lab's site mock */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --ink:#1F3A5F; --muted:#4F6480; --line:#E5E5EA;
+  --brand:#0066D6; --brand-text:#0062CC; --on-brand:#FFFFFF; --amber:#007AFF; --amber-ink:#0062CC;
+  --tint:#F2F6FB; --cream:#EAF3FF; --cream-ink:#004A99; --ph:#E5E5EA; --ph-ink:#4F6480;
+  --bar2:#9CCBFF; --car:#FFFFFF; --glass:#D6E8FF; --tire:#1F3A5F; --good:#0062CC;
+  --f-body:system-ui,-apple-system,'Hiragino Sans','Noto Sans JP','Yu Gothic',Meiryo,sans-serif;
+  --f-num:'Roboto Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.9}
+a{color:var(--brand-text)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.notice{background:var(--cream);color:var(--cream-ink);font-size:12px;text-align:center;padding-block:6px}
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font-size:19px;font-weight:900;color:var(--brand-text)}
+.logo small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+nav.cats{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 420px;justify-content:flex-end}
+nav.cats a.nl{font:inherit;font-size:14px;font-weight:700;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+nav.cats a.nl[aria-current="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+nav.cats a.nl:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.layout{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;padding-block:24px 64px}
+article{flex:999 1 620px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:22px}
+aside{flex:1 1 280px;max-width:100%;display:flex;flex-direction:column;gap:20px}
+@media(min-width:960px){aside{max-width:320px;position:sticky;top:16px}}
+.crumb{font-size:13px;color:var(--muted)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid var(--brand-text);color:var(--brand-text)}
+.tag.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.tag.warn{border-color:var(--amber-ink);color:var(--amber-ink)}
+h1{margin:0;font-size:clamp(24px,3.4vw,32px);line-height:1.45;font-weight:900;color:var(--brand-text);text-wrap:balance}
+.byline{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.byline i{width:34px;height:34px;border-radius:50%;background:var(--ph);flex:0 0 auto}
+.lead{font-size:17px;line-height:2;font-weight:500;margin:0}
+h2{margin:10px 0 0;font-size:22px;font-weight:900;color:var(--brand-text);padding-bottom:8px;border-bottom:3px solid var(--amber);text-wrap:balance;line-height:1.5}
+h3{margin:0;font-size:17px;font-weight:900;color:var(--ink)}
+p{margin:0}
+.fig{margin:0;display:flex;flex-direction:column;gap:8px}
+.fig figcaption{font-size:12.5px;color:var(--muted)}
+.scroll{overflow-x:auto}
+.photo{background:var(--ph);color:var(--ph-ink);border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;padding:16px;aspect-ratio:16/7;max-width:100%;border:1px dashed var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--tint);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:12.5px;font-weight:700;color:var(--muted)}
+.kpi b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);font-variant-numeric:tabular-nums;line-height:1.3}
+.kpi small{font-size:12px;color:var(--muted)}
+.kpi.hl{background:var(--brand)}.kpi.hl span,.kpi.hl small{color:#EAF3FF}.kpi.hl b{color:var(--on-brand)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:700}
+td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{background:var(--tint);font-weight:700;color:var(--brand-text)}
+.na{color:var(--muted)}
+.box{background:var(--tint);border-radius:8px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.box.cream{background:var(--cream)}
+.box .lbl{font-size:13px;font-weight:700;color:var(--brand-text)}
+ul.dots{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
+.card .k{font-size:12px;font-weight:700;color:var(--amber-ink)}
+.summary{border:2px solid var(--brand);border-radius:10px;overflow:hidden}
+.summary .hd{background:var(--brand);color:var(--on-brand);padding:12px 22px;font-weight:900}
+.summary .bd{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.summary .bd div{padding:16px 22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.summary .bd span{font-size:13px;font-weight:700;color:var(--amber-ink)}
+.summary .bd p{font-size:15px;line-height:1.8}
+.pay{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pay .fade{padding:20px 22px;color:var(--muted)}
+.pay .gate{background:var(--cream);border-top:2px dashed var(--amber);padding:22px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+.pay .gate b{color:var(--brand-text)}
+.btn{display:inline-block;padding:11px 24px;background:var(--brand);color:#FFFFFF;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px}
+.sources{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);padding-top:14px}
+.sources a{word-break:break-all}
+.sample{background:var(--cream);color:var(--cream-ink);border-radius:8px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.qa{display:flex;flex-direction:column;gap:14px}
+.qa .q{font-weight:900;color:var(--brand-text)}
+.qa .q::before{content:"―　"}
+.pull{border-left:4px solid var(--amber);padding:6px 0 6px 18px;font-size:20px;font-weight:900;line-height:1.7;color:var(--brand-text)}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.side h4{margin:0;font-size:15px;font-weight:900;color:var(--brand-text)}
+.side a.nl{font:inherit;text-align:left;background:none;border:0;padding:8px 10px;border-radius:6px;color:var(--ink);cursor:pointer;display:flex;gap:8px;font-size:14px;line-height:1.6}
+.side a.nl span{font-size:11px;font-weight:700;color:var(--amber-ink);flex:0 0 74px;padding-top:2px}
+.side a.nl[aria-current="true"]{background:var(--cream);font-weight:700}
+.side a.nl{flex-direction:column;gap:2px}.side a.nl small{font-size:12px;color:var(--muted,#5b6b77);font-weight:400}
+.side.dark{background:var(--brand);border-color:var(--brand);color:#EAF3FF}.side.dark h4{color:var(--on-brand)}
+.side.dark p{font-size:13px;line-height:1.8}
+svg text{font-family:var(--f-body)}
+.s-ink{fill:var(--ink)}.s-muted{fill:var(--muted)}.s-brand{fill:var(--brand)}.s-btext{fill:var(--brand-text)}.s-amber{fill:var(--amber)}
+.s-tint{fill:var(--tint)}.s-surface{fill:var(--surface)}.s-line{stroke:var(--line)}.s-bar2{fill:var(--bar2)}.s-ph{fill:var(--ph)}
+.s-onb{fill:var(--on-brand)}.s-car{fill:var(--car);stroke:var(--muted);stroke-width:2.5}.s-glass{fill:var(--glass)}.s-tire{fill:var(--tire)}
+.top{display:flex;flex-direction:column;gap:28px;width:100%;min-width:0}
+.hero{background:var(--brand);color:#FFFFFF;border-radius:12px;padding:clamp(22px,4vw,44px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.hero-txt{flex:3 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px}
+.hero-txt p{color:#EAF3FF;line-height:1.9}
+.hero-h{margin:0;border:0;padding:0;color:#FFFFFF;font-size:clamp(22px,3.2vw,32px);line-height:1.45}
+.tag.amberfill{background:var(--brand);border-color:var(--brand);color:#FFFFFF}.tag.onb{border-color:#EAF3FF;color:#EAF3FF}
+.hero-fig{flex:2 1 260px;display:grid;gap:10px}
+.hk{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:12px 16px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:0 12px}
+.hk span{font-size:12.5px;color:#EAF3FF;font-weight:700}.hk b{font-family:var(--f-num);font-size:26px;grid-row:span 2;color:#FFFFFF}.hk small{font-size:11.5px;color:#D6E8FF}
+.hk.jp{background:var(--cream);border-color:var(--cream)}.hk.jp span,.hk.jp small,.hk.jp b{color:#1F3A5F}
+button.btn{border:0;cursor:pointer;font:inherit;font-weight:700;font-size:14px}
+.btn.ghost{background:transparent;color:#FFFFFF;border:1px solid #EAF3FF}
+.btn.ghost2{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.sec-hd{display:flex;flex-direction:column;gap:2px}
+.sec-hd h3{font-size:20px;color:var(--brand-text)}
+.eyebrow{font-family:var(--f-num);font-size:11.5px;letter-spacing:.12em;font-weight:700;color:var(--amber-ink)}
+.cards6{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.acard{font:inherit;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:0 0 16px;display:flex;flex-direction:column;gap:6px;color:var(--ink);overflow:hidden}
+.acard:hover{border-color:var(--brand-text)}.acard:focus-visible,.newslist a.nl:focus-visible,.db:focus-visible,.iv:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.acard .thumb{display:block;aspect-ratio:2/1;max-width:100%}
+.acard .thumb svg{width:100%;height:100%;display:block}
+.t1,.t4{background:var(--brand)}.t2,.t5{background:#2E86F0}.t3,.t6{background:#5AA0F2}
+.acard .cat,.acard b,.acard small{padding-inline:16px}
+.acard .cat{font-size:12px;font-weight:700;color:var(--amber-ink);display:flex;gap:6px;align-items:center;padding-top:6px}
+.acard .cat i{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.acard b{font-size:15.5px;line-height:1.6}.acard small{font-size:12px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.newslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.newslist li>*{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);font:inherit;font-size:14px;line-height:1.6;text-align:left;width:100%;background:none;border-left:0;border-right:0;border-top:0;color:var(--ink)}
+.newslist a.nl{cursor:pointer;font-weight:700;color:var(--brand-text)}
+.newslist time{font-family:var(--f-num);font-size:12px;color:var(--muted)}
+.ntag{font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:3px;padding:0 6px;color:var(--muted)}
+.iv{font:inherit;text-align:left;cursor:pointer;background:var(--tint);border:0;border-radius:8px;padding:16px;display:flex;gap:16px;align-items:center;color:var(--ink)}
+.iv b{display:block;font-size:16px;line-height:1.7;color:var(--brand-text)}.iv small{font-size:12px;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.steps li>*,.steps li{display:flex;flex-direction:column;gap:2px}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
+.steps b{font-family:var(--f-num);font-size:18px;color:var(--brand-text)}.steps span{font-weight:700}.steps small{font-size:11.5px;color:var(--muted)}
+.steps li.on{background:var(--brand);border-color:var(--brand);padding:0}
+.steps li.on a.nl{font:inherit;text-align:left;background:none;border:0;padding:14px;cursor:pointer;color:#FFFFFF}
+.steps li.on b,.steps li.on small{color:var(--amber)}
+.db3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.db{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+a.db{cursor:pointer}.db b{font-size:16px}.db small{color:var(--muted);font-size:13px}.db span{font-size:13px;font-weight:700;color:var(--brand-text)}
+.event{background:var(--tint);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:24px 28px;display:flex;flex-direction:column;gap:6px}
+.event h3{color:var(--brand-text);font-size:21px}.event p{color:#4F6480;font-size:14px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.plan.pro{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.price{font-family:var(--f-num);font-size:24px}.price small{font-size:12px;font-family:var(--f-body)}
+footer.site{background:var(--surface);border-top:1px solid var(--line)}
+footer.site .wrap{padding-block:24px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:13px;color:var(--muted)}
+
+
+.hdr-cta{display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--cream);color:var(--ink);border-radius:8px;padding:6px 12px 6px 6px;font:inherit;font-weight:700;font-size:13px;border:0;cursor:pointer;line-height:1.3;text-align:left}
+.hdr-cta img{width:54px;height:auto;border-radius:3px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.hdr-cta small{display:block;font-size:10.5px;font-weight:500}
+.hdr-cta:focus-visible{outline:3px solid var(--brand-text);outline-offset:2px}
+.core{background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:clamp(18px,3vw,32px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.core-cover{flex:1 1 280px;max-width:420px;position:relative}
+.core-cover img{width:100%;display:block;border-radius:6px;border:1px solid var(--line);box-shadow:8px 8px 0 var(--tint),16px 16px 0 var(--ph)}
+.core-txt{flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.core-txt h3{font-size:clamp(20px,2.6vw,26px);color:var(--brand-text);line-height:1.4}
+.core-txt .meta{font-size:12.5px;color:var(--muted)}
+.core-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:6px 16px;margin:0;padding:0;list-style:none;font-size:14px}
+.core-list li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--amber);margin-right:8px;vertical-align:1px}
+.core-btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn.line{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.dl-msg{font-size:12.5px;color:var(--muted)}
+.previews{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.previews figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.previews img{width:100%;border-radius:4px;border:1px solid var(--line);display:block}
+.previews figcaption{font-size:12px;color:var(--muted)}
+.side.pdf{background:var(--cream);border-color:var(--amber)}
+.side.pdf img{width:100%;border-radius:4px;border:1px solid var(--line)}
+
+.phero{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1536/660;min-height:340px;background:#C7C7CC url(hero.jpg) center top/cover no-repeat;display:flex;align-items:flex-start;padding:clamp(16px,3vw,36px)}
+.phero .card{max-width:640px;background:rgba(255,255,255,.38);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:8px;border-top:6px solid var(--amber);padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 24px rgba(31,58,95,.16)}
+.phero h2{margin:0;border:0;padding:0;font-size:clamp(24px,3.4vw,40px);line-height:1.4;font-weight:900;color:var(--ink)}
+.phero .card p{color:var(--muted)}
+.phero .eb{font-size:13px;font-weight:700;color:var(--brand-text)}
+.kpi3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;background:var(--tint);border-radius:10px;padding:20px}
+.kpi3 div{background:#FFFFFF;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi3 span{font-size:12.5px;font-weight:700;color:var(--muted)}.kpi3 b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);line-height:1.3}.kpi3 b.jp{color:var(--ink)}.kpi3 small{font-size:12px;color:var(--muted)}
+.field{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:760px){.field{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.field{grid-template-columns:minmax(0,1fr)}}
+.field figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.field img{width:100%;height:170px;object-fit:cover;border-radius:6px;display:block}
+.field figcaption{font-size:14px;font-weight:700}
+.field figure.go{cursor:pointer}.field figure.go:hover img{opacity:.85}.field .more{font-size:12px;font-weight:600;color:var(--brand-text,#0b5cad);margin-left:6px}
+.acard .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.eye{margin:0;display:flex;flex-direction:column;gap:6px}
+.eye img{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:8px;display:block;background:var(--tint)}.eye img[src^="img/r"]{aspect-ratio:16/9;object-fit:contain}
+.eye figcaption{font-size:12px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.acard .own{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.vcard{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:10px;overflow:hidden;padding-bottom:16px}
+.vcard:hover{border-color:var(--brand-text)}.vcard:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.vcard .vth{position:relative;display:block;aspect-ratio:16/9;background:var(--tint) center/cover no-repeat}
+.vcard .vth::after{content:"";position:absolute;left:50%;top:50%;width:68px;height:48px;margin:-24px 0 0 -34px;border-radius:12px;background:rgba(31,58,95,.82)}
+.vcard .vth::before{content:"";position:absolute;left:50%;top:50%;margin:-11px 0 0 -6px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #FFFFFF;z-index:1}
+.vcard .vh{font-size:18px;font-weight:900;color:var(--brand-text);padding-inline:16px}
+.vcard .vt{font-size:14px;font-weight:700;padding-inline:16px;line-height:1.6}
+.vcard .vd{font-size:13px;color:var(--muted);padding-inline:16px;line-height:1.7}
+.vcard .vm{font-size:12px;color:var(--muted);padding-inline:16px}
+.core-samples{flex:1 1 100%;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:18px}
+.core-samples h4{margin:0;font-size:16px;font-weight:900;color:var(--brand-text)}
+.core-samples p{font-size:13px;color:var(--muted)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:no-preference){article{animation:rise .35s ease-out both}@keyframes rise{from{transform:translateY(6px)}to{transform:none}}}
+
+nav.cats{order:3;flex:1 1 100%;justify-content:flex-start}nav.cats a.nl{white-space:nowrap}header.site .hdr-cta{margin-left:auto}
+
+.spage{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px clamp(18px,4vw,44px);max-width:860px;margin:0 auto}
+.spage h1{font-size:26px;line-height:1.5;margin:0 0 14px;color:var(--ink)}
+.spage h2{font-size:19px;margin:34px 0 12px;padding-left:10px;border-left:4px solid var(--brand);color:var(--ink)}
+.spage p,.spage li,.spage td,.spage th{font-size:15px;line-height:1.9}
+.spage .lead{font-size:16px}
+.spage .note{font-size:13px;color:var(--muted)}
+.spage ul.small li{font-size:13px;color:var(--muted)}
+.spage ol.steps{padding-left:1.4em}.spage ol.steps li{margin:6px 0}
+.spage table.info{width:100%;border-collapse:collapse;margin:8px 0}
+.spage table.info th,.spage table.info td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.spage table.info th{width:28%;background:#F5F8FC;font-weight:700;white-space:nowrap}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.person{border:1px solid var(--line);border-radius:10px;padding:18px}
+.person .role{display:block;font-size:12px;font-weight:700;color:var(--brand-text)}
+.person .name{display:block;font-size:22px;margin:4px 0 8px}
+.person .duty{font-size:13px;color:var(--muted)}
+.formbox{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.formbox.prep{padding:24px;text-align:center;background:#F5F8FC}
+.joinwrap{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:24px;align-items:start;margin-top:10px}
+.joincover img{width:100%;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+@media (max-width:640px){.joinwrap{grid-template-columns:1fr}.joincover{max-width:200px}.spage table.info th{white-space:normal;width:34%}}
+footer.site .flinks{display:flex;flex-wrap:wrap;gap:6px 18px;width:100%}
+footer.site .flinks a{color:inherit;font-size:13px}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"XPeng、ロボタクシー「YOYO」の招待制の登録を中国で開始。高精度の地図とLiDARを使わず、カメラ中心で走る","description":"中国の電気自動車メーカーXPeng（シャオペン）は、2026年10月8日、自社のロボタクシー事業の名前を「XPENG YOYO（ヨーヨー）」と発表し、同じ日に、招待コードを持つ人に限った乗車の登録を中国で始めました。これまで乗れたのは社員だ","datePublished":"2026-10-21T09:00:00+09:00","dateModified":"2026-10-21T09:00:00+09:00","image":["https://robotaxi-lab.com/img/r005_1.png"],"author":{"@type":"Organization","name":"ロボタクシー実践ラボ編集部","url":"https://robotaxi-lab.com/"},"publisher":{"@type":"Organization","name":"アイベリー株式会社","url":"https://aiberry.co.jp/"},"mainEntityOfPage":"https://robotaxi-lab.com/articles/a05/","inLanguage":"ja"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://robotaxi-lab.com/"},{"@type":"ListItem","position":2,"name":"業界ニュース","item":"https://robotaxi-lab.com/articles/news/"},{"@type":"ListItem","position":3,"name":"XPeng、ロボタクシー「YOYO」の招待制の登録を中国で開始。高精度の地図とLiDARを使わず、カメラ中心で走る","item":"https://robotaxi-lab.com/articles/a05/"}]}</script>
+</head><body>
+<div class="notice">公開準備中のサイトです。実証実験レポートとキーマン・インタビューは仮の原稿です。</div>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="ロボタクシー実践ラボ トップへ">
+      <svg width="34" height="34" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="#1F3A5F"/><path d="M12 30 L16 6 M24 30 L20 6" stroke="#FFFFFF" stroke-width="2.2" fill="none"/><path d="M14 18 L18 22 L26 12" stroke="#007AFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>ロボタクシー実践ラボ</b><small>ロボタクシーを始める人のための、実践メディア</small></span>
+    </a>
+    <nav class="cats" aria-label="カテゴリー">
+      <a class="nl" href="/articles/genzaichi/">業界の現在地</a>
+      <a class="nl" href="/articles/news/">業界ニュース</a>
+      <a class="nl" href="/articles/zukan/">ロボタクシー図鑑</a>
+      <a class="nl" href="/articles/navi/">許認可ナビ</a>
+      <a class="nl" href="/articles/jissho/">実証実験レポート</a>
+      <a class="nl" href="/articles/interview/">キーマン・インタビュー</a>
+      <a class="nl" href="/zakkuri/">ざっくりニュース</a>
+      <a class="nl" href="/hojokin/">あなたが使える補助金</a>
+    </nav>
+    <a class="hdr-cta" href="/join/" aria-label="無料会員登録で「ロボタクシーの現在地」PDFを受け取る"><img src="p-01.jpg" alt=""><span>ロボタクシーの現在地<small>2026年10月版 無料PDF</small></span></a>
+  </div>
+</header>
+<div class="wrap layout">
+<main style="flex:999 1 620px;min-width:0;display:flex">
+<article id="a05" data-cat="業界ニュース">
+  <div class="crumb"><a href="/">トップ</a>　›　業界ニュース　›　① 自動運転車</div>
+  <div class="tags"><span class="tag solid">① 自動運転車</span><span class="tag">中国</span><span class="tag">業界ニュース</span></div>
+  <h1>XPeng、ロボタクシー「YOYO」の招待制の登録を中国で開始。高精度の地図とLiDARを使わず、カメラ中心で走る</h1>
+  <figure class="eye"><img src="img/r005_1.png" alt="XPeng、ロボタクシー「YOYO」の招待制の登録を中国で開始。高精度の地図とLiDARを使わず、カメラ中心で走るのタイトル画像"></figure>
+  <div class="byline"><i></i>ロボタクシー実践ラボ編集部（編集責任：池田 将）　／　2026.10.21</div>
+  <p class="lead">中国の電気自動車メーカーXPeng（シャオペン）は、2026年10月8日、自社のロボタクシー事業の名前を「XPENG YOYO（ヨーヨー）」と発表し、同じ日に、招待コードを持つ人に限った乗車の登録を中国で始めました。これまで乗れたのは社員だけで、社員以外の人が利用者として加わるのは初めてとされています。車は、高精度の地図やLiDAR（レーザーで周りを測るセンサー）を使わず、カメラを中心に走ります。運賃を取る営業はまだ始まっておらず、運転席に人がいない状態で旅客を乗せる運行は、2027年の実現を目標にしています。</p>
+  <h2>何が起きたのか</h2>
+  <ul class="dots"><li><b>名前の発表と登録の開始</b>：2026年10月8日、ロボタクシー事業の名前を「XPENG YOYO」と発表した。同じ日に、XPengの公式サイトなどで、招待コードを持つ人に限って乗車の登録を始めた。乗る枠は、配車用のミニプログラム（スマートフォンのアプリ内で動く小さなアプリ）で予約すると報じられている</li><li><b>走る場所</b>：自動運転ラボは、車を作っている広州市の一部の地域に限られると伝えている。具体的な範囲は公表されていない</li><li><b>車の特徴</b>：XPengのSUV「GX」の車体をもとに、初めからロボタクシーとして工場で作った車。LiDARや高精度の地図を使わず、カメラの映像からAI（VLA 2.0）が運転を決める。自動運転ラボは、この仕組みはテスラのFSD（テスラの運転支援ソフト）と似た構造だと伝えている</li><li><b>安全を見守る係が車内に乗るか</b>：招待制の乗車で、安全を見守る係が車内に乗るかどうかは公表されていない</li><li>これまでの流れ</li><ul class="dots"><li><b>2026年5月</b>：量産したロボタクシーの第1号が、広州の工場で完成した</li><li><b>2026年7月</b>：スマートフォンで呼んでから、自動で迎えに来て、目的地で降ろすまでの一連の流れを、社員の試乗で確かめた</li><li><b>2026年8月</b>：広州市から「遠隔試験」の資格を得た。決められた試験用の道路で、運転席に安全を見守る係が乗らない走行試験ができるようになった。同じ時期に、問題が起きたときに離れた場所から運転を引き継ぐ仕組みもできあがったと報じられている</li></ul></ul>
+  <figure class="eye"><img src="img/r005_2.png" alt="図1"></figure>
+  <ul class="dots"><li><b>記事の日付より後の動き</b>：2026年10月26日、広州市全域でL4のロボタクシーの試験運行をする許可を得たと報じられている。ただし、すぐに誰でも乗れるようになるわけではなく、招待コードで少しずつ利用者を広げると伝えられている</li><li><b>これから</b>：運賃を取る営業は始まっていない。運転席に人がいない状態で旅客を乗せる運行は、2027年の実現が目標とされている。2027年には、中国国内と海外の配車アプリの会社と組んで、中国と海外の主な都市へ広げる計画と報じられている</li></ul>
+  <h2>実践ラボの視点：地方のタクシー会社・自治体にとっての意味</h2>
+  <div class="grid2"><div class="card"><span class="k">1</span><h3>XPengは「車と技術を売り、運行は地元の会社に任せる」方針</h3><p>XPengは、ロボタクシーの収入を、車の販売、技術のサービス、運行の収入の分け前から得ると説明しています。各地での車の運行は、提携する会社に任せる方針です。地域の事情を知る運行会社が担い手になる形で、タクシー会社が運行を受け持つ道につながる可能性があります。ただし、海外の提携について話し合っていると報じられている地域は欧州・中東・東南アジアで、日本での予定は示されていません。</p></div><div class="card"><span class="k">2</span><h3>地図づくりの準備が減る可能性がある</h3><p>高精度の地図を使わずに走れる車が実用になれば、新しい地域で走り始める前の地図づくりの手間と費用が小さくなる可能性があります。ただし、YOYOは今のところ広州で、招待した人を乗せる試験の段階です。地図なしの方式がほかの地域でどれだけ安全に走れるかは、まだ分かりません。</p></div><div class="card"><span class="k">3</span><h3>実力が分かるのは、台数・走行距離・事故件数の公表から</h3><p>今回始まったのは、招待制の登録です。運賃を取る営業も、運転席に人がいない旅客運行も、まだ始まっていません。台数や、走った距離、事故の件数も公表されていません。実力を見るには、これらの数字の公表を待つ必要があります。</p></div></div>
+  <h2>この記事で使う言葉</h2>
+  <ul class="dots"><li><b>XPeng（シャオペン、小鵬汽車）</b>：中国・広州市を本拠地とする電気自動車メーカー。ロボタクシーの車両と、車を動かすAIを自社で作っている</li><li><b>ロボタクシー</b>：人が運転せず、自動運転で走るタクシー</li><li><b>高精度の地図（HDマップ）</b>：車線の位置などを細かく記録した、自動運転用の特別な地図。多くのロボタクシーは、走る地域ごとにこの地図を前もって作ってから走る</li><li><b>LiDAR（ライダー）</b>：レーザーを当てて、周りの物までの距離や形を測るセンサー。多くのロボタクシーが車の屋根などに付けている</li><li><b>VLA 2.0</b>：XPengが自社で開発した、運転を決めるAIの2代目。VLAは「Vision-Language-Action」の略で、カメラの映像（Vision）を見て、状況を言葉（Language）のように理解し、運転の操作（Action）を決める仕組み</li><li><b>Turing（チューリング）</b>：XPengが自社で開発したAI用の半導体（チップ）</li><li><b>TOPS（トップス）</b>：AIの計算の速さを表す単位。1TOPSは1秒間に1兆回の計算ができることを表す</li><li><b>L4（レベル4）</b>：決められた地域や条件の中で、人ではなくシステムが運転のすべてを行う自動運転の段階</li></ul>
+  <h2>数字</h2>
+  <ul class="dots"><li><b>車1台に載せるAIチップ</b>：自社開発の「Turing」4基。4基を合わせた計算の速さは3,000TOPS（XPengの発表。XPengは「車に載せるものとして世界最高」と説明している）</li><li>社員による試乗の回数（広州市内）</li><ul class="dots"><li><b>2026年8月24日時点</b>：2,000回超。XPengの何小鵬（ホー・シャオポン）会長兼CEOが説明したと報じられている</li><li>CarNewsChina（2026年10月8日の記事）は、社員の試乗が2,200回を超えたと伝えている（いつ時点の数字かは書かれていない）</li></ul><li><b>社員向けの試験での運賃</b>：1回1人民元。予約から支払いまでの流れを社内で試すための金額で、一般向けの運賃は公表されていない</li><li><b>車の台数</b>：公表されていない</li></ul>
+  <section class="summary"><div class="hd">実践ラボのまとめ</div><div class="bd"><div><span>今わかったこと</span><p>XPengのロボタクシー「YOYO」が、招待コードを持つ人に限って、社員以外の利用者の登録を始めた。高精度の地図とLiDARを使わず、カメラ中心で走る。運賃を取る営業と運転席無人の旅客運行はまだで、無人の旅客運行は2027年が目標</p></div><div><span>地方のタクシー会社・自治体が見るべき点</span><p>XPengが運行を地元の会社に任せる方針であること、地図づくりのいらない方式が広がるかどうか</p></div><div><span>次に確かめること</span><p>台数・走行距離・安全に関する数字の公表、運賃を取る営業と無人の旅客運行の開始時期、日本での展開の予定</p></div></div></section>
+  <h2>参考情報：フォルクスワーゲンの採用と、国際的なルールづくりへの参加</h2>
+  <p>ロボタクシーとは別の話で、XPengの運転のAIと、自動運転の国際的なルールに関する動きです。</p>
+  <ul class="dots"><li>フォルクスワーゲン（ドイツの自動車メーカー）は、2026年3月、XPengの運転のAI「VLA 2.0」を最初に採用する会社になると発表された。採用するのは中国で売る車について。自動運転ラボは、フォルクスワーゲンをXPengの戦略的な株主（事業の協力のために株を持つ会社）と伝えている。フォルクスワーゲンの車にいつ載るかは、自動運転ラボの記事の時点で確認されていない</li><li>XPengは、VLA 2.0を2027年に世界で提供し始める計画としている</li><li>XPengは2026年10月9日、国連の自動車の基準を話し合う会議（UNECEのWP.29）の下に新しくできた、自動運転の実際の経験を共有する作業部会（TF-ESRI）で、OICA（国際自動車工業連合会。世界の自動車メーカーの団体）側の事務局役を務めると発表した。作業部会の運営を支える役割で、基準そのものを決める役ではない</li></ul>
+  <div class="sources"><b>出典</b><a href="https://jidounten-lab.com/u_69072" target="_blank" rel="noopener">自動運転ラボ「中国 XPengの「YOYO」自動運転ロボタクシーが一般公開 VWも採用するAI技術を搭載」（2026年10月21日）：https://jidounten-lab.com/u_69072</a><a href="https://www.xpeng.com/news/01a11addc34ca0e70a9e8a0282360128" target="_blank" rel="noopener">XPeng「XPENG Robotaxi Is Officially Named &quot;XPENG YOYO&quot;」（2026年10月8日）：https://www.xpeng.com/news/01a11addc34ca0e70a9e8a0282360128</a><a href="https://carnewschina.com/2026/10/08/xpeng-release-invite-only-yoyo-robotaxi-pilot-in-china/" target="_blank" rel="noopener">CarNewsChina「Xpeng release invite-only Yoyo robotaxi pilot in China」（2026年10月8日）：https://carnewschina.com/2026/10/08/xpeng-release-invite-only-yoyo-robotaxi-pilot-in-china/</a><a href="https://technode.com/2026/10/10/xpeng-names-robotaxi-service-yoyo-and-opens-invitation-based-registration-in-china/" target="_blank" rel="noopener">TechNode「XPENG names robotaxi service YOYO and opens invitation-based registration in China」（2026年10月10日）：https://technode.com/2026/10/10/xpeng-names-robotaxi-service-yoyo-and-opens-invitation-based-registration-in-china/</a><a href="https://cnevpost.com/2026/10/26/xpeng-wins-guangzhou-robotaxi-trial-approval/" target="_blank" rel="noopener">CnEVPost「Xpeng wins Guangzhou robotaxi trial approval in step toward public service」（2026年10月26日）：https://cnevpost.com/2026/10/26/xpeng-wins-guangzhou-robotaxi-trial-approval/</a><a href="https://cleantechnica.com/2026/03/03/volkswagen-becomes-xpengs-first-customer-for-vla-2-0-intelligent-driving-system/" target="_blank" rel="noopener">CleanTechnica「Volkswagen Becomes XPENG&#x27;s First Customer for VLA 2.0 Intelligent Driving System」（2026年3月3日）：https://cleantechnica.com/2026/03/03/volkswagen-becomes-xpengs-first-customer-for-vla-2-0-intelligent-driving-system/</a><a href="https://www.xpeng.com/news/01a12021d152a0e70a9e8a0282360161" target="_blank" rel="noopener">XPeng「XPENG Takes on UNECE Role to Advance Global Collaboration on Automated Driving」（2026年10月9日）：https://www.xpeng.com/news/01a12021d152a0e70a9e8a0282360161</a></div>
+</article>
+</main>
+<aside id="rail">
+  <div class="side">
+    <h4>新着記事</h4>
+    <a class="nl" href="/articles/a22/">佐賀市交通局、自動運転バスの実証で初めて運賃を取る（大人最大180円）。佐賀駅〜SAGAサンライズパーク約1.8kmを毎日6往復、12月22日まで<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a24/">香川県坂出市で自動運転バスの実証が11月28日から30日間。琴参バスが運行し、坂出自動車学校が遠隔監視を担う。2028年のレベル4をめざす<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a31/">Waymo、高速道路の閉鎖車線と警察官の手信号への対応で2件の自主リコール。手信号は修正済み、閉鎖車線は修正中<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a18/">国交省、運転席を前提としない自動運転車を「自動運行用自動車」として区分する省令改正案の意見募集を開始。12月27日施行予定<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a23/">帯広市と米子市、今年度の自動運転バス実証を見送り。帯広は国の補助の条件と積雪が理由、米子は車両を見直す。国の補助は「2027年度までに全区間でレベル4」が条件に<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a19/">維新がロボタクシーの参入・運賃・台数の規制見直しを提言（政府の方針ではない）。規制改革相は自動運転の議論を本格化へと報道<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a32/">テスラ、6〜7人の団体向けにハンドルなしModel Yを計画。2人乗りのCybercabと使い分け<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a25/">Waymo、全米で高速道路の配車を停止。カリフォルニア州が工事区間への進入とパトカーへの対応を理由に無人走行を禁止<small>2026.11.17</small></a>
+    <a class="nl" href="/articles/a27/">Pony.aiとトヨタ、中国・広州でbZ4Xの完全無人ロボタクシーの営業を開始。トヨタとWaymoが2027年に日本で走らせる予定の車と同じ車種<small>2026.11.16</small></a>
+    <a class="nl" href="/articles/a28/">May Mobility、VWのID. Buzzで2031年までに自動運転車1万台超を目指す。車は持たず運行会社と組む。名古屋ではNTTと名鉄タクシー系が実証中<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a30/">米首都ワシントンDCのロボタクシー法案、議会の委員会で3対3となり通らず。運転手の団結権や台数の上限を入れた修正案でも合意できず<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a21/">城崎温泉の自動運転バス、一般客を乗せた初日に石垣へ接触し運休。オペレーターの手動操作はなかったと報道、原因は未公表<small>2026.11.09</small></a>
+    <a class="nl" href="/articles/a20/">KDDIがnewmoに出資し、newmoは208億円を調達。堺市で2028年に自動運転タクシーの商用化を目指し、運行の仕組みを全国の事業者へ出すことも検討<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a26/">Amazon傘下のZoox、2027年初めに米国外で初の試験へ。候補に日本、都市は未定。まずは運転者が乗ってデータ集め<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a17/">国交省、ハンドルやペダルのない自動運転車を12月から一つの基準で認める予定。事故1件でもリコール処分、タクシー会社などの使用者に事故報告を求める案も<small>2026.11.04</small></a>
+  </div>
+  <div class="side">
+    <h4>カテゴリー別の記事</h4>
+    <a class="nl" href="/articles/genzaichi/">数字で見るロボタクシーの現在地<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/news/">第一交通産業とNTTモビリティが連携協定<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/zukan/">Waymo（ウェイモ）<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/navi/">警察の「特定自動運行の許可」とは<small>2026.10.24</small></a>
+  </div>
+  <div class="side pdf">
+    <h4>ロボタクシーの現在地 2026年10月版</h4>
+    <img src="p-01.jpg" alt="ロボタクシーの現在地の表紙">
+    <p style="font-size:13px;line-height:1.7">基本を知りたい方は、まずこのPDFを。図解中心の32ページ。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録でPDFを受け取る</a>
+  </div>
+  <div class="side dark">
+    <h4>許認可チェックリストを無料で配布中</h4>
+    <p>警察・運輸局・自治体との協議で準備すべき資料を、1枚にまとめました。無料会員登録でダウンロードできます。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録</a>
+  </div>
+</aside>
+</div>
+<footer class="site"><div class="wrap"><span><b style="color:var(--brand-text)">ロボタクシー実践ラボ</b>　業界全体のための実践の共有　／　特定のメーカー・システムに偏らない編集方針</span><span>運営：アイベリー株式会社（代表 村田 大）／編集長 池田 将</span><nav class="flinks" aria-label="サイト情報"><a href="/about/">運営者情報</a><a href="/editorial-policy/">編集方針</a><a href="/privacy/">プライバシーポリシー</a><a href="/contact/">お問い合わせ</a><a href="/join/">無料会員登録</a></nav></div></footer>
+</body></html>

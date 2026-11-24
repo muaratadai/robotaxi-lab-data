@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="/">
+<title>ロボタクシーの許認可：必要な許認可と取得の留意点｜ロボタクシー実践ラボ</title>
+<meta name="description" content="これまでのタクシーは、国のタクシー事業の許可と、乗務員の運転免許で走ってきました。ロボタクシーでは、車・運転・事業の3つについて、それぞれ許可が要ります。許可を出すのは、国土交通省の地方運輸局と、都道府県の公安委員会（警察）です。審査にはこ">
+<link rel="canonical" href="https://robotaxi-lab.com/articles/k05/">
+<meta property="og:site_name" content="ロボタクシー実践ラボ"><meta property="og:type" content="article"><meta property="og:title" content="ロボタクシーの許認可：必要な許認可と取得の留意点｜ロボタクシー実践ラボ"><meta property="og:description" content="これまでのタクシーは、国のタクシー事業の許可と、乗務員の運転免許で走ってきました。ロボタクシーでは、車・運転・事業の3つについて、それぞれ許可が要ります。許可を出すのは、国土交通省の地方運輸局と、都道府県の公安委員会（警察）です。審査にはこ"><meta property="og:url" content="https://robotaxi-lab.com/articles/k05/"><meta property="og:image" content="https://robotaxi-lab.com/img/k05_fig1.png"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Roboto+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}a.nl{text-decoration:none}.acard,.iv,.hdr-cta,a.db{text-decoration:none}
+
+/* Layout: site header + category tabs, one article at a time in a reading column with a side rail; navy/amber identity from the lab's site mock */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --ink:#1F3A5F; --muted:#4F6480; --line:#E5E5EA;
+  --brand:#0066D6; --brand-text:#0062CC; --on-brand:#FFFFFF; --amber:#007AFF; --amber-ink:#0062CC;
+  --tint:#F2F6FB; --cream:#EAF3FF; --cream-ink:#004A99; --ph:#E5E5EA; --ph-ink:#4F6480;
+  --bar2:#9CCBFF; --car:#FFFFFF; --glass:#D6E8FF; --tire:#1F3A5F; --good:#0062CC;
+  --f-body:system-ui,-apple-system,'Hiragino Sans','Noto Sans JP','Yu Gothic',Meiryo,sans-serif;
+  --f-num:'Roboto Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.9}
+a{color:var(--brand-text)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.notice{background:var(--cream);color:var(--cream-ink);font-size:12px;text-align:center;padding-block:6px}
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font-size:19px;font-weight:900;color:var(--brand-text)}
+.logo small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+nav.cats{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 420px;justify-content:flex-end}
+nav.cats a.nl{font:inherit;font-size:14px;font-weight:700;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+nav.cats a.nl[aria-current="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+nav.cats a.nl:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.layout{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;padding-block:24px 64px}
+article{flex:999 1 620px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:22px}
+aside{flex:1 1 280px;max-width:100%;display:flex;flex-direction:column;gap:20px}
+@media(min-width:960px){aside{max-width:320px;position:sticky;top:16px}}
+.crumb{font-size:13px;color:var(--muted)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid var(--brand-text);color:var(--brand-text)}
+.tag.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.tag.warn{border-color:var(--amber-ink);color:var(--amber-ink)}
+h1{margin:0;font-size:clamp(24px,3.4vw,32px);line-height:1.45;font-weight:900;color:var(--brand-text);text-wrap:balance}
+.byline{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.byline i{width:34px;height:34px;border-radius:50%;background:var(--ph);flex:0 0 auto}
+.lead{font-size:17px;line-height:2;font-weight:500;margin:0}
+h2{margin:10px 0 0;font-size:22px;font-weight:900;color:var(--brand-text);padding-bottom:8px;border-bottom:3px solid var(--amber);text-wrap:balance;line-height:1.5}
+h3{margin:0;font-size:17px;font-weight:900;color:var(--ink)}
+p{margin:0}
+.fig{margin:0;display:flex;flex-direction:column;gap:8px}
+.fig figcaption{font-size:12.5px;color:var(--muted)}
+.scroll{overflow-x:auto}
+.photo{background:var(--ph);color:var(--ph-ink);border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;padding:16px;aspect-ratio:16/7;max-width:100%;border:1px dashed var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--tint);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:12.5px;font-weight:700;color:var(--muted)}
+.kpi b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);font-variant-numeric:tabular-nums;line-height:1.3}
+.kpi small{font-size:12px;color:var(--muted)}
+.kpi.hl{background:var(--brand)}.kpi.hl span,.kpi.hl small{color:#EAF3FF}.kpi.hl b{color:var(--on-brand)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:700}
+td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{background:var(--tint);font-weight:700;color:var(--brand-text)}
+.na{color:var(--muted)}
+.box{background:var(--tint);border-radius:8px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.box.cream{background:var(--cream)}
+.box .lbl{font-size:13px;font-weight:700;color:var(--brand-text)}
+ul.dots{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
+.card .k{font-size:12px;font-weight:700;color:var(--amber-ink)}
+.summary{border:2px solid var(--brand);border-radius:10px;overflow:hidden}
+.summary .hd{background:var(--brand);color:var(--on-brand);padding:12px 22px;font-weight:900}
+.summary .bd{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.summary .bd div{padding:16px 22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.summary .bd span{font-size:13px;font-weight:700;color:var(--amber-ink)}
+.summary .bd p{font-size:15px;line-height:1.8}
+.pay{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pay .fade{padding:20px 22px;color:var(--muted)}
+.pay .gate{background:var(--cream);border-top:2px dashed var(--amber);padding:22px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+.pay .gate b{color:var(--brand-text)}
+.btn{display:inline-block;padding:11px 24px;background:var(--brand);color:#FFFFFF;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px}
+.sources{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);padding-top:14px}
+.sources a{word-break:break-all}
+.sample{background:var(--cream);color:var(--cream-ink);border-radius:8px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.qa{display:flex;flex-direction:column;gap:14px}
+.qa .q{font-weight:900;color:var(--brand-text)}
+.qa .q::before{content:"―　"}
+.pull{border-left:4px solid var(--amber);padding:6px 0 6px 18px;font-size:20px;font-weight:900;line-height:1.7;color:var(--brand-text)}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.side h4{margin:0;font-size:15px;font-weight:900;color:var(--brand-text)}
+.side a.nl{font:inherit;text-align:left;background:none;border:0;padding:8px 10px;border-radius:6px;color:var(--ink);cursor:pointer;display:flex;gap:8px;font-size:14px;line-height:1.6}
+.side a.nl span{font-size:11px;font-weight:700;color:var(--amber-ink);flex:0 0 74px;padding-top:2px}
+.side a.nl[aria-current="true"]{background:var(--cream);font-weight:700}
+.side a.nl{flex-direction:column;gap:2px}.side a.nl small{font-size:12px;color:var(--muted,#5b6b77);font-weight:400}
+.side.dark{background:var(--brand);border-color:var(--brand);color:#EAF3FF}.side.dark h4{color:var(--on-brand)}
+.side.dark p{font-size:13px;line-height:1.8}
+svg text{font-family:var(--f-body)}
+.s-ink{fill:var(--ink)}.s-muted{fill:var(--muted)}.s-brand{fill:var(--brand)}.s-btext{fill:var(--brand-text)}.s-amber{fill:var(--amber)}
+.s-tint{fill:var(--tint)}.s-surface{fill:var(--surface)}.s-line{stroke:var(--line)}.s-bar2{fill:var(--bar2)}.s-ph{fill:var(--ph)}
+.s-onb{fill:var(--on-brand)}.s-car{fill:var(--car);stroke:var(--muted);stroke-width:2.5}.s-glass{fill:var(--glass)}.s-tire{fill:var(--tire)}
+.top{display:flex;flex-direction:column;gap:28px;width:100%;min-width:0}
+.hero{background:var(--brand);color:#FFFFFF;border-radius:12px;padding:clamp(22px,4vw,44px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.hero-txt{flex:3 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px}
+.hero-txt p{color:#EAF3FF;line-height:1.9}
+.hero-h{margin:0;border:0;padding:0;color:#FFFFFF;font-size:clamp(22px,3.2vw,32px);line-height:1.45}
+.tag.amberfill{background:var(--brand);border-color:var(--brand);color:#FFFFFF}.tag.onb{border-color:#EAF3FF;color:#EAF3FF}
+.hero-fig{flex:2 1 260px;display:grid;gap:10px}
+.hk{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:12px 16px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:0 12px}
+.hk span{font-size:12.5px;color:#EAF3FF;font-weight:700}.hk b{font-family:var(--f-num);font-size:26px;grid-row:span 2;color:#FFFFFF}.hk small{font-size:11.5px;color:#D6E8FF}
+.hk.jp{background:var(--cream);border-color:var(--cream)}.hk.jp span,.hk.jp small,.hk.jp b{color:#1F3A5F}
+button.btn{border:0;cursor:pointer;font:inherit;font-weight:700;font-size:14px}
+.btn.ghost{background:transparent;color:#FFFFFF;border:1px solid #EAF3FF}
+.btn.ghost2{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.sec-hd{display:flex;flex-direction:column;gap:2px}
+.sec-hd h3{font-size:20px;color:var(--brand-text)}
+.eyebrow{font-family:var(--f-num);font-size:11.5px;letter-spacing:.12em;font-weight:700;color:var(--amber-ink)}
+.cards6{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.acard{font:inherit;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:0 0 16px;display:flex;flex-direction:column;gap:6px;color:var(--ink);overflow:hidden}
+.acard:hover{border-color:var(--brand-text)}.acard:focus-visible,.newslist a.nl:focus-visible,.db:focus-visible,.iv:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.acard .thumb{display:block;aspect-ratio:2/1;max-width:100%}
+.acard .thumb svg{width:100%;height:100%;display:block}
+.t1,.t4{background:var(--brand)}.t2,.t5{background:#2E86F0}.t3,.t6{background:#5AA0F2}
+.acard .cat,.acard b,.acard small{padding-inline:16px}
+.acard .cat{font-size:12px;font-weight:700;color:var(--amber-ink);display:flex;gap:6px;align-items:center;padding-top:6px}
+.acard .cat i{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.acard b{font-size:15.5px;line-height:1.6}.acard small{font-size:12px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.newslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.newslist li>*{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);font:inherit;font-size:14px;line-height:1.6;text-align:left;width:100%;background:none;border-left:0;border-right:0;border-top:0;color:var(--ink)}
+.newslist a.nl{cursor:pointer;font-weight:700;color:var(--brand-text)}
+.newslist time{font-family:var(--f-num);font-size:12px;color:var(--muted)}
+.ntag{font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:3px;padding:0 6px;color:var(--muted)}
+.iv{font:inherit;text-align:left;cursor:pointer;background:var(--tint);border:0;border-radius:8px;padding:16px;display:flex;gap:16px;align-items:center;color:var(--ink)}
+.iv b{display:block;font-size:16px;line-height:1.7;color:var(--brand-text)}.iv small{font-size:12px;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.steps li>*,.steps li{display:flex;flex-direction:column;gap:2px}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
+.steps b{font-family:var(--f-num);font-size:18px;color:var(--brand-text)}.steps span{font-weight:700}.steps small{font-size:11.5px;color:var(--muted)}
+.steps li.on{background:var(--brand);border-color:var(--brand);padding:0}
+.steps li.on a.nl{font:inherit;text-align:left;background:none;border:0;padding:14px;cursor:pointer;color:#FFFFFF}
+.steps li.on b,.steps li.on small{color:var(--amber)}
+.db3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.db{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+a.db{cursor:pointer}.db b{font-size:16px}.db small{color:var(--muted);font-size:13px}.db span{font-size:13px;font-weight:700;color:var(--brand-text)}
+.event{background:var(--tint);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:24px 28px;display:flex;flex-direction:column;gap:6px}
+.event h3{color:var(--brand-text);font-size:21px}.event p{color:#4F6480;font-size:14px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.plan.pro{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.price{font-family:var(--f-num);font-size:24px}.price small{font-size:12px;font-family:var(--f-body)}
+footer.site{background:var(--surface);border-top:1px solid var(--line)}
+footer.site .wrap{padding-block:24px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:13px;color:var(--muted)}
+
+
+.hdr-cta{display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--cream);color:var(--ink);border-radius:8px;padding:6px 12px 6px 6px;font:inherit;font-weight:700;font-size:13px;border:0;cursor:pointer;line-height:1.3;text-align:left}
+.hdr-cta img{width:54px;height:auto;border-radius:3px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.hdr-cta small{display:block;font-size:10.5px;font-weight:500}
+.hdr-cta:focus-visible{outline:3px solid var(--brand-text);outline-offset:2px}
+.core{background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:clamp(18px,3vw,32px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.core-cover{flex:1 1 280px;max-width:420px;position:relative}
+.core-cover img{width:100%;display:block;border-radius:6px;border:1px solid var(--line);box-shadow:8px 8px 0 var(--tint),16px 16px 0 var(--ph)}
+.core-txt{flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.core-txt h3{font-size:clamp(20px,2.6vw,26px);color:var(--brand-text);line-height:1.4}
+.core-txt .meta{font-size:12.5px;color:var(--muted)}
+.core-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:6px 16px;margin:0;padding:0;list-style:none;font-size:14px}
+.core-list li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--amber);margin-right:8px;vertical-align:1px}
+.core-btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn.line{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.dl-msg{font-size:12.5px;color:var(--muted)}
+.previews{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.previews figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.previews img{width:100%;border-radius:4px;border:1px solid var(--line);display:block}
+.previews figcaption{font-size:12px;color:var(--muted)}
+.side.pdf{background:var(--cream);border-color:var(--amber)}
+.side.pdf img{width:100%;border-radius:4px;border:1px solid var(--line)}
+
+.phero{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1536/660;min-height:340px;background:#C7C7CC url(hero.jpg) center top/cover no-repeat;display:flex;align-items:flex-start;padding:clamp(16px,3vw,36px)}
+.phero .card{max-width:640px;background:rgba(255,255,255,.38);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:8px;border-top:6px solid var(--amber);padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 24px rgba(31,58,95,.16)}
+.phero h2{margin:0;border:0;padding:0;font-size:clamp(24px,3.4vw,40px);line-height:1.4;font-weight:900;color:var(--ink)}
+.phero .card p{color:var(--muted)}
+.phero .eb{font-size:13px;font-weight:700;color:var(--brand-text)}
+.kpi3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;background:var(--tint);border-radius:10px;padding:20px}
+.kpi3 div{background:#FFFFFF;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi3 span{font-size:12.5px;font-weight:700;color:var(--muted)}.kpi3 b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);line-height:1.3}.kpi3 b.jp{color:var(--ink)}.kpi3 small{font-size:12px;color:var(--muted)}
+.field{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:760px){.field{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.field{grid-template-columns:minmax(0,1fr)}}
+.field figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.field img{width:100%;height:170px;object-fit:cover;border-radius:6px;display:block}
+.field figcaption{font-size:14px;font-weight:700}
+.field figure.go{cursor:pointer}.field figure.go:hover img{opacity:.85}.field .more{font-size:12px;font-weight:600;color:var(--brand-text,#0b5cad);margin-left:6px}
+.acard .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.eye{margin:0;display:flex;flex-direction:column;gap:6px}
+.eye img{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:8px;display:block;background:var(--tint)}.eye img[src^="img/r"]{aspect-ratio:16/9;object-fit:contain}
+.eye figcaption{font-size:12px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.acard .own{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.vcard{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:10px;overflow:hidden;padding-bottom:16px}
+.vcard:hover{border-color:var(--brand-text)}.vcard:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.vcard .vth{position:relative;display:block;aspect-ratio:16/9;background:var(--tint) center/cover no-repeat}
+.vcard .vth::after{content:"";position:absolute;left:50%;top:50%;width:68px;height:48px;margin:-24px 0 0 -34px;border-radius:12px;background:rgba(31,58,95,.82)}
+.vcard .vth::before{content:"";position:absolute;left:50%;top:50%;margin:-11px 0 0 -6px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #FFFFFF;z-index:1}
+.vcard .vh{font-size:18px;font-weight:900;color:var(--brand-text);padding-inline:16px}
+.vcard .vt{font-size:14px;font-weight:700;padding-inline:16px;line-height:1.6}
+.vcard .vd{font-size:13px;color:var(--muted);padding-inline:16px;line-height:1.7}
+.vcard .vm{font-size:12px;color:var(--muted);padding-inline:16px}
+.core-samples{flex:1 1 100%;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:18px}
+.core-samples h4{margin:0;font-size:16px;font-weight:900;color:var(--brand-text)}
+.core-samples p{font-size:13px;color:var(--muted)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:no-preference){article{animation:rise .35s ease-out both}@keyframes rise{from{transform:translateY(6px)}to{transform:none}}}
+
+nav.cats{order:3;flex:1 1 100%;justify-content:flex-start}nav.cats a.nl{white-space:nowrap}header.site .hdr-cta{margin-left:auto}
+
+.spage{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px clamp(18px,4vw,44px);max-width:860px;margin:0 auto}
+.spage h1{font-size:26px;line-height:1.5;margin:0 0 14px;color:var(--ink)}
+.spage h2{font-size:19px;margin:34px 0 12px;padding-left:10px;border-left:4px solid var(--brand);color:var(--ink)}
+.spage p,.spage li,.spage td,.spage th{font-size:15px;line-height:1.9}
+.spage .lead{font-size:16px}
+.spage .note{font-size:13px;color:var(--muted)}
+.spage ul.small li{font-size:13px;color:var(--muted)}
+.spage ol.steps{padding-left:1.4em}.spage ol.steps li{margin:6px 0}
+.spage table.info{width:100%;border-collapse:collapse;margin:8px 0}
+.spage table.info th,.spage table.info td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.spage table.info th{width:28%;background:#F5F8FC;font-weight:700;white-space:nowrap}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.person{border:1px solid var(--line);border-radius:10px;padding:18px}
+.person .role{display:block;font-size:12px;font-weight:700;color:var(--brand-text)}
+.person .name{display:block;font-size:22px;margin:4px 0 8px}
+.person .duty{font-size:13px;color:var(--muted)}
+.formbox{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.formbox.prep{padding:24px;text-align:center;background:#F5F8FC}
+.joinwrap{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:24px;align-items:start;margin-top:10px}
+.joincover img{width:100%;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+@media (max-width:640px){.joinwrap{grid-template-columns:1fr}.joincover{max-width:200px}.spage table.info th{white-space:normal;width:34%}}
+footer.site .flinks{display:flex;flex-wrap:wrap;gap:6px 18px;width:100%}
+footer.site .flinks a{color:inherit;font-size:13px}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ロボタクシーの許認可：必要な許認可と取得の留意点","description":"これまでのタクシーは、国のタクシー事業の許可と、乗務員の運転免許で走ってきました。ロボタクシーでは、車・運転・事業の3つについて、それぞれ許可が要ります。許可を出すのは、国土交通省の地方運輸局と、都道府県の公安委員会（警察）です。審査にはこ","datePublished":"2026-11-04T09:00:00+09:00","dateModified":"2026-11-04T09:00:00+09:00","image":["https://robotaxi-lab.com/img/k05_fig1.png"],"author":{"@type":"Organization","name":"ロボタクシー実践ラボ編集部","url":"https://robotaxi-lab.com/"},"publisher":{"@type":"Organization","name":"アイベリー株式会社","url":"https://aiberry.co.jp/"},"mainEntityOfPage":"https://robotaxi-lab.com/articles/k05/","inLanguage":"ja"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://robotaxi-lab.com/"},{"@type":"ListItem","position":2,"name":"ロボタクシーの許認可：必要な許認可と取得の留意点","item":"https://robotaxi-lab.com/articles/k05/"}]}</script>
+</head><body>
+<div class="notice">公開準備中のサイトです。実証実験レポートとキーマン・インタビューは仮の原稿です。</div>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="ロボタクシー実践ラボ トップへ">
+      <svg width="34" height="34" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="#1F3A5F"/><path d="M12 30 L16 6 M24 30 L20 6" stroke="#FFFFFF" stroke-width="2.2" fill="none"/><path d="M14 18 L18 22 L26 12" stroke="#007AFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>ロボタクシー実践ラボ</b><small>ロボタクシーを始める人のための、実践メディア</small></span>
+    </a>
+    <nav class="cats" aria-label="カテゴリー">
+      <a class="nl" href="/articles/genzaichi/">業界の現在地</a>
+      <a class="nl" href="/articles/news/">業界ニュース</a>
+      <a class="nl" href="/articles/zukan/">ロボタクシー図鑑</a>
+      <a class="nl" href="/articles/navi/">許認可ナビ</a>
+      <a class="nl" href="/articles/jissho/">実証実験レポート</a>
+      <a class="nl" href="/articles/interview/">キーマン・インタビュー</a>
+      <a class="nl" href="/zakkuri/">ざっくりニュース</a>
+      <a class="nl" href="/hojokin/">あなたが使える補助金</a>
+    </nav>
+    <a class="hdr-cta" href="/join/" aria-label="無料会員登録で「ロボタクシーの現在地」PDFを受け取る"><img src="p-01.jpg" alt=""><span>ロボタクシーの現在地<small>2026年10月版 無料PDF</small></span></a>
+  </div>
+</header>
+<div class="wrap layout">
+<main style="flex:999 1 620px;min-width:0;display:flex">
+<article id="k05" data-cat="基礎解説">
+  <div class="crumb"><a href="/">トップ</a>　›　ロボタクシーの基本　›　許認可</div>
+  <div class="tags"><span class="tag solid">⑤ 許認可</span><span class="tag">世界・日本</span><span class="tag">基礎解説</span></div>
+  <div class="kiso-hero" style="position:relative;margin:10px 0 18px;border-radius:10px;overflow:hidden;border-bottom:5px solid #0062CC"><img src="img/k05_hero.jpg" alt="許可証のイラスト" style="width:100%;display:block"><div style="position:absolute;left:0;top:0;right:0;background:rgba(255,255,255,.9);right:auto;border-radius:0 0 12px 0;padding:22px 26px;display:flex;align-items:center;gap:16px"><span style="flex:none;width:58px;height:58px;border-radius:50%;background:#0062CC;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-weight:700;font-size:28px;box-shadow:0 2px 8px rgba(0,0,0,.15)">05</span><span><span style="display:block;font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:700;letter-spacing:.2em;color:#1a1a1a">ロボタクシーの基本　BASICS 05</span><span style="display:block;font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;font-weight:700;font-size:36px;line-height:1.3;color:#0062CC;letter-spacing:.16em;text-shadow:0 1px 6px rgba(255,255,255,.8)">許認可</span></span></div></div>
+  <h1 style="font-size:22px;line-height:1.6;color:#1a1a1a;font-weight:700;margin:6px 0 14px">ロボタクシーの許認可：必要な許認可と取得の留意点</h1>
+  <p class="lead">これまでのタクシーは、国のタクシー事業の許可と、乗務員の運転免許で走ってきました。ロボタクシーでは、車・運転・事業の3つについて、それぞれ許可が要ります。許可を出すのは、国土交通省の地方運輸局と、都道府県の公安委員会（警察）です。審査にはこれまで平均約11か月かかり、国は2か月に縮める目標を掲げています。</p>
+  <div class="byline"><i></i>ロボタクシー実践ラボ編集部（編集責任：池田 将）　／　2026.11.04</div>
+  <h2>1. 要る許可は3つ：車・運転・事業</h2>
+  <p>3つは、もとになる法律も審査も別々です。</p>
+  <p><b>① 車の許可（道路運送車両法）</b>　国土交通省の地方運輸局が、自動運転の装置が安全か、どの道をどんな条件なら走れるかを確かめます（よくナンバー獲得などと言われます）。</p>
+  <p><b>② 運転の許可（道路交通法）</b>　都道府県の公安委員会が、運転手のいない運行を許可します。公安委員会は、運行する市町村の長の意見を聴きます。</p>
+  <p><b>③ 事業の許可（道路運送法）</b>　地方運輸局（窓口は運輸支局）が、料金をもらってお客様を運ぶことを許可します。地域公共交通会議（自治体が開く、運賃や路線を話し合う会議）で合意を得てから申請します。</p>
+  <figure class="eye"><img src="img/k05_fig1.png" alt="図1"></figure>
+  <h2>2. 許可をとる流れ：自治体と一体で進める</h2>
+  <p>事前の相談から事業の許可まで、6段階で進めます。</p>
+  <p>1. <b>事前に相談する</b>：地方運輸局と国土交通省に相談します</p>
+  <p>2. <b>導入の準備会議をつくる</b>：自治体が中心となり、運行する会社・技術の会社・警察などが集まります</p>
+  <p>3. <b>車の許可をとる</b>：技術の会社が申請します。その地域の道を走れるかの審査です</p>
+  <p>4. <b>実証実験をする</b>：運転手が乗って走り、課題を確かめます</p>
+  <p>5. <b>運転の許可をとる</b>：レベル4（決まった条件で運転手なし）で走る許可です</p>
+  <p>6. <b>事業の許可をとる</b></p>
+  <p>（国土交通省の手引き・申請の手引き、2024年6月）</p>
+  <figure class="eye"><img src="img/k05_fig2.png" alt="図2"></figure>
+  <h3>期間：これまでの内訳と国の目標</h3>
+  <ul class="dots"><li><b><b>これまで</b></b>：平均約11か月かかっていました。内訳は、車両と走行の安全の確認が約8か月、運輸局の手続きが約1か月、警察の手続きが約1.5か月です（内閣府の規制改革推進会議の資料、2024年5月10日。自動運転ラボの報道）</li><li><b><b>国の目標</b></b>：審査を2か月で終えることを目指し、現地の審査のオンライン化などを進めています（国土交通省の発表と資料、2024年6月）</li></ul>
+  <h3>費用：実証の例と国の補助</h3>
+  <ul class="dots"><li><b><b>許可の手数料</b></b>：運転の許可は79,200円です（警視庁）</li><li><b><b>実証の費用の例</b></b>：ある地方都市の自動運転バスの実証（2025年）は約5,000万円で、うち約3,500万円が国の補助でした（地域公共交通会議の議事録 2024年版より）</li><li><b>国の補助の例（地域公共交通確保維持改善事業費補助金・自動運転社会実装推進事業）</b>：国土交通省の補助金です。2026年度の補助率は5分の4、上限は重点支援事業が4億円、一般支援事業が2億円です。申請できるのは自治体か、自治体が代表を務める共同体です（国土交通省、2026年3月27日）。2026年度は37事業が選ばれました（前の年は67事業）</li><li><b><b>費用の目安</b></b>：国の手引きでは、自動運転バスの例として、自動運転のシステムが1台2,500万円、遠隔監視の設備が1拠点800万円と試算されています（国土交通省の手引き第3版、2026年9月。2030年ごろを想定）。実践ラボの調べでは、ロボタクシーの車はWaymoが1台約3,000万円（推定）、中国製が約430万〜600万円です（①自動運転車の記事を参照）</li></ul>
+  <h3>支援する会社：導入と申請を手伝う</h3>
+  <ul class="dots"><li><b>A-Drive（エー・ドライブ。アイサンテクノロジーのグループ会社）</b>：自動運転の導入を支援します。地方都市の実証や、東京の高輪〜竹芝の自動運転バス（アイサンテクノロジーの発表、2026年3月）に参加しています</li><li><b>パシフィックコンサルタンツ（建設・交通のコンサルティング会社）</b>：許可の申請と、関係機関との協議を支援します。千葉県柏市の柏の葉や仙台市などで実績があります（同社の資料、2025年3月時点）</li></ul>
+  <h2>3. 海外のロボタクシー許可の状況</h2>
+  <p>有料のロボタクシーの運行が行われているのは、米国・中国・UAE（アラブ首長国連邦）の一部です。それらの国・地域を中心に、許可の仕組みの概略を紹介します。</p>
+  <figure style="margin:20px 0"><div style="font-size:13px;color:#5b6b77;margin-bottom:8px">各国の公式資料・報道による（2026年11月4日時点）。くわしい出典は記事末の出典を参照</div><div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;min-width:760px;font-size:13px;line-height:1.55"><tr><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">写真</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">国・地域</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">許可を出すところ</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">無人で料金をとる運行</th></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><img src="img/k05_p01.jpg" alt="米国カリフォルニア州" style="width:130px;height:86px;object-fit:cover;border-radius:4px;display:block"></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>米国カリフォルニア州</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">州の陸運局と、運送を監督する州の委員会</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">Waymo（米グーグル系）</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><div style="width:130px;height:86px;background:#eef3f7;border-radius:4px;font-size:11px;color:#5b6b77;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px">写真なし</div></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>米国テキサス州</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">州の陸運局</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">確認できない</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><div style="width:130px;height:86px;background:#eef3f7;border-radius:4px;font-size:11px;color:#5b6b77;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px">写真なし</div></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>米国アリゾナ州</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">許可ではなく、州の交通局と公安局への届出</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">確認できない</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><img src="img/k05_p02.jpg" alt="中国（武漢・重慶・北京）" style="width:130px;height:86px;object-fit:cover;border-radius:4px;display:block"></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>中国（武漢・重慶・北京）</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">都市ごと（北京は条例）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">百度（中国のIT企業）</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><img src="img/k05_p03.jpg" alt="アラブ首長国連邦" style="width:130px;height:86px;object-fit:cover;border-radius:4px;display:block"></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>アラブ首長国連邦</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">アブダビとドバイの交通当局</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">WeRide（中国の自動運転企業）</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><div style="width:130px;height:86px;background:#eef3f7;border-radius:4px;font-size:11px;color:#5b6b77;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px">写真なし</div></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>英国</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">運輸大臣（タクシー型は地域の免許当局の同意も要る）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">確認できない</td></tr></table></div><figcaption style="font-size:12px;color:#5b6b77;margin-top:6px">写真は各国・地域で走るロボタクシーの例。撮影者とライセンスは記事末の「写真の出典」を参照</figcaption></figure>
+  <h2>4. 日本でのロボタクシー事例</h2>
+  <p>日本では、完全と言えるロボタクシーの認可はまだおりておらず、営業の事例もありません。無人バスの運行は、大阪・関西万博のような期間限定のものから常設のものまで、いくつもあります。ここでは、無人バスの営業事例とロボタクシーの取り組みを紹介します。</p>
+  <h3>無人バスの営業事例</h3>
+  <ul class="dots"><li><b><b>福井県永平寺町（日本初、常設）</b></b>：車の許可が2023年3月30日、運転の許可が5月11日、運行開始が5月21日です（国土交通省の発表、2023年5月12日）</li><li><b><b>東京都の羽田（民間が主体で初）</b></b>：BOLDLY（ソフトバンク系の自動運転事業者）が運転の許可を受けました（2024年6月21日。自動運転ラボの報道）。この許可は2026年2月4日に切れています（警視庁）</li><li><b><b>茨城県日立市（車の許可から営業まで約2か月）</b></b>：茨城交通のBRT（バス専用道を走るバス）です。車の許可が2024年11月26日、運転の許可が12月18日、営業開始が2025年2月3日です（国土交通省の手引き第3版、茨城県警）</li><li><b><b>千葉県柏市の柏の葉（都市部の路線バス）</b></b>：東武バスセントラルが、2025年12月9日にすべての許可をそろえ、2026年1月13日に営業を始めました（経済産業省の発表）</li><li><b><b>大阪・関西万博（期間限定）</b></b>：会場に向かう自動運転バスが、2025年2月にレベル4の車の認可を受けました。近畿運輸局の管内では初めてです（近畿運輸局の発表。LOGISTICS TODAYの報道）</li></ul>
+  <figure class="eye"><img src="img/k05_p04.jpg" alt="永平寺町で走るZEN driveの車（Japan Mobility Show 2023での展示）" loading="lazy"><figcaption style="font-size:12px;color:#5b6b77;margin-top:6px">永平寺町で走るZEN driveの車（Japan Mobility Show 2023での展示）（写真：SuFlyer／Wikimedia Commons／CC0）</figcaption></figure>
+  <h3>ロボタクシーの取り組み</h3>
+  <ul class="dots"><li><b><b>大阪府堺市</b></b>：newmo（ライドシェア・タクシー事業の新興企業）が、2027年度にレベル4の許可、2028年度に営業運行（運転手が乗る形）を目指します（堺市）</li><li><b><b>東京</b></b>：Waymo・日本交通・GOが、2027年中に無人のタクシーの営業を始める計画です（MONOistの報道、2026年9月16日）</li></ul>
+  <h2>5. 国の目標：2027年度に100か所以上</h2>
+  <p>国は数の目標を掲げ、先行する地域を選んでいます。</p>
+  <ul class="dots"><li><b><b>数の目標</b></b>：2027年度までに無人の自動運転サービスを100か所以上で始め、2030年度に車を1万台にします（国土交通省の資料、2026年2月24日）</li><li><b><b>先行する地域</b></b>：デジタル庁は2026年3月6日、13地域を選びました。ロボタクシー型は横浜市・堺市・神戸市です。福岡県の地域は入っていません。選ばれた地域では許可の手続きを早めると報じられています（共同通信）</li></ul>
+  <h2>実践ラボの視点：地域のタクシー会社の役割</h2>
+  <p>地域のタクシー会社には、交通の空白地帯から住民の移動を守る役割と、地域でタクシー事業の許可を持つ会社としての役割があります。ロボタクシーの時代でも、この2つの役割を担うことが期待されています。民間の会社として単独で、または自治体と組んで、ロボタクシーの運行の担い手になることが求められます。</p>
+  <ul class="dots"><li><b><b>運行の主体</b></b>：ロボタクシーも、事業として運行するには許可が要ります。そのため、すでに許可を持つ地域のタクシー会社が、主体となって運行することが期待されています</li><li><b><b>自治体と準備委員会をつくる</b></b>：地域の自治体と協力する体制をつくって進めることが、許認可や補助金の獲得など、あらゆる面で望ましいです</li><li><b><b>費用</b></b>：実証実験や最初の設備投資に、数千万円かかる見込みです。国の補助金を得るなど、地元の自治体と組んだ導入計画が望まれます</li><li><b><b>役割分担</b></b>：すべてを自社でまかなうのは難しいです。自動運転車の確保の方法、配車アプリの構築、運行管理のシステムと体制づくり、フリート管理の具体的なノウハウなどについて、自社でできることとできないことを検討してください。そのうえで専門家と事前に話し合い、計画を立てることをお勧めします</li></ul>
+  <h2>写真の出典</h2>
+  <ul class="dots"><li><b>P01</b>：米国サンフランシスコの交差点を走るWaymoのロボタクシー（2023年11月）　撮影：Mliu92　ライセンス：CC BY-SA 3.0　<a href="https://commons.wikimedia.org/wiki/File:Waymo_robotaxis,_San_Francisco_3.jpg" target="_blank" rel="noopener">https://commons.wikimedia.org/wiki/File:Waymo_robotaxis,_San_Francisco_3.jpg</a></li><li><b>P02</b>：中国・武漢を走る百度 Apollo Go のRT6　撮影：S5A-0043　ライセンス：CC BY 4.0　<a href="https://commons.wikimedia.org/wiki/File:(CHN-Hubei" target="_blank" rel="noopener">https://commons.wikimedia.org/wiki/File:(CHN-Hubei</a>)_Apollo_Go_Apollo_RT6_Temporary-鄂A1395试_2025-12-17.jpg</li><li><b>P03</b>：アラブ首長国連邦ドバイのWeRideのロボタクシー GXR（2025年5月）　撮影：Kk0521　ライセンス：CC BY-SA 4.0　<a href="https://commons.wikimedia.org/wiki/File:WeRide_Robotaxi_GXR.jpg" target="_blank" rel="noopener">https://commons.wikimedia.org/wiki/File:WeRide_Robotaxi_GXR.jpg</a></li><li><b>P04</b>：永平寺町で走るZEN driveの車（Japan Mobility Show 2023での展示）　撮影：SuFlyer　ライセンス：CC0　<a href="https://commons.wikimedia.org/wiki/File:ZEN_Drive_at_Japan_Mobility_Show_2023.jpg" target="_blank" rel="noopener">https://commons.wikimedia.org/wiki/File:ZEN_Drive_at_Japan_Mobility_Show_2023.jpg</a></li></ul>
+  <div class="sources"><b>出典</b><a href="https://www.mlit.go.jp/jidosha/content/001749833.pdf" target="_blank" rel="noopener">国土交通省「公道での自動運転の申請に関する手引き」（2024年6月）：https://www.mlit.go.jp/jidosha/content/001749833.pdf</a><a href="https://www.mlit.go.jp/jidosha/content/001751816.pdf" target="_blank" rel="noopener">国土交通省「自動運転移動サービス社会実装・事業化の手引き」第1版（2024年6月）：https://www.mlit.go.jp/jidosha/content/001751816.pdf</a><a href="https://www.mlit.go.jp/jidosha/content/002025196.pdf" target="_blank" rel="noopener">国土交通省「自動運転移動サービス社会実装・事業化の手引き」第3版（2026年9月）：https://www.mlit.go.jp/jidosha/content/002025196.pdf</a><a href="https://www.mlit.go.jp/jidosha/content/001749836.pdf" target="_blank" rel="noopener">国土交通省「審査に必要な手続の透明性・公平性を確保するための取組」（2024年6月）：https://www.mlit.go.jp/jidosha/content/001749836.pdf</a><a href="https://www.mlit.go.jp/report/press/jidosha07_hh_000504.html" target="_blank" rel="noopener">国土交通省 報道発表（審査・行政手続を2か月で完了、2024年6月7日）：https://www.mlit.go.jp/report/press/jidosha07_hh_000504.html</a><a href="https://www8.cao.go.jp/kisei-kaikaku/kisei/meeting/wg/2310_05local/240510/local13_01.pdf" target="_blank" rel="noopener">内閣府 規制改革推進会議 地域産業活性化WG 第13回 資料（2024年5月10日）：https://www8.cao.go.jp/kisei-kaikaku/kisei/meeting/wg/2310_05local/240510/local13_01.pdf</a><a href="https://jidounten-lab.com/u_47403" target="_blank" rel="noopener">自動運転ラボ（審査期間の内訳、2024年5月21日）：https://jidounten-lab.com/u_47403</a><a href="https://www.mlit.go.jp/jidosha/content/001485116.pdf" target="_blank" rel="noopener">警察庁「特定自動運行に係る許可制度の創設について」（2022年6月8日）：https://www.mlit.go.jp/jidosha/content/001485116.pdf</a><a href="https://www.keishicho.metro.tokyo.lg.jp/tetsuzuki/kotsu/application/tokutei_jidou.html" target="_blank" rel="noopener">警視庁「特定自動運行許可申請手続」（許可の失効の公示を含む）：https://www.keishicho.metro.tokyo.lg.jp/tetsuzuki/kotsu/application/tokutei_jidou.html</a><a href="https://www.mlit.go.jp/report/press/content/001596626.pdf" target="_blank" rel="noopener">国土交通省「道路運送法施行規則等の一部を改正する省令等について」（2023年3月）：https://www.mlit.go.jp/report/press/content/001596626.pdf</a><a href="https://www.mlit.go.jp/report/press/jidosha07_hh_000553.html" target="_blank" rel="noopener">国土交通省 報道発表（令和8年度 自動運転社会実装推進事業の公募、2026年3月27日）：https://www.mlit.go.jp/report/press/jidosha07_hh_000553.html</a><a href="https://www.mlit.go.jp/report/press/jidosha07_hh_000569.html" target="_blank" rel="noopener">国土交通省 報道発表（令和8年度の採択、2026年8月21日）：https://www.mlit.go.jp/report/press/jidosha07_hh_000569.html</a><a href="https://www.mlit.go.jp/report/press/content/001901476.pdf" target="_blank" rel="noopener">国土交通省（令和7年度の採択、2025年7月18日）：https://www.mlit.go.jp/report/press/content/001901476.pdf</a><a href="https://www.aisantec.co.jp/ir/information/zm20260327.pdf" target="_blank" rel="noopener">アイサンテクノロジー（高輪〜竹芝の自動運転バス、2026年3月27日）：https://www.aisantec.co.jp/ir/information/zm20260327.pdf</a><a href="https://www.pacific.co.jp/assets/pdf/media_library/leaflet/自動運転導入支援サービス.pdf" target="_blank" rel="noopener">パシフィックコンサルタンツ「自動運転導入支援サービス」：https://www.pacific.co.jp/assets/pdf/media_library/leaflet/自動運転導入支援サービス.pdf</a><a href="https://www.mlit.go.jp/report/press/jidosha07_hh_000448.html" target="_blank" rel="noopener">国土交通省 報道発表（永平寺町のレベル4、2023年5月12日）：https://www.mlit.go.jp/report/press/jidosha07_hh_000448.html</a><a href="https://jidounten-lab.com/u_48066" target="_blank" rel="noopener">自動運転ラボ（羽田の特定自動運行許可、2024年7月2日）：https://jidounten-lab.com/u_48066</a><a href="https://www.pref.ibaraki.jp/kenkei/a06_shinsei/street_traffic/automated/documents/1-20241218.pdf" target="_blank" rel="noopener">茨城県警（日立市の特定自動運行許可、2024年12月18日）：https://www.pref.ibaraki.jp/kenkei/a06_shinsei/street_traffic/automated/documents/1-20241218.pdf</a><a href="https://www.logi-today.com/729009" target="_blank" rel="noopener">LOGISTICS TODAY「近畿運輸局、自動運転車L4を近畿初認可」（2025年2月18日）：https://www.logi-today.com/729009</a><a href="https://www.meti.go.jp/press/2025/01/20260113001/20260113001.html" target="_blank" rel="noopener">経済産業省（柏の葉の営業運行、2026年1月13日）：https://www.meti.go.jp/press/2025/01/20260113001/20260113001.html</a><a href="https://www.city.sakai.lg.jp/shisei/toshi/kokyokotsu/jidouuntenntakushi.html" target="_blank" rel="noopener">堺市「自動運転タクシー」（2026年5月7日更新）：https://www.city.sakai.lg.jp/shisei/toshi/kokyokotsu/jidouuntenntakushi.html</a><a href="https://monoist.itmedia.co.jp/mn/articles/2609/16/news049_2.html" target="_blank" rel="noopener">MONOist（Waymo・日本交通・GO、2026年9月16日）：https://monoist.itmedia.co.jp/mn/articles/2609/16/news049_2.html</a><a href="https://www.digital.go.jp/policies/mobility/a71c2b0b-0506-43de-b7f8-2cb20172752a" target="_blank" rel="noopener">デジタル庁「自動運転社会実装先行的事業化地域」（2026年3月6日）：https://www.digital.go.jp/policies/mobility/a71c2b0b-0506-43de-b7f8-2cb20172752a</a><a href="https://www.oanda.jp/lab-education/market_news/kn_2026030601001275/" target="_blank" rel="noopener">共同通信（OANDA掲載、2026年3月6日）：https://www.oanda.jp/lab-education/market_news/kn_2026030601001275/</a><a href="https://www.digital.go.jp/assets/contents/node/basic_page/field_ref_resources/3fafc56c-fe8e-4c24-a3fa-5003126259ae/1f89f797/20260312_meeting_mobility-working-group14_outline_03.pdf" target="_blank" rel="noopener">国土交通省資料（デジタル庁モビリティWG、2026年2月24日）：https://www.digital.go.jp/assets/contents/node/basic_page/field_ref_resources/3fafc56c-fe8e-4c24-a3fa-5003126259ae/1f89f797/20260312_meeting_mobility-working-group14_outline_03.pdf</a><a href="https://webproda.cpuc.ca.gov/regulatory-services/licensing/transportation-licensing-and-analysis-branch/autonomous-vehicle-programs/autonomous-vehicle-program-permits-issued" target="_blank" rel="noopener">CPUC「Autonomous Vehicle Program Permits Issued」：https://webproda.cpuc.ca.gov/regulatory-services/licensing/transportation-licensing-and-analysis-branch/autonomous-vehicle-programs/autonomous-vehicle-program-permits-issued</a><a href="https://www.txdmv.gov/AVprogram" target="_blank" rel="noopener">TxDMV「Automated Vehicles Regulatory Program」：https://www.txdmv.gov/AVprogram</a><a href="https://azdot.gov/autonomous-vehicles-testing-and-operating-without-driver" target="_blank" rel="noopener">ADOT「Autonomous Vehicles Testing and Operating WITHOUT Driver」：https://azdot.gov/autonomous-vehicles-testing-and-operating-without-driver</a><a href="https://www.news.cn/tech/20250418/c9e758b50cb849ba8ae839610e944245/c.html" target="_blank" rel="noopener">新華網（北京市自動運転自動車条例、2025年4月18日）：https://www.news.cn/tech/20250418/c9e758b50cb849ba8ae839610e944245/c.html</a><a href="https://cs.com.cn/qc/202208/t20220809_6289727.html" target="_blank" rel="noopener">中国証券網（武漢の無人の商業運行、2022年8月9日）：https://cs.com.cn/qc/202208/t20220809_6289727.html</a><a href="https://www.nasdaq.com/press-release/weride-and-uber-launch-middle-easts-first-fully-driverless-robotaxi-commercial" target="_blank" rel="noopener">WeRide・Uber プレスリリース（アブダビ）：https://www.nasdaq.com/press-release/weride-and-uber-launch-middle-easts-first-fully-driverless-robotaxi-commercial</a><a href="https://www.automotiveworld.com/news/weride-and-uber-launch-driverless-robotaxi-service-in-dubai/" target="_blank" rel="noopener">Automotive World（ドバイのWeRide、2026年3月31日）：https://www.automotiveworld.com/news/weride-and-uber-launch-driverless-robotaxi-service-in-dubai/</a><a href="https://www.legislation.gov.uk/uksi/2026/439/made" target="_blank" rel="noopener">legislation.gov.uk「The Automated Vehicles (Permits for Automated Passenger Services) Regulations 2026」：https://www.legislation.gov.uk/uksi/2026/439/made</a><a href="https://newmobility.news/en/2026/08/06/london-clears-wayve-and-uber-for-supervised-robotaxi-rides/" target="_blank" rel="noopener">NewMobility.news（ロンドンのWayve・Uber、2026年8月6日）：https://newmobility.news/en/2026/08/06/london-clears-wayve-and-uber-for-supervised-robotaxi-rides/</a></div>
+</article>
+</main>
+<aside id="rail">
+  <div class="side">
+    <h4>新着記事</h4>
+    <a class="nl" href="/articles/a22/">佐賀市交通局、自動運転バスの実証で初めて運賃を取る（大人最大180円）。佐賀駅〜SAGAサンライズパーク約1.8kmを毎日6往復、12月22日まで<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a24/">香川県坂出市で自動運転バスの実証が11月28日から30日間。琴参バスが運行し、坂出自動車学校が遠隔監視を担う。2028年のレベル4をめざす<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a31/">Waymo、高速道路の閉鎖車線と警察官の手信号への対応で2件の自主リコール。手信号は修正済み、閉鎖車線は修正中<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a18/">国交省、運転席を前提としない自動運転車を「自動運行用自動車」として区分する省令改正案の意見募集を開始。12月27日施行予定<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a23/">帯広市と米子市、今年度の自動運転バス実証を見送り。帯広は国の補助の条件と積雪が理由、米子は車両を見直す。国の補助は「2027年度までに全区間でレベル4」が条件に<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a19/">維新がロボタクシーの参入・運賃・台数の規制見直しを提言（政府の方針ではない）。規制改革相は自動運転の議論を本格化へと報道<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a32/">テスラ、6〜7人の団体向けにハンドルなしModel Yを計画。2人乗りのCybercabと使い分け<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a25/">Waymo、全米で高速道路の配車を停止。カリフォルニア州が工事区間への進入とパトカーへの対応を理由に無人走行を禁止<small>2026.11.17</small></a>
+    <a class="nl" href="/articles/a27/">Pony.aiとトヨタ、中国・広州でbZ4Xの完全無人ロボタクシーの営業を開始。トヨタとWaymoが2027年に日本で走らせる予定の車と同じ車種<small>2026.11.16</small></a>
+    <a class="nl" href="/articles/a28/">May Mobility、VWのID. Buzzで2031年までに自動運転車1万台超を目指す。車は持たず運行会社と組む。名古屋ではNTTと名鉄タクシー系が実証中<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a30/">米首都ワシントンDCのロボタクシー法案、議会の委員会で3対3となり通らず。運転手の団結権や台数の上限を入れた修正案でも合意できず<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a21/">城崎温泉の自動運転バス、一般客を乗せた初日に石垣へ接触し運休。オペレーターの手動操作はなかったと報道、原因は未公表<small>2026.11.09</small></a>
+    <a class="nl" href="/articles/a20/">KDDIがnewmoに出資し、newmoは208億円を調達。堺市で2028年に自動運転タクシーの商用化を目指し、運行の仕組みを全国の事業者へ出すことも検討<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a26/">Amazon傘下のZoox、2027年初めに米国外で初の試験へ。候補に日本、都市は未定。まずは運転者が乗ってデータ集め<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a17/">国交省、ハンドルやペダルのない自動運転車を12月から一つの基準で認める予定。事故1件でもリコール処分、タクシー会社などの使用者に事故報告を求める案も<small>2026.11.04</small></a>
+  </div>
+  <div class="side">
+    <h4>カテゴリー別の記事</h4>
+    <a class="nl" href="/articles/genzaichi/">数字で見るロボタクシーの現在地<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/news/">第一交通産業とNTTモビリティが連携協定<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/zukan/">Waymo（ウェイモ）<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/navi/">警察の「特定自動運行の許可」とは<small>2026.10.24</small></a>
+  </div>
+  <div class="side pdf">
+    <h4>ロボタクシーの現在地 2026年10月版</h4>
+    <img src="p-01.jpg" alt="ロボタクシーの現在地の表紙">
+    <p style="font-size:13px;line-height:1.7">基本を知りたい方は、まずこのPDFを。図解中心の32ページ。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録でPDFを受け取る</a>
+  </div>
+  <div class="side dark">
+    <h4>許認可チェックリストを無料で配布中</h4>
+    <p>警察・運輸局・自治体との協議で準備すべき資料を、1枚にまとめました。無料会員登録でダウンロードできます。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録</a>
+  </div>
+</aside>
+</div>
+<footer class="site"><div class="wrap"><span><b style="color:var(--brand-text)">ロボタクシー実践ラボ</b>　業界全体のための実践の共有　／　特定のメーカー・システムに偏らない編集方針</span><span>運営：アイベリー株式会社（代表 村田 大）／編集長 池田 将</span><nav class="flinks" aria-label="サイト情報"><a href="/about/">運営者情報</a><a href="/editorial-policy/">編集方針</a><a href="/privacy/">プライバシーポリシー</a><a href="/contact/">お問い合わせ</a><a href="/join/">無料会員登録</a></nav></div></footer>
+</body></html>

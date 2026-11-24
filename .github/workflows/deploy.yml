@@ -1,0 +1,33 @@
+name: さくらへ自動反映
+
+on:
+  push:
+    branches: [main]
+    paths: ["site/**"]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-sakura
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+    steps:
+      - name: パスワードが設定されているか確認
+        if: env.FTP_PASSWORD == ''
+        run: echo "FTP_PASSWORD がまだ設定されていないため、反映をスキップします。"
+      - uses: actions/checkout@v4
+        if: env.FTP_PASSWORD != ''
+      - name: さくらのサーバーへ送る
+        if: env.FTP_PASSWORD != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: colors2.sakura.ne.jp
+          username: colors2
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./site/
+          server-dir: www/robotaxi-lab/

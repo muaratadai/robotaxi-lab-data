@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="/">
+<title>Pony.ai、配車アプリのinDrive・半導体のNVIDIAと覚書。カザフスタンの首都アスタナでロボタクシーの試験運用を検討へ｜ロボタクシー実践ラボ</title>
+<meta name="description" content="中国の自動運転の会社Pony.ai（ポニー・エーアイ）は、配車アプリの会社inDrive（インドライブ）、米国の半導体の会社NVIDIA（エヌビディア）と、2026年10月23日に覚書（MOU）を結んだと発表しました。3社は、カザフスタンで">
+<link rel="canonical" href="https://robotaxi-lab.com/articles/a04/">
+<meta property="og:site_name" content="ロボタクシー実践ラボ"><meta property="og:type" content="article"><meta property="og:title" content="Pony.ai、配車アプリのinDrive・半導体のNVIDIAと覚書。カザフスタンの首都アスタナでロボタクシーの試験運用を検討へ｜ロボタクシー実践ラボ"><meta property="og:description" content="中国の自動運転の会社Pony.ai（ポニー・エーアイ）は、配車アプリの会社inDrive（インドライブ）、米国の半導体の会社NVIDIA（エヌビディア）と、2026年10月23日に覚書（MOU）を結んだと発表しました。3社は、カザフスタンで"><meta property="og:url" content="https://robotaxi-lab.com/articles/a04/"><meta property="og:image" content="https://robotaxi-lab.com/img/r004_1.png"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Roboto+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}a.nl{text-decoration:none}.acard,.iv,.hdr-cta,a.db{text-decoration:none}
+
+/* Layout: site header + category tabs, one article at a time in a reading column with a side rail; navy/amber identity from the lab's site mock */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --ink:#1F3A5F; --muted:#4F6480; --line:#E5E5EA;
+  --brand:#0066D6; --brand-text:#0062CC; --on-brand:#FFFFFF; --amber:#007AFF; --amber-ink:#0062CC;
+  --tint:#F2F6FB; --cream:#EAF3FF; --cream-ink:#004A99; --ph:#E5E5EA; --ph-ink:#4F6480;
+  --bar2:#9CCBFF; --car:#FFFFFF; --glass:#D6E8FF; --tire:#1F3A5F; --good:#0062CC;
+  --f-body:system-ui,-apple-system,'Hiragino Sans','Noto Sans JP','Yu Gothic',Meiryo,sans-serif;
+  --f-num:'Roboto Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.9}
+a{color:var(--brand-text)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.notice{background:var(--cream);color:var(--cream-ink);font-size:12px;text-align:center;padding-block:6px}
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font-size:19px;font-weight:900;color:var(--brand-text)}
+.logo small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+nav.cats{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 420px;justify-content:flex-end}
+nav.cats a.nl{font:inherit;font-size:14px;font-weight:700;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+nav.cats a.nl[aria-current="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+nav.cats a.nl:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.layout{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;padding-block:24px 64px}
+article{flex:999 1 620px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:22px}
+aside{flex:1 1 280px;max-width:100%;display:flex;flex-direction:column;gap:20px}
+@media(min-width:960px){aside{max-width:320px;position:sticky;top:16px}}
+.crumb{font-size:13px;color:var(--muted)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid var(--brand-text);color:var(--brand-text)}
+.tag.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.tag.warn{border-color:var(--amber-ink);color:var(--amber-ink)}
+h1{margin:0;font-size:clamp(24px,3.4vw,32px);line-height:1.45;font-weight:900;color:var(--brand-text);text-wrap:balance}
+.byline{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.byline i{width:34px;height:34px;border-radius:50%;background:var(--ph);flex:0 0 auto}
+.lead{font-size:17px;line-height:2;font-weight:500;margin:0}
+h2{margin:10px 0 0;font-size:22px;font-weight:900;color:var(--brand-text);padding-bottom:8px;border-bottom:3px solid var(--amber);text-wrap:balance;line-height:1.5}
+h3{margin:0;font-size:17px;font-weight:900;color:var(--ink)}
+p{margin:0}
+.fig{margin:0;display:flex;flex-direction:column;gap:8px}
+.fig figcaption{font-size:12.5px;color:var(--muted)}
+.scroll{overflow-x:auto}
+.photo{background:var(--ph);color:var(--ph-ink);border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;padding:16px;aspect-ratio:16/7;max-width:100%;border:1px dashed var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--tint);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:12.5px;font-weight:700;color:var(--muted)}
+.kpi b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);font-variant-numeric:tabular-nums;line-height:1.3}
+.kpi small{font-size:12px;color:var(--muted)}
+.kpi.hl{background:var(--brand)}.kpi.hl span,.kpi.hl small{color:#EAF3FF}.kpi.hl b{color:var(--on-brand)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:700}
+td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{background:var(--tint);font-weight:700;color:var(--brand-text)}
+.na{color:var(--muted)}
+.box{background:var(--tint);border-radius:8px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.box.cream{background:var(--cream)}
+.box .lbl{font-size:13px;font-weight:700;color:var(--brand-text)}
+ul.dots{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
+.card .k{font-size:12px;font-weight:700;color:var(--amber-ink)}
+.summary{border:2px solid var(--brand);border-radius:10px;overflow:hidden}
+.summary .hd{background:var(--brand);color:var(--on-brand);padding:12px 22px;font-weight:900}
+.summary .bd{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.summary .bd div{padding:16px 22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.summary .bd span{font-size:13px;font-weight:700;color:var(--amber-ink)}
+.summary .bd p{font-size:15px;line-height:1.8}
+.pay{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pay .fade{padding:20px 22px;color:var(--muted)}
+.pay .gate{background:var(--cream);border-top:2px dashed var(--amber);padding:22px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+.pay .gate b{color:var(--brand-text)}
+.btn{display:inline-block;padding:11px 24px;background:var(--brand);color:#FFFFFF;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px}
+.sources{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);padding-top:14px}
+.sources a{word-break:break-all}
+.sample{background:var(--cream);color:var(--cream-ink);border-radius:8px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.qa{display:flex;flex-direction:column;gap:14px}
+.qa .q{font-weight:900;color:var(--brand-text)}
+.qa .q::before{content:"―　"}
+.pull{border-left:4px solid var(--amber);padding:6px 0 6px 18px;font-size:20px;font-weight:900;line-height:1.7;color:var(--brand-text)}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.side h4{margin:0;font-size:15px;font-weight:900;color:var(--brand-text)}
+.side a.nl{font:inherit;text-align:left;background:none;border:0;padding:8px 10px;border-radius:6px;color:var(--ink);cursor:pointer;display:flex;gap:8px;font-size:14px;line-height:1.6}
+.side a.nl span{font-size:11px;font-weight:700;color:var(--amber-ink);flex:0 0 74px;padding-top:2px}
+.side a.nl[aria-current="true"]{background:var(--cream);font-weight:700}
+.side a.nl{flex-direction:column;gap:2px}.side a.nl small{font-size:12px;color:var(--muted,#5b6b77);font-weight:400}
+.side.dark{background:var(--brand);border-color:var(--brand);color:#EAF3FF}.side.dark h4{color:var(--on-brand)}
+.side.dark p{font-size:13px;line-height:1.8}
+svg text{font-family:var(--f-body)}
+.s-ink{fill:var(--ink)}.s-muted{fill:var(--muted)}.s-brand{fill:var(--brand)}.s-btext{fill:var(--brand-text)}.s-amber{fill:var(--amber)}
+.s-tint{fill:var(--tint)}.s-surface{fill:var(--surface)}.s-line{stroke:var(--line)}.s-bar2{fill:var(--bar2)}.s-ph{fill:var(--ph)}
+.s-onb{fill:var(--on-brand)}.s-car{fill:var(--car);stroke:var(--muted);stroke-width:2.5}.s-glass{fill:var(--glass)}.s-tire{fill:var(--tire)}
+.top{display:flex;flex-direction:column;gap:28px;width:100%;min-width:0}
+.hero{background:var(--brand);color:#FFFFFF;border-radius:12px;padding:clamp(22px,4vw,44px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.hero-txt{flex:3 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px}
+.hero-txt p{color:#EAF3FF;line-height:1.9}
+.hero-h{margin:0;border:0;padding:0;color:#FFFFFF;font-size:clamp(22px,3.2vw,32px);line-height:1.45}
+.tag.amberfill{background:var(--brand);border-color:var(--brand);color:#FFFFFF}.tag.onb{border-color:#EAF3FF;color:#EAF3FF}
+.hero-fig{flex:2 1 260px;display:grid;gap:10px}
+.hk{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:12px 16px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:0 12px}
+.hk span{font-size:12.5px;color:#EAF3FF;font-weight:700}.hk b{font-family:var(--f-num);font-size:26px;grid-row:span 2;color:#FFFFFF}.hk small{font-size:11.5px;color:#D6E8FF}
+.hk.jp{background:var(--cream);border-color:var(--cream)}.hk.jp span,.hk.jp small,.hk.jp b{color:#1F3A5F}
+button.btn{border:0;cursor:pointer;font:inherit;font-weight:700;font-size:14px}
+.btn.ghost{background:transparent;color:#FFFFFF;border:1px solid #EAF3FF}
+.btn.ghost2{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.sec-hd{display:flex;flex-direction:column;gap:2px}
+.sec-hd h3{font-size:20px;color:var(--brand-text)}
+.eyebrow{font-family:var(--f-num);font-size:11.5px;letter-spacing:.12em;font-weight:700;color:var(--amber-ink)}
+.cards6{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.acard{font:inherit;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:0 0 16px;display:flex;flex-direction:column;gap:6px;color:var(--ink);overflow:hidden}
+.acard:hover{border-color:var(--brand-text)}.acard:focus-visible,.newslist a.nl:focus-visible,.db:focus-visible,.iv:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.acard .thumb{display:block;aspect-ratio:2/1;max-width:100%}
+.acard .thumb svg{width:100%;height:100%;display:block}
+.t1,.t4{background:var(--brand)}.t2,.t5{background:#2E86F0}.t3,.t6{background:#5AA0F2}
+.acard .cat,.acard b,.acard small{padding-inline:16px}
+.acard .cat{font-size:12px;font-weight:700;color:var(--amber-ink);display:flex;gap:6px;align-items:center;padding-top:6px}
+.acard .cat i{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.acard b{font-size:15.5px;line-height:1.6}.acard small{font-size:12px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.newslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.newslist li>*{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);font:inherit;font-size:14px;line-height:1.6;text-align:left;width:100%;background:none;border-left:0;border-right:0;border-top:0;color:var(--ink)}
+.newslist a.nl{cursor:pointer;font-weight:700;color:var(--brand-text)}
+.newslist time{font-family:var(--f-num);font-size:12px;color:var(--muted)}
+.ntag{font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:3px;padding:0 6px;color:var(--muted)}
+.iv{font:inherit;text-align:left;cursor:pointer;background:var(--tint);border:0;border-radius:8px;padding:16px;display:flex;gap:16px;align-items:center;color:var(--ink)}
+.iv b{display:block;font-size:16px;line-height:1.7;color:var(--brand-text)}.iv small{font-size:12px;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.steps li>*,.steps li{display:flex;flex-direction:column;gap:2px}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
+.steps b{font-family:var(--f-num);font-size:18px;color:var(--brand-text)}.steps span{font-weight:700}.steps small{font-size:11.5px;color:var(--muted)}
+.steps li.on{background:var(--brand);border-color:var(--brand);padding:0}
+.steps li.on a.nl{font:inherit;text-align:left;background:none;border:0;padding:14px;cursor:pointer;color:#FFFFFF}
+.steps li.on b,.steps li.on small{color:var(--amber)}
+.db3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.db{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+a.db{cursor:pointer}.db b{font-size:16px}.db small{color:var(--muted);font-size:13px}.db span{font-size:13px;font-weight:700;color:var(--brand-text)}
+.event{background:var(--tint);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:24px 28px;display:flex;flex-direction:column;gap:6px}
+.event h3{color:var(--brand-text);font-size:21px}.event p{color:#4F6480;font-size:14px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.plan.pro{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.price{font-family:var(--f-num);font-size:24px}.price small{font-size:12px;font-family:var(--f-body)}
+footer.site{background:var(--surface);border-top:1px solid var(--line)}
+footer.site .wrap{padding-block:24px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:13px;color:var(--muted)}
+
+
+.hdr-cta{display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--cream);color:var(--ink);border-radius:8px;padding:6px 12px 6px 6px;font:inherit;font-weight:700;font-size:13px;border:0;cursor:pointer;line-height:1.3;text-align:left}
+.hdr-cta img{width:54px;height:auto;border-radius:3px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.hdr-cta small{display:block;font-size:10.5px;font-weight:500}
+.hdr-cta:focus-visible{outline:3px solid var(--brand-text);outline-offset:2px}
+.core{background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:clamp(18px,3vw,32px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.core-cover{flex:1 1 280px;max-width:420px;position:relative}
+.core-cover img{width:100%;display:block;border-radius:6px;border:1px solid var(--line);box-shadow:8px 8px 0 var(--tint),16px 16px 0 var(--ph)}
+.core-txt{flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.core-txt h3{font-size:clamp(20px,2.6vw,26px);color:var(--brand-text);line-height:1.4}
+.core-txt .meta{font-size:12.5px;color:var(--muted)}
+.core-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:6px 16px;margin:0;padding:0;list-style:none;font-size:14px}
+.core-list li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--amber);margin-right:8px;vertical-align:1px}
+.core-btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn.line{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.dl-msg{font-size:12.5px;color:var(--muted)}
+.previews{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.previews figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.previews img{width:100%;border-radius:4px;border:1px solid var(--line);display:block}
+.previews figcaption{font-size:12px;color:var(--muted)}
+.side.pdf{background:var(--cream);border-color:var(--amber)}
+.side.pdf img{width:100%;border-radius:4px;border:1px solid var(--line)}
+
+.phero{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1536/660;min-height:340px;background:#C7C7CC url(hero.jpg) center top/cover no-repeat;display:flex;align-items:flex-start;padding:clamp(16px,3vw,36px)}
+.phero .card{max-width:640px;background:rgba(255,255,255,.38);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:8px;border-top:6px solid var(--amber);padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 24px rgba(31,58,95,.16)}
+.phero h2{margin:0;border:0;padding:0;font-size:clamp(24px,3.4vw,40px);line-height:1.4;font-weight:900;color:var(--ink)}
+.phero .card p{color:var(--muted)}
+.phero .eb{font-size:13px;font-weight:700;color:var(--brand-text)}
+.kpi3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;background:var(--tint);border-radius:10px;padding:20px}
+.kpi3 div{background:#FFFFFF;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi3 span{font-size:12.5px;font-weight:700;color:var(--muted)}.kpi3 b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);line-height:1.3}.kpi3 b.jp{color:var(--ink)}.kpi3 small{font-size:12px;color:var(--muted)}
+.field{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:760px){.field{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.field{grid-template-columns:minmax(0,1fr)}}
+.field figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.field img{width:100%;height:170px;object-fit:cover;border-radius:6px;display:block}
+.field figcaption{font-size:14px;font-weight:700}
+.field figure.go{cursor:pointer}.field figure.go:hover img{opacity:.85}.field .more{font-size:12px;font-weight:600;color:var(--brand-text,#0b5cad);margin-left:6px}
+.acard .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.eye{margin:0;display:flex;flex-direction:column;gap:6px}
+.eye img{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:8px;display:block;background:var(--tint)}.eye img[src^="img/r"]{aspect-ratio:16/9;object-fit:contain}
+.eye figcaption{font-size:12px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.acard .own{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.vcard{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:10px;overflow:hidden;padding-bottom:16px}
+.vcard:hover{border-color:var(--brand-text)}.vcard:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.vcard .vth{position:relative;display:block;aspect-ratio:16/9;background:var(--tint) center/cover no-repeat}
+.vcard .vth::after{content:"";position:absolute;left:50%;top:50%;width:68px;height:48px;margin:-24px 0 0 -34px;border-radius:12px;background:rgba(31,58,95,.82)}
+.vcard .vth::before{content:"";position:absolute;left:50%;top:50%;margin:-11px 0 0 -6px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #FFFFFF;z-index:1}
+.vcard .vh{font-size:18px;font-weight:900;color:var(--brand-text);padding-inline:16px}
+.vcard .vt{font-size:14px;font-weight:700;padding-inline:16px;line-height:1.6}
+.vcard .vd{font-size:13px;color:var(--muted);padding-inline:16px;line-height:1.7}
+.vcard .vm{font-size:12px;color:var(--muted);padding-inline:16px}
+.core-samples{flex:1 1 100%;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:18px}
+.core-samples h4{margin:0;font-size:16px;font-weight:900;color:var(--brand-text)}
+.core-samples p{font-size:13px;color:var(--muted)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:no-preference){article{animation:rise .35s ease-out both}@keyframes rise{from{transform:translateY(6px)}to{transform:none}}}
+
+nav.cats{order:3;flex:1 1 100%;justify-content:flex-start}nav.cats a.nl{white-space:nowrap}header.site .hdr-cta{margin-left:auto}
+
+.spage{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px clamp(18px,4vw,44px);max-width:860px;margin:0 auto}
+.spage h1{font-size:26px;line-height:1.5;margin:0 0 14px;color:var(--ink)}
+.spage h2{font-size:19px;margin:34px 0 12px;padding-left:10px;border-left:4px solid var(--brand);color:var(--ink)}
+.spage p,.spage li,.spage td,.spage th{font-size:15px;line-height:1.9}
+.spage .lead{font-size:16px}
+.spage .note{font-size:13px;color:var(--muted)}
+.spage ul.small li{font-size:13px;color:var(--muted)}
+.spage ol.steps{padding-left:1.4em}.spage ol.steps li{margin:6px 0}
+.spage table.info{width:100%;border-collapse:collapse;margin:8px 0}
+.spage table.info th,.spage table.info td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.spage table.info th{width:28%;background:#F5F8FC;font-weight:700;white-space:nowrap}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.person{border:1px solid var(--line);border-radius:10px;padding:18px}
+.person .role{display:block;font-size:12px;font-weight:700;color:var(--brand-text)}
+.person .name{display:block;font-size:22px;margin:4px 0 8px}
+.person .duty{font-size:13px;color:var(--muted)}
+.formbox{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.formbox.prep{padding:24px;text-align:center;background:#F5F8FC}
+.joinwrap{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:24px;align-items:start;margin-top:10px}
+.joincover img{width:100%;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+@media (max-width:640px){.joinwrap{grid-template-columns:1fr}.joincover{max-width:200px}.spage table.info th{white-space:normal;width:34%}}
+footer.site .flinks{display:flex;flex-wrap:wrap;gap:6px 18px;width:100%}
+footer.site .flinks a{color:inherit;font-size:13px}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Pony.ai、配車アプリのinDrive・半導体のNVIDIAと覚書。カザフスタンの首都アスタナでロボタクシーの試験運用を検討へ","description":"中国の自動運転の会社Pony.ai（ポニー・エーアイ）は、配車アプリの会社inDrive（インドライブ）、米国の半導体の会社NVIDIA（エヌビディア）と、2026年10月23日に覚書（MOU）を結んだと発表しました。3社は、カザフスタンで","datePublished":"2026-10-23T09:00:00+09:00","dateModified":"2026-10-23T09:00:00+09:00","image":["https://robotaxi-lab.com/img/r004_1.png"],"author":{"@type":"Organization","name":"ロボタクシー実践ラボ編集部","url":"https://robotaxi-lab.com/"},"publisher":{"@type":"Organization","name":"アイベリー株式会社","url":"https://aiberry.co.jp/"},"mainEntityOfPage":"https://robotaxi-lab.com/articles/a04/","inLanguage":"ja"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://robotaxi-lab.com/"},{"@type":"ListItem","position":2,"name":"業界ニュース","item":"https://robotaxi-lab.com/articles/news/"},{"@type":"ListItem","position":3,"name":"Pony.ai、配車アプリのinDrive・半導体のNVIDIAと覚書。カザフスタンの首都アスタナでロボタクシーの試験運用を検討へ","item":"https://robotaxi-lab.com/articles/a04/"}]}</script>
+</head><body>
+<div class="notice">公開準備中のサイトです。実証実験レポートとキーマン・インタビューは仮の原稿です。</div>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="ロボタクシー実践ラボ トップへ">
+      <svg width="34" height="34" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="#1F3A5F"/><path d="M12 30 L16 6 M24 30 L20 6" stroke="#FFFFFF" stroke-width="2.2" fill="none"/><path d="M14 18 L18 22 L26 12" stroke="#007AFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>ロボタクシー実践ラボ</b><small>ロボタクシーを始める人のための、実践メディア</small></span>
+    </a>
+    <nav class="cats" aria-label="カテゴリー">
+      <a class="nl" href="/articles/genzaichi/">業界の現在地</a>
+      <a class="nl" href="/articles/news/">業界ニュース</a>
+      <a class="nl" href="/articles/zukan/">ロボタクシー図鑑</a>
+      <a class="nl" href="/articles/navi/">許認可ナビ</a>
+      <a class="nl" href="/articles/jissho/">実証実験レポート</a>
+      <a class="nl" href="/articles/interview/">キーマン・インタビュー</a>
+      <a class="nl" href="/zakkuri/">ざっくりニュース</a>
+      <a class="nl" href="/hojokin/">あなたが使える補助金</a>
+    </nav>
+    <a class="hdr-cta" href="/join/" aria-label="無料会員登録で「ロボタクシーの現在地」PDFを受け取る"><img src="p-01.jpg" alt=""><span>ロボタクシーの現在地<small>2026年10月版 無料PDF</small></span></a>
+  </div>
+</header>
+<div class="wrap layout">
+<main style="flex:999 1 620px;min-width:0;display:flex">
+<article id="a04" data-cat="業界ニュース">
+  <div class="crumb"><a href="/">トップ</a>　›　業界ニュース　›　その他（アライアンス）</div>
+  <div class="tags"><span class="tag solid">その他（アライアンス）</span><span class="tag">中央アジア（カザフスタン）</span><span class="tag">業界ニュース</span></div>
+  <h1>Pony.ai、配車アプリのinDrive・半導体のNVIDIAと覚書。カザフスタンの首都アスタナでロボタクシーの試験運用を検討へ</h1>
+  <figure class="eye"><img src="img/r004_1.png" alt="Pony.ai、配車アプリのinDrive・半導体のNVIDIAと覚書。カザフスタンの首都アスタナでロボタクシーの試験運用を検討へのタイトル画像"></figure>
+  <div class="byline"><i></i>ロボタクシー実践ラボ編集部（編集責任：池田 将）　／　2026.10.23</div>
+  <p class="lead">中国の自動運転の会社Pony.ai（ポニー・エーアイ）は、配車アプリの会社inDrive（インドライブ）、米国の半導体の会社NVIDIA（エヌビディア）と、2026年10月23日に覚書（MOU）を結んだと発表しました。3社は、カザフスタンでロボタクシーの乗車サービスができるかどうかを検討します。最初の候補地は首都アスタナで、試験運用を始めるにはカザフスタン政府との合意が前提です。今回決まったのは「検討を始めること」で、試験運用の開始時期や台数は公表されていません。Pony.aiにとって、中央アジアへの進出は初めてだと報じられています。</p>
+  <h2>何が起きたのか</h2>
+  <ul class="dots"><li><b>覚書を結んだ3社</b>：Pony.ai、inDrive、NVIDIA。発表は2026年10月23日（inDriveがBusiness Wireで配信）</li><li>役割の分け方</li><ul class="dots"><li><b>Pony.ai</b>：第7世代のロボタクシー車両と、レベル4の自動運転技術を出す</li><li><b>inDrive</b>：配車アプリを出し、乗車サービスを運営する。利用者はinDriveのアプリでロボタクシーを呼ぶ形を想定している</li><li><b>NVIDIA</b>：自動運転車のコンピューターとセンサーの基盤（NVIDIA Hyperion）や安全の仕組み（Halos）などを出す</li></ul><li><b>何を検討するのか</b>：技術・運用・規制・商売の4つの面から、レベル4のロボタクシーの乗車サービスが成り立つかどうかを確かめる</li><li><b>最初の都市</b>：首都アスタナ。カザフスタン政府との合意ができたあとに、試験運用を始める。うまくいけば、カザフスタンの他の都市や、inDriveが事業をしている他の国に広げることも検討する</li></ul>
+  <figure class="eye"><img src="img/r004_2.png" alt="図1"></figure>
+  <ul class="dots"><li><b>カザフスタンが選ばれた理由</b>：inDriveの発表によると、カザフスタンは人が乗らない輸送について、国として初めての体系的な法律の枠組みを作っており、規制の準備ができていることが理由。この枠組みは、カザフスタンの「デジタル化と人工知能の年」の取り組みの一つとして作られた。CnEVPostは、2026年6月にトカエフ大統領がデジタル化とAIを進める大統領令に署名したと報じている。法律の具体的な中身は、今回の記事には書かれていない</li><li><b>寒い土地での検証</b>：アスタナは世界で2番目に寒い首都とされ、冬が長く、雪や氷の多い期間も長い。3社は、この環境で自動運転の技術を確かめることも狙いとしている。寒さの中で実際にどこまで走れるかの結果は、まだ出ていない</li><li>3社の代表のコメント</li><ul class="dots"><li><b>inDriveの創業者でCEOのアルセン・トムスキー氏</b>：自動運転は移動をより手頃で使いやすくする可能性があり、慎重に、責任を持って検討する。カザフスタンの規制の進め方は、他の国の手本にもなりうる</li><li><b>Pony.aiの創業者でCEOのジェームズ・ペン氏</b>：中国での完全無人のロボタクシーの運行や海外展開の経験を生かし、現地に合わせる方法を検討する</li><li><b>NVIDIAの自動車部門のリシ・ダール副社長</b>：HyperionとHalosで、大きな規模のロボタクシーサービスへの道筋を探れる</li></ul></ul>
+  <h2>Pony.aiの海外の動き</h2>
+  <ul class="dots"><li>Pony.aiは中国のほか、欧州・中東・東南アジアでもロボタクシーの事業を進めている（CnEVPostの報道による）</li><li>2026年8月には、配車アプリのUberとの提携を広げ、欧州の5都市で2,000台超のロボタクシーを走らせる計画を発表したと報じられている</li><li>今回のinDriveとの組み方も、Uberとの組み方も、「Pony.aiが車両と自動運転技術を出し、配車アプリの会社が利用者の窓口と運営を受け持つ」という形になっている</li></ul>
+  <h2>実践ラボの視点：地方のタクシー会社・自治体にとっての意味</h2>
+  <div class="grid2"><div class="card"><span class="k">1</span><h3>「技術の会社」と「地元で配車を運営する会社」が組む形</h3><p>Pony.aiは自分で配車アプリを運営するのではなく、その国で利用者の窓口を持つ配車の会社と組んで、新しい国に入ろうとしています。日本でも、地域で配車の窓口や運営の経験を持つ事業者が、自動運転の会社と組む相手として選ばれる可能性があります。ただし、日本での同じような計画は、今回の記事には出てきません。</p></div><div class="card"><span class="k">2</span><h3>国の制度の準備が、進出先を選ぶ理由になった</h3><p>3社は、カザフスタンが人の乗らない輸送のための法律の枠組みを先に作ったことを、選んだ理由に挙げています。自動運転の会社がどの地域で事業を始めるかを決めるとき、国や地域の受け入れ準備が判断の材料になる可能性があります。自治体にとっては、制度や受け入れの準備をどう進めるかが、誘致にかかわる可能性があります。</p></div><div class="card"><span class="k">3</span><h3>雪国の参考になる可能性がある</h3><p>アスタナの厳しい冬での検証の結果が公表されれば、日本の雪の多い地域でロボタクシーを考えるときの参考になる可能性があります。今の時点では、試験運用はまだ始まっておらず、結果も出ていません。</p></div></div>
+  <h2>この記事で使う言葉</h2>
+  <ul class="dots"><li><b>ロボタクシー</b>：人が運転せず、自動運転で走るタクシー</li><li><b>覚書（MOU）</b>：会社同士が「この方向で一緒に検討する」ことを確認する文書。正式な契約とは違い、事業を始めることが決まったわけではない</li><li><b>レベル4（L4）</b>：決められた地域や条件の中で、人が運転にかかわらずに車が自分で走る自動運転の段階</li><li><b>Pony.ai</b>：2016年に設立された自動運転の会社。中国の複数の都市で、車内に人が乗らない完全無人のロボタクシーを商用で運行している。米国のナスダック市場に上場している</li><li><b>第7世代（Gen-7）のロボタクシー</b>：Pony.aiの7代目の自動運転システムを載せたロボタクシー車両</li><li><b>inDrive</b>：配車・配送などのアプリを運営する会社。ロシアのヤクーツクで創業し、本社は米国カリフォルニア州マウンテンビューにある。乗客が希望の運賃を提示し、運転手が応じたり別の金額を出したりする方式が特徴。47か国・1,200以上の都市で事業をしている</li><li><b>NVIDIA</b>：米国の半導体の会社。今回は、自動運転車に載せるコンピューターとセンサーの基盤「NVIDIA Hyperion（ハイペリオン）」と、安全のための仕組み「Halos（ヘイロス）」などを出す</li></ul>
+  <h2>数字</h2>
+  <ul class="dots"><li><b>アスタナの人口</b>：約170万人（inDriveの発表による。何年時点の数字かは書かれていない）</li><li><b>inDriveの事業の広さ</b>：47か国・1,200以上の都市。アプリのダウンロード数は4億回超（inDriveの発表による）</li><li><b>Pony.aiのロボタクシーの台数</b>：2026年6月30日時点で1,975台。2026年末までに3,500台超にする目標（CnEVPostの報道による。国別の内訳は記事に書かれていない）</li><li><b>アスタナで走らせる台数・始める時期・運賃</b>：公表されていない</li></ul>
+  <section class="summary"><div class="hd">実践ラボのまとめ</div><div class="bd"><div><span>今わかったこと</span><p>Pony.ai・inDrive・NVIDIAの3社が覚書を結び、カザフスタンの首都アスタナでロボタクシーの試験運用を検討する。始めるにはカザフスタン政府との合意が前提で、開始時期や台数は公表されていない</p></div><div><span>地方のタクシー会社・自治体が見るべき点</span><p>自動運転の会社が、地元で配車を運営する会社と組んで進出する形。国の制度の準備が進出先を選ぶ理由になった点</p></div><div><span>次に確かめること</span><p>カザフスタン政府との合意、試験運用の開始時期と台数、寒い冬での検証の結果</p></div></div></section>
+  <div class="sources"><b>出典</b><a href="https://cnevpost.com/2026/10/23/pony-ai-enters-central-asia-robotaxi-pilot-kazakhstan/" target="_blank" rel="noopener">CnEVPost「Pony AI enters Central Asia with inDrive robotaxi pilot in Kazakhstan」（2026年10月23日）：https://cnevpost.com/2026/10/23/pony-ai-enters-central-asia-robotaxi-pilot-kazakhstan/</a><a href="https://via.tt.se/pressmeddelande/4613869/indrive-and-ponyai-announce-collaboration-to-explore-autonomous-mobility-in-kazakhstan-built-on-nvidia-hyperion?publisherId=259167" target="_blank" rel="noopener">Business Wire（inDriveの発表）「inDrive and Pony.ai Announce Collaboration to Explore Autonomous Mobility in Kazakhstan Built on NVIDIA Hyperion」（2026年10月23日）：https://via.tt.se/pressmeddelande/4613869/indrive-and-ponyai-announce-collaboration-to-explore-autonomous-mobility-in-kazakhstan-built-on-nvidia-hyperion?publisherId=259167</a><a href="https://en.wikipedia.org/wiki/InDrive" target="_blank" rel="noopener">Wikipedia「InDrive」（2026年11月2日に閲覧）：https://en.wikipedia.org/wiki/InDrive</a></div>
+</article>
+</main>
+<aside id="rail">
+  <div class="side">
+    <h4>新着記事</h4>
+    <a class="nl" href="/articles/a22/">佐賀市交通局、自動運転バスの実証で初めて運賃を取る（大人最大180円）。佐賀駅〜SAGAサンライズパーク約1.8kmを毎日6往復、12月22日まで<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a24/">香川県坂出市で自動運転バスの実証が11月28日から30日間。琴参バスが運行し、坂出自動車学校が遠隔監視を担う。2028年のレベル4をめざす<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a31/">Waymo、高速道路の閉鎖車線と警察官の手信号への対応で2件の自主リコール。手信号は修正済み、閉鎖車線は修正中<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a18/">国交省、運転席を前提としない自動運転車を「自動運行用自動車」として区分する省令改正案の意見募集を開始。12月27日施行予定<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a23/">帯広市と米子市、今年度の自動運転バス実証を見送り。帯広は国の補助の条件と積雪が理由、米子は車両を見直す。国の補助は「2027年度までに全区間でレベル4」が条件に<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a19/">維新がロボタクシーの参入・運賃・台数の規制見直しを提言（政府の方針ではない）。規制改革相は自動運転の議論を本格化へと報道<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a32/">テスラ、6〜7人の団体向けにハンドルなしModel Yを計画。2人乗りのCybercabと使い分け<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a25/">Waymo、全米で高速道路の配車を停止。カリフォルニア州が工事区間への進入とパトカーへの対応を理由に無人走行を禁止<small>2026.11.17</small></a>
+    <a class="nl" href="/articles/a27/">Pony.aiとトヨタ、中国・広州でbZ4Xの完全無人ロボタクシーの営業を開始。トヨタとWaymoが2027年に日本で走らせる予定の車と同じ車種<small>2026.11.16</small></a>
+    <a class="nl" href="/articles/a28/">May Mobility、VWのID. Buzzで2031年までに自動運転車1万台超を目指す。車は持たず運行会社と組む。名古屋ではNTTと名鉄タクシー系が実証中<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a30/">米首都ワシントンDCのロボタクシー法案、議会の委員会で3対3となり通らず。運転手の団結権や台数の上限を入れた修正案でも合意できず<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a21/">城崎温泉の自動運転バス、一般客を乗せた初日に石垣へ接触し運休。オペレーターの手動操作はなかったと報道、原因は未公表<small>2026.11.09</small></a>
+    <a class="nl" href="/articles/a20/">KDDIがnewmoに出資し、newmoは208億円を調達。堺市で2028年に自動運転タクシーの商用化を目指し、運行の仕組みを全国の事業者へ出すことも検討<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a26/">Amazon傘下のZoox、2027年初めに米国外で初の試験へ。候補に日本、都市は未定。まずは運転者が乗ってデータ集め<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a17/">国交省、ハンドルやペダルのない自動運転車を12月から一つの基準で認める予定。事故1件でもリコール処分、タクシー会社などの使用者に事故報告を求める案も<small>2026.11.04</small></a>
+  </div>
+  <div class="side">
+    <h4>カテゴリー別の記事</h4>
+    <a class="nl" href="/articles/genzaichi/">数字で見るロボタクシーの現在地<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/news/">第一交通産業とNTTモビリティが連携協定<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/zukan/">Waymo（ウェイモ）<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/navi/">警察の「特定自動運行の許可」とは<small>2026.10.24</small></a>
+  </div>
+  <div class="side pdf">
+    <h4>ロボタクシーの現在地 2026年10月版</h4>
+    <img src="p-01.jpg" alt="ロボタクシーの現在地の表紙">
+    <p style="font-size:13px;line-height:1.7">基本を知りたい方は、まずこのPDFを。図解中心の32ページ。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録でPDFを受け取る</a>
+  </div>
+  <div class="side dark">
+    <h4>許認可チェックリストを無料で配布中</h4>
+    <p>警察・運輸局・自治体との協議で準備すべき資料を、1枚にまとめました。無料会員登録でダウンロードできます。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録</a>
+  </div>
+</aside>
+</div>
+<footer class="site"><div class="wrap"><span><b style="color:var(--brand-text)">ロボタクシー実践ラボ</b>　業界全体のための実践の共有　／　特定のメーカー・システムに偏らない編集方針</span><span>運営：アイベリー株式会社（代表 村田 大）／編集長 池田 将</span><nav class="flinks" aria-label="サイト情報"><a href="/about/">運営者情報</a><a href="/editorial-policy/">編集方針</a><a href="/privacy/">プライバシーポリシー</a><a href="/contact/">お問い合わせ</a><a href="/join/">無料会員登録</a></nav></div></footer>
+</body></html>

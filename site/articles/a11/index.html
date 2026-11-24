@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="/">
+<title>ロボタクシーはどのアプリで呼ぶのか：Uber・Lyft・inDrive・GOと「技術の会社」の組み方を比べる｜ロボタクシー実践ラボ</title>
+<meta name="description" content="ロボタクシーの会社は、自分で配車アプリを作るだけでなく、すでに多くの利用者を持つ配車アプリと組んで、新しい国や都市に広がり始めています。この記事は、ニュースの速報ではなく、実践ラボが複数の報道と発表を組み合わせてまとめた解説記事です。202">
+<link rel="canonical" href="https://robotaxi-lab.com/articles/a11/">
+<meta property="og:site_name" content="ロボタクシー実践ラボ"><meta property="og:type" content="article"><meta property="og:title" content="ロボタクシーはどのアプリで呼ぶのか：Uber・Lyft・inDrive・GOと「技術の会社」の組み方を比べる｜ロボタクシー実践ラボ"><meta property="og:description" content="ロボタクシーの会社は、自分で配車アプリを作るだけでなく、すでに多くの利用者を持つ配車アプリと組んで、新しい国や都市に広がり始めています。この記事は、ニュースの速報ではなく、実践ラボが複数の報道と発表を組み合わせてまとめた解説記事です。202"><meta property="og:url" content="https://robotaxi-lab.com/articles/a11/"><meta property="og:image" content="https://robotaxi-lab.com/img/r011_1.png"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Roboto+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}a.nl{text-decoration:none}.acard,.iv,.hdr-cta,a.db{text-decoration:none}
+
+/* Layout: site header + category tabs, one article at a time in a reading column with a side rail; navy/amber identity from the lab's site mock */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --ink:#1F3A5F; --muted:#4F6480; --line:#E5E5EA;
+  --brand:#0066D6; --brand-text:#0062CC; --on-brand:#FFFFFF; --amber:#007AFF; --amber-ink:#0062CC;
+  --tint:#F2F6FB; --cream:#EAF3FF; --cream-ink:#004A99; --ph:#E5E5EA; --ph-ink:#4F6480;
+  --bar2:#9CCBFF; --car:#FFFFFF; --glass:#D6E8FF; --tire:#1F3A5F; --good:#0062CC;
+  --f-body:system-ui,-apple-system,'Hiragino Sans','Noto Sans JP','Yu Gothic',Meiryo,sans-serif;
+  --f-num:'Roboto Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.9}
+a{color:var(--brand-text)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.notice{background:var(--cream);color:var(--cream-ink);font-size:12px;text-align:center;padding-block:6px}
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font-size:19px;font-weight:900;color:var(--brand-text)}
+.logo small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+nav.cats{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 420px;justify-content:flex-end}
+nav.cats a.nl{font:inherit;font-size:14px;font-weight:700;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+nav.cats a.nl[aria-current="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+nav.cats a.nl:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.layout{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;padding-block:24px 64px}
+article{flex:999 1 620px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:22px}
+aside{flex:1 1 280px;max-width:100%;display:flex;flex-direction:column;gap:20px}
+@media(min-width:960px){aside{max-width:320px;position:sticky;top:16px}}
+.crumb{font-size:13px;color:var(--muted)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid var(--brand-text);color:var(--brand-text)}
+.tag.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.tag.warn{border-color:var(--amber-ink);color:var(--amber-ink)}
+h1{margin:0;font-size:clamp(24px,3.4vw,32px);line-height:1.45;font-weight:900;color:var(--brand-text);text-wrap:balance}
+.byline{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.byline i{width:34px;height:34px;border-radius:50%;background:var(--ph);flex:0 0 auto}
+.lead{font-size:17px;line-height:2;font-weight:500;margin:0}
+h2{margin:10px 0 0;font-size:22px;font-weight:900;color:var(--brand-text);padding-bottom:8px;border-bottom:3px solid var(--amber);text-wrap:balance;line-height:1.5}
+h3{margin:0;font-size:17px;font-weight:900;color:var(--ink)}
+p{margin:0}
+.fig{margin:0;display:flex;flex-direction:column;gap:8px}
+.fig figcaption{font-size:12.5px;color:var(--muted)}
+.scroll{overflow-x:auto}
+.photo{background:var(--ph);color:var(--ph-ink);border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;padding:16px;aspect-ratio:16/7;max-width:100%;border:1px dashed var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--tint);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:12.5px;font-weight:700;color:var(--muted)}
+.kpi b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);font-variant-numeric:tabular-nums;line-height:1.3}
+.kpi small{font-size:12px;color:var(--muted)}
+.kpi.hl{background:var(--brand)}.kpi.hl span,.kpi.hl small{color:#EAF3FF}.kpi.hl b{color:var(--on-brand)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:700}
+td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{background:var(--tint);font-weight:700;color:var(--brand-text)}
+.na{color:var(--muted)}
+.box{background:var(--tint);border-radius:8px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.box.cream{background:var(--cream)}
+.box .lbl{font-size:13px;font-weight:700;color:var(--brand-text)}
+ul.dots{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
+.card .k{font-size:12px;font-weight:700;color:var(--amber-ink)}
+.summary{border:2px solid var(--brand);border-radius:10px;overflow:hidden}
+.summary .hd{background:var(--brand);color:var(--on-brand);padding:12px 22px;font-weight:900}
+.summary .bd{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.summary .bd div{padding:16px 22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.summary .bd span{font-size:13px;font-weight:700;color:var(--amber-ink)}
+.summary .bd p{font-size:15px;line-height:1.8}
+.pay{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pay .fade{padding:20px 22px;color:var(--muted)}
+.pay .gate{background:var(--cream);border-top:2px dashed var(--amber);padding:22px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+.pay .gate b{color:var(--brand-text)}
+.btn{display:inline-block;padding:11px 24px;background:var(--brand);color:#FFFFFF;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px}
+.sources{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);padding-top:14px}
+.sources a{word-break:break-all}
+.sample{background:var(--cream);color:var(--cream-ink);border-radius:8px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.qa{display:flex;flex-direction:column;gap:14px}
+.qa .q{font-weight:900;color:var(--brand-text)}
+.qa .q::before{content:"―　"}
+.pull{border-left:4px solid var(--amber);padding:6px 0 6px 18px;font-size:20px;font-weight:900;line-height:1.7;color:var(--brand-text)}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.side h4{margin:0;font-size:15px;font-weight:900;color:var(--brand-text)}
+.side a.nl{font:inherit;text-align:left;background:none;border:0;padding:8px 10px;border-radius:6px;color:var(--ink);cursor:pointer;display:flex;gap:8px;font-size:14px;line-height:1.6}
+.side a.nl span{font-size:11px;font-weight:700;color:var(--amber-ink);flex:0 0 74px;padding-top:2px}
+.side a.nl[aria-current="true"]{background:var(--cream);font-weight:700}
+.side a.nl{flex-direction:column;gap:2px}.side a.nl small{font-size:12px;color:var(--muted,#5b6b77);font-weight:400}
+.side.dark{background:var(--brand);border-color:var(--brand);color:#EAF3FF}.side.dark h4{color:var(--on-brand)}
+.side.dark p{font-size:13px;line-height:1.8}
+svg text{font-family:var(--f-body)}
+.s-ink{fill:var(--ink)}.s-muted{fill:var(--muted)}.s-brand{fill:var(--brand)}.s-btext{fill:var(--brand-text)}.s-amber{fill:var(--amber)}
+.s-tint{fill:var(--tint)}.s-surface{fill:var(--surface)}.s-line{stroke:var(--line)}.s-bar2{fill:var(--bar2)}.s-ph{fill:var(--ph)}
+.s-onb{fill:var(--on-brand)}.s-car{fill:var(--car);stroke:var(--muted);stroke-width:2.5}.s-glass{fill:var(--glass)}.s-tire{fill:var(--tire)}
+.top{display:flex;flex-direction:column;gap:28px;width:100%;min-width:0}
+.hero{background:var(--brand);color:#FFFFFF;border-radius:12px;padding:clamp(22px,4vw,44px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.hero-txt{flex:3 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px}
+.hero-txt p{color:#EAF3FF;line-height:1.9}
+.hero-h{margin:0;border:0;padding:0;color:#FFFFFF;font-size:clamp(22px,3.2vw,32px);line-height:1.45}
+.tag.amberfill{background:var(--brand);border-color:var(--brand);color:#FFFFFF}.tag.onb{border-color:#EAF3FF;color:#EAF3FF}
+.hero-fig{flex:2 1 260px;display:grid;gap:10px}
+.hk{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:12px 16px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:0 12px}
+.hk span{font-size:12.5px;color:#EAF3FF;font-weight:700}.hk b{font-family:var(--f-num);font-size:26px;grid-row:span 2;color:#FFFFFF}.hk small{font-size:11.5px;color:#D6E8FF}
+.hk.jp{background:var(--cream);border-color:var(--cream)}.hk.jp span,.hk.jp small,.hk.jp b{color:#1F3A5F}
+button.btn{border:0;cursor:pointer;font:inherit;font-weight:700;font-size:14px}
+.btn.ghost{background:transparent;color:#FFFFFF;border:1px solid #EAF3FF}
+.btn.ghost2{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.sec-hd{display:flex;flex-direction:column;gap:2px}
+.sec-hd h3{font-size:20px;color:var(--brand-text)}
+.eyebrow{font-family:var(--f-num);font-size:11.5px;letter-spacing:.12em;font-weight:700;color:var(--amber-ink)}
+.cards6{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.acard{font:inherit;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:0 0 16px;display:flex;flex-direction:column;gap:6px;color:var(--ink);overflow:hidden}
+.acard:hover{border-color:var(--brand-text)}.acard:focus-visible,.newslist a.nl:focus-visible,.db:focus-visible,.iv:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.acard .thumb{display:block;aspect-ratio:2/1;max-width:100%}
+.acard .thumb svg{width:100%;height:100%;display:block}
+.t1,.t4{background:var(--brand)}.t2,.t5{background:#2E86F0}.t3,.t6{background:#5AA0F2}
+.acard .cat,.acard b,.acard small{padding-inline:16px}
+.acard .cat{font-size:12px;font-weight:700;color:var(--amber-ink);display:flex;gap:6px;align-items:center;padding-top:6px}
+.acard .cat i{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.acard b{font-size:15.5px;line-height:1.6}.acard small{font-size:12px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.newslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.newslist li>*{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);font:inherit;font-size:14px;line-height:1.6;text-align:left;width:100%;background:none;border-left:0;border-right:0;border-top:0;color:var(--ink)}
+.newslist a.nl{cursor:pointer;font-weight:700;color:var(--brand-text)}
+.newslist time{font-family:var(--f-num);font-size:12px;color:var(--muted)}
+.ntag{font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:3px;padding:0 6px;color:var(--muted)}
+.iv{font:inherit;text-align:left;cursor:pointer;background:var(--tint);border:0;border-radius:8px;padding:16px;display:flex;gap:16px;align-items:center;color:var(--ink)}
+.iv b{display:block;font-size:16px;line-height:1.7;color:var(--brand-text)}.iv small{font-size:12px;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.steps li>*,.steps li{display:flex;flex-direction:column;gap:2px}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
+.steps b{font-family:var(--f-num);font-size:18px;color:var(--brand-text)}.steps span{font-weight:700}.steps small{font-size:11.5px;color:var(--muted)}
+.steps li.on{background:var(--brand);border-color:var(--brand);padding:0}
+.steps li.on a.nl{font:inherit;text-align:left;background:none;border:0;padding:14px;cursor:pointer;color:#FFFFFF}
+.steps li.on b,.steps li.on small{color:var(--amber)}
+.db3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.db{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+a.db{cursor:pointer}.db b{font-size:16px}.db small{color:var(--muted);font-size:13px}.db span{font-size:13px;font-weight:700;color:var(--brand-text)}
+.event{background:var(--tint);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:24px 28px;display:flex;flex-direction:column;gap:6px}
+.event h3{color:var(--brand-text);font-size:21px}.event p{color:#4F6480;font-size:14px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.plan.pro{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.price{font-family:var(--f-num);font-size:24px}.price small{font-size:12px;font-family:var(--f-body)}
+footer.site{background:var(--surface);border-top:1px solid var(--line)}
+footer.site .wrap{padding-block:24px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:13px;color:var(--muted)}
+
+
+.hdr-cta{display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--cream);color:var(--ink);border-radius:8px;padding:6px 12px 6px 6px;font:inherit;font-weight:700;font-size:13px;border:0;cursor:pointer;line-height:1.3;text-align:left}
+.hdr-cta img{width:54px;height:auto;border-radius:3px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.hdr-cta small{display:block;font-size:10.5px;font-weight:500}
+.hdr-cta:focus-visible{outline:3px solid var(--brand-text);outline-offset:2px}
+.core{background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:clamp(18px,3vw,32px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.core-cover{flex:1 1 280px;max-width:420px;position:relative}
+.core-cover img{width:100%;display:block;border-radius:6px;border:1px solid var(--line);box-shadow:8px 8px 0 var(--tint),16px 16px 0 var(--ph)}
+.core-txt{flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.core-txt h3{font-size:clamp(20px,2.6vw,26px);color:var(--brand-text);line-height:1.4}
+.core-txt .meta{font-size:12.5px;color:var(--muted)}
+.core-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:6px 16px;margin:0;padding:0;list-style:none;font-size:14px}
+.core-list li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--amber);margin-right:8px;vertical-align:1px}
+.core-btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn.line{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.dl-msg{font-size:12.5px;color:var(--muted)}
+.previews{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.previews figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.previews img{width:100%;border-radius:4px;border:1px solid var(--line);display:block}
+.previews figcaption{font-size:12px;color:var(--muted)}
+.side.pdf{background:var(--cream);border-color:var(--amber)}
+.side.pdf img{width:100%;border-radius:4px;border:1px solid var(--line)}
+
+.phero{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1536/660;min-height:340px;background:#C7C7CC url(hero.jpg) center top/cover no-repeat;display:flex;align-items:flex-start;padding:clamp(16px,3vw,36px)}
+.phero .card{max-width:640px;background:rgba(255,255,255,.38);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:8px;border-top:6px solid var(--amber);padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 24px rgba(31,58,95,.16)}
+.phero h2{margin:0;border:0;padding:0;font-size:clamp(24px,3.4vw,40px);line-height:1.4;font-weight:900;color:var(--ink)}
+.phero .card p{color:var(--muted)}
+.phero .eb{font-size:13px;font-weight:700;color:var(--brand-text)}
+.kpi3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;background:var(--tint);border-radius:10px;padding:20px}
+.kpi3 div{background:#FFFFFF;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi3 span{font-size:12.5px;font-weight:700;color:var(--muted)}.kpi3 b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);line-height:1.3}.kpi3 b.jp{color:var(--ink)}.kpi3 small{font-size:12px;color:var(--muted)}
+.field{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:760px){.field{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.field{grid-template-columns:minmax(0,1fr)}}
+.field figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.field img{width:100%;height:170px;object-fit:cover;border-radius:6px;display:block}
+.field figcaption{font-size:14px;font-weight:700}
+.field figure.go{cursor:pointer}.field figure.go:hover img{opacity:.85}.field .more{font-size:12px;font-weight:600;color:var(--brand-text,#0b5cad);margin-left:6px}
+.acard .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.eye{margin:0;display:flex;flex-direction:column;gap:6px}
+.eye img{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:8px;display:block;background:var(--tint)}.eye img[src^="img/r"]{aspect-ratio:16/9;object-fit:contain}
+.eye figcaption{font-size:12px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.acard .own{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.vcard{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:10px;overflow:hidden;padding-bottom:16px}
+.vcard:hover{border-color:var(--brand-text)}.vcard:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.vcard .vth{position:relative;display:block;aspect-ratio:16/9;background:var(--tint) center/cover no-repeat}
+.vcard .vth::after{content:"";position:absolute;left:50%;top:50%;width:68px;height:48px;margin:-24px 0 0 -34px;border-radius:12px;background:rgba(31,58,95,.82)}
+.vcard .vth::before{content:"";position:absolute;left:50%;top:50%;margin:-11px 0 0 -6px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #FFFFFF;z-index:1}
+.vcard .vh{font-size:18px;font-weight:900;color:var(--brand-text);padding-inline:16px}
+.vcard .vt{font-size:14px;font-weight:700;padding-inline:16px;line-height:1.6}
+.vcard .vd{font-size:13px;color:var(--muted);padding-inline:16px;line-height:1.7}
+.vcard .vm{font-size:12px;color:var(--muted);padding-inline:16px}
+.core-samples{flex:1 1 100%;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:18px}
+.core-samples h4{margin:0;font-size:16px;font-weight:900;color:var(--brand-text)}
+.core-samples p{font-size:13px;color:var(--muted)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:no-preference){article{animation:rise .35s ease-out both}@keyframes rise{from{transform:translateY(6px)}to{transform:none}}}
+
+nav.cats{order:3;flex:1 1 100%;justify-content:flex-start}nav.cats a.nl{white-space:nowrap}header.site .hdr-cta{margin-left:auto}
+
+.spage{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px clamp(18px,4vw,44px);max-width:860px;margin:0 auto}
+.spage h1{font-size:26px;line-height:1.5;margin:0 0 14px;color:var(--ink)}
+.spage h2{font-size:19px;margin:34px 0 12px;padding-left:10px;border-left:4px solid var(--brand);color:var(--ink)}
+.spage p,.spage li,.spage td,.spage th{font-size:15px;line-height:1.9}
+.spage .lead{font-size:16px}
+.spage .note{font-size:13px;color:var(--muted)}
+.spage ul.small li{font-size:13px;color:var(--muted)}
+.spage ol.steps{padding-left:1.4em}.spage ol.steps li{margin:6px 0}
+.spage table.info{width:100%;border-collapse:collapse;margin:8px 0}
+.spage table.info th,.spage table.info td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.spage table.info th{width:28%;background:#F5F8FC;font-weight:700;white-space:nowrap}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.person{border:1px solid var(--line);border-radius:10px;padding:18px}
+.person .role{display:block;font-size:12px;font-weight:700;color:var(--brand-text)}
+.person .name{display:block;font-size:22px;margin:4px 0 8px}
+.person .duty{font-size:13px;color:var(--muted)}
+.formbox{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.formbox.prep{padding:24px;text-align:center;background:#F5F8FC}
+.joinwrap{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:24px;align-items:start;margin-top:10px}
+.joincover img{width:100%;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+@media (max-width:640px){.joinwrap{grid-template-columns:1fr}.joincover{max-width:200px}.spage table.info th{white-space:normal;width:34%}}
+footer.site .flinks{display:flex;flex-wrap:wrap;gap:6px 18px;width:100%}
+footer.site .flinks a{color:inherit;font-size:13px}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ロボタクシーはどのアプリで呼ぶのか：Uber・Lyft・inDrive・GOと「技術の会社」の組み方を比べる","description":"ロボタクシーの会社は、自分で配車アプリを作るだけでなく、すでに多くの利用者を持つ配車アプリと組んで、新しい国や都市に広がり始めています。この記事は、ニュースの速報ではなく、実践ラボが複数の報道と発表を組み合わせてまとめた解説記事です。202","datePublished":"2026-10-31T09:00:00+09:00","dateModified":"2026-10-31T09:00:00+09:00","image":["https://robotaxi-lab.com/img/r011_1.png"],"author":{"@type":"Organization","name":"ロボタクシー実践ラボ編集部","url":"https://robotaxi-lab.com/"},"publisher":{"@type":"Organization","name":"アイベリー株式会社","url":"https://aiberry.co.jp/"},"mainEntityOfPage":"https://robotaxi-lab.com/articles/a11/","inLanguage":"ja"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://robotaxi-lab.com/"},{"@type":"ListItem","position":2,"name":"ロボタクシーはどのアプリで呼ぶのか：Uber・Lyft・inDrive・GOと「技術の会社」の組み方を比べる","item":"https://robotaxi-lab.com/articles/a11/"}]}</script>
+</head><body>
+<div class="notice">公開準備中のサイトです。実証実験レポートとキーマン・インタビューは仮の原稿です。</div>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="ロボタクシー実践ラボ トップへ">
+      <svg width="34" height="34" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="#1F3A5F"/><path d="M12 30 L16 6 M24 30 L20 6" stroke="#FFFFFF" stroke-width="2.2" fill="none"/><path d="M14 18 L18 22 L26 12" stroke="#007AFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>ロボタクシー実践ラボ</b><small>ロボタクシーを始める人のための、実践メディア</small></span>
+    </a>
+    <nav class="cats" aria-label="カテゴリー">
+      <a class="nl" href="/articles/genzaichi/">業界の現在地</a>
+      <a class="nl" href="/articles/news/">業界ニュース</a>
+      <a class="nl" href="/articles/zukan/">ロボタクシー図鑑</a>
+      <a class="nl" href="/articles/navi/">許認可ナビ</a>
+      <a class="nl" href="/articles/jissho/">実証実験レポート</a>
+      <a class="nl" href="/articles/interview/">キーマン・インタビュー</a>
+      <a class="nl" href="/zakkuri/">ざっくりニュース</a>
+      <a class="nl" href="/hojokin/">あなたが使える補助金</a>
+    </nav>
+    <a class="hdr-cta" href="/join/" aria-label="無料会員登録で「ロボタクシーの現在地」PDFを受け取る"><img src="p-01.jpg" alt=""><span>ロボタクシーの現在地<small>2026年10月版 無料PDF</small></span></a>
+  </div>
+</header>
+<div class="wrap layout">
+<main style="flex:999 1 620px;min-width:0;display:flex">
+<article id="a11" data-cat="実践ラボの企画">
+  <div class="crumb"><a href="/">トップ</a>　›　実践ラボの企画　›　③ 配車システム</div>
+  <div class="tags"><span class="tag solid">③ 配車システム</span><span class="tag">カザフスタン・英国・日本</span><span class="tag">実践ラボの企画</span></div>
+  <h1>ロボタクシーはどのアプリで呼ぶのか：Uber・Lyft・inDrive・GOと「技術の会社」の組み方を比べる</h1>
+  <figure class="eye"><img src="img/r011_1.png" alt="ロボタクシーはどのアプリで呼ぶのか：Uber・Lyft・inDrive・GOと「技術の会社」の組み方を比べるのタイトル画像"></figure>
+  <div class="byline"><i></i>ロボタクシー実践ラボ編集部（編集責任：池田 将）　／　2026.10.31</div>
+  <p class="lead">ロボタクシーの会社は、自分で配車アプリを作るだけでなく、すでに多くの利用者を持つ配車アプリと組んで、新しい国や都市に広がり始めています。この記事は、ニュースの速報ではなく、実践ラボが複数の報道と発表を組み合わせてまとめた解説記事です。2026年10月に発表された中国のPony.aiと配車アプリinDriveの提携を出発点に、英国ロンドン、日本・東京の例を並べ、「自動運転の技術を持つ会社」「配車アプリの会社」「実際に車を走らせる会社」がどう役割を分けているかを比べました。日本の2つの例では、どちらも東京のタクシー会社が運行を担います。</p>
+  <h2>この記事で使う言葉</h2>
+  <ul class="dots"><li><b>ロボタクシー</b>：人が運転せず、自動運転で走るタクシー</li><li><b>配車アプリ</b>：スマートフォンでタクシーや車を呼ぶアプリ。この記事ではUber、Lyft（リフト）、Freenow（フリーナウ）、inDrive（インドライブ）、GO（ゴー）が出てくる</li><li><b>レベル4</b>：決められた地域や条件の中では、システムがすべての運転を行い、運転する人が乗らなくてよい自動運転の段階。「完全無人」の運行はこの段階にあたる</li><li><b>セーフティドライバー（安全を見守る係）</b>：試験の段階で運転席に乗り、危ないときに運転を代わる人</li><li><b>覚書（MoU）</b>：正式な契約の前に、一緒に検討することを確認する文書。覚書を結んだだけでは、運行が決まったわけではない</li><li>登場する会社</li><ul class="dots"><li><b>Pony.ai（ポニー・エーアイ）</b>：中国の自動運転の会社。米国の株式市場（ナスダック）に上場している</li><li><b>inDrive</b>：米カリフォルニア州に拠点を置く配車アプリの会社。47か国の1,200を超える都市で使われ、アプリは4億回以上ダウンロードされている（CnEVPost、2026年10月23日）</li><li><b>Nvidia（エヌビディア）</b>：米国の半導体の会社。自動運転用のコンピューターを作っている</li><li><b>百度（バイドゥ）</b>：中国のIT大手。ロボタクシーのサービス「Apollo Go（アポロ・ゴー）」を運営している。RT6はApollo Goのロボタクシー専用の電気自動車</li><li><b>Uber（ウーバー）・Lyft</b>：米国の配車アプリの大手。Freenowは、Lyftが持つ欧州の配車アプリ</li><li><b>Waymo（ウェイモ）</b>：Googleの親会社アルファベットのグループの自動運転の会社</li><li><b>GO</b>：日本のタクシー配車アプリ「GO」を運営するGO株式会社</li><li><b>日本交通・日の丸交通</b>：東京のタクシー会社</li><li><b>Wayve（ウェイブ）</b>：英国の自動運転のAIの会社。あらかじめ作った細かい3次元の地図に頼らず、カメラなどの情報から周りを判断する方式をとる</li></ul></ul>
+  <h2>整理すると：4つの組み方</h2>
+  <div style="overflow-x:auto"><table class="tbl" style="border-collapse:collapse;width:100%;font-size:14px"><tr><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">場所</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">自動運転の技術・車両</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">呼ぶアプリ</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">実際に車を走らせる会社</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">2026年10月31日時点の状況</th></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">カザフスタン・アスタナ</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">Pony.ai（＋Nvidia）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">inDrive</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">公表されていない</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">覚書を結んだ段階。政府との合意が先</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">英国・ロンドン</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">百度（Apollo Go、RT6）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">UberとFreenow（Lyft）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">公表されていない</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">2026年7月から、安全を見守る係が乗った試験走行</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">日本・東京</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">Waymo</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">GO（Waymoのアプリでも呼べる）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">日本交通</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">乗務員が乗った試験走行。2027年中の完全無人が目標</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">日本・東京</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">Wayve（AI）＋日産（車両）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">Uber</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">日の丸交通</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">2026年後半に試験運行を始める予定。開始の発表は確認できていない</td></tr></table></div>
+  <h2>何が起きたのか</h2>
+  <h3>① カザフスタン：Pony.ai＋inDrive＋Nvidia（2026年10月）</h3>
+  <ul class="dots"><li>Pony.ai、inDrive、Nvidiaの3社は、自動運転の移動サービスを一緒に検討する覚書を結んだ。CnEVPostが2026年10月23日に報じた</li><li>最初の試験運用の場所は、カザフスタンの首都アスタナ（人口約170万人）。ただし、試験運用はカザフスタン政府と合意してから始める。合意の時期は公表されていない</li><li>役割分担</li><ul class="dots"><li><b>Pony.ai</b>：第7世代のロボタクシー車両と、レベル4の自動運転の技術</li><li><b>inDrive</b>：アプリ（プラットフォーム）の運営とサービスの管理。車両の管理を誰が担うかは書かれていない</li><li><b>Nvidia</b>：自動運転用のコンピューターと安全の仕組み</li></ul><li>3社は、inDriveのアプリでレベル4のロボタクシーを呼べるようにする場合の、技術・運営・規則・採算の面での実現性を確かめる。その後、カザフスタンのほかの都市や、inDriveが使われているほかの国への広がりも検討する</li><li>カザフスタンは、無人の移動サービスについての法律の準備で先行しているとされ、Pony.aiは、この規則の準備が最初の試験の場所に選んだ主な理由の一つだと説明している（CnEVPost、2026年10月23日）</li><li>アスタナは世界で2番目に寒い首都とされ、inDriveのアルセン・トムスキーCEOは「厳しい冬の条件で自動運転を試す、大切な機会になる」と話している</li><li>Pony.aiのロボタクシーの台数は、2026年6月30日時点で1,975台。2026年末までに3,500台超を目指している</li><li>Pony.aiは2026年8月に、Uberとの提携を広げ、欧州の5都市で2,000台超のロボタクシーを走らせる計画を示したと報じられている</li></ul>
+  <h3>② 英国ロンドン：百度（Apollo Go）＋UberとLyft（2025年12月の計画 → 2026年7月に試験走行）</h3>
+  <ul class="dots"><li><b>2025年12月の計画</b>：百度は、ロボタクシーの車両RT6を、ロンドンでUberとLyftのアプリから使えるようにする計画を発表した。Lyftは2026年に数十台規模で試験を始め、のちに数百台に増やすつもりだとした。Uberは2026年前半に試験を始めることを目指すとした。どちらも規制当局の承認が条件だった（just-auto、2025年12月23日／TaxiPoint、2025年12月22日）</li><li><b>その後どうなったか</b>：2026年7月28日、Lyftが持つ配車アプリFreenowは、百度のApollo Goと組んで、ロンドンのブレント区で公道での試験走行を始めたと発表した。同じ日にUberも、Apollo Goの車両がロンドンの公道を走っていると発表した（TechNode、2026年7月29日／EVwire、2026年7月28日）</li><li><b>試験の条件</b>：試験走行の間は、安全を見守る係が車内に乗る。試験に使う台数は公表されていない</li><li><b>一般のお客様が乗れる時期</b>：FreenowとApollo Goは2027年を目標としている。規制当局の承認が必要</li><li><b>運行の形</b>：一般のお客様向けのサービスが始まると、Freenowのアプリの中で、人が運転するタクシー・ハイヤーとロボタクシーが一緒に走る形になる予定</li><li>車を実際に走らせる会社（車両の管理・整備など）がどこになるのかは、確認した記事には書かれていない</li></ul>
+  <figure class="eye"><img src="img/r011_2.png" alt="図1"></figure>
+  <h3>③ 日本・東京：Waymo＋GO＋日本交通（2026年9月）</h3>
+  <ul class="dots"><li>2026年9月15日、GO、Waymo、日本交通の3社は、東京でのロボタクシーの商用化に向けた提携に合意したと発表した（MONOist、2026年9月16日／テクノエッジ、2026年9月15日）</li><li><b>目標</b>：2027年中に、東京で国内初となる、運転する人が乗らないレベル4の完全無人タクシーを走らせる。台数は段階的に増やし、100台規模を目指す。ただし、正式な開始の時期は、安全の確認と、道路交通法・道路運送法などに基づく許可を取ってから決まる</li><li>役割分担（テクノエッジ、2026年9月15日による）</li><ul class="dots"><li><b>GO</b>：地域のタクシー会社と組むときの窓口、全体の設計、アプリでのサービス提供</li><li><b>Waymo</b>：運用の仕組み、車両の管理のシステム、専門的な知見の提供</li><li><b>日本交通</b>：東京最大手のタクシー会社として、現場の運行管理と営業所の運営、地域のお客様への対応</li></ul><li><b>呼び方</b>：国内の利用者はGOのアプリ、海外からの旅行者などはWaymoのアプリで呼ぶことを想定している。運賃は、タクシーの自動認可運賃（国があらかじめ認めた範囲の運賃）に基づいて決める見込み（MONOist、2026年9月16日）</li><li><b>車両</b>：はじめはジャガー・ランドローバーの電気自動車「I-PACE」に、Waymoの第5世代の自動運転システムを積む</li><li><b>これまでと今</b>：3社は2025年から東京都内の7つの区で公道での試験走行をしてきた。2026年10月時点では、日本交通の乗務員が乗った状態で、自動運転の試験走行を続けている（テクノエッジ、2026年9月15日／現代ビジネス、2026年10月26日）</li></ul>
+  <h3>④ 日本・東京：Uber＋日産＋Wayve＋日の丸交通（2026年3月の計画 → 8月に運行会社が決定）</h3>
+  <ul class="dots"><li><b>2026年3月の計画</b>：2026年3月12日、Uber、日産、Wayveの3社は、日本でのロボタクシーの展開について覚書を結んだ。日産の新型リーフにWayveの自動運転のAIを積み、Uberのアプリで呼べるようにする。2026年後半に東京で試験運行を始める予定で、はじめは安全を見守る係が乗る。Uberは日本でタクシー会社と組むことを見込み、関係する省庁と連携しながら組む相手を選んでいるとした（ITmedia AI＋、2026年3月12日／覚書についてはImpress Watch、2026年8月13日／ビジネス＋IT、2026年8月17日）</li><li><b>その後どうなったか</b>：2026年8月、Uberは東京のタクシー会社・日の丸交通と、試験運行の運行についての契約を結んだと発表した（Impress Watch、2026年8月13日／ビジネス＋IT、2026年8月17日）</li><li>役割分担（Impress Watch、2026年8月13日による）</li><ul class="dots"><li><b>日の丸交通</b>：法令上必要な許可を持つタクシー会社として、運行の主体になる。車両の運行管理、車両基地での作業、整備・点検、清掃、充電、稼働状況の管理を担う</li><li><b>Uber</b>：お客様と車を結びつける配車アプリと、運行を助ける道具</li><li><b>Wayve</b>：自動運転のAI</li><li><b>日産</b>：Wayveの自動運転のAIを積んだリーフ</li></ul><li>試験運行のはじめは完全無人にはせず、日の丸交通の乗務員が安全を見守る係として乗る</li><li><b>開始日・走る地域・台数</b>：2026年9月4日時点では公表されていない（DXマガジン、2026年9月11日）。2026年10月31日までに試験運行が始まったという発表は、実践ラボでは確認できていない</li></ul>
+  <h2>実践ラボの視点：地方のタクシー会社・自治体にとっての意味</h2>
+  <div class="grid2"><div class="card"><span class="k">1</span><h3>日本では「運行はタクシー会社」という分け方になっている</h3><p>東京の2つの例では、自動運転の技術はWaymoやWayve、呼ぶアプリはGOやUberが担い、実際に車を走らせて管理するのは日本交通と日の丸交通というタクシー会社です。日の丸交通については、法令上の許可を持つタクシー会社として運行の主体になると説明されています。地方でロボタクシーが走る場合も、地元のタクシー会社が「運行を担う会社」として組む相手になる可能性があります。</p></div><div class="card"><span class="k">2</span><h3>運行を担う会社の仕事は、具体的に示されている</h3><p>日の丸交通が担うのは、運行管理、車両基地での作業、整備・点検、清掃、充電、稼働状況の管理です。日本交通は、現場の運行管理と営業所の運営、お客様への対応を担います。今のタクシー会社が持つ営業所・整備・運行管理の力が、そのままロボタクシーの仕事につながる可能性があります。</p></div><div class="card"><span class="k">3</span><h3>配車アプリの会社が、地域のタクシー会社との窓口になる</h3><p>GOは、地域のタクシー会社と組むときの窓口を担うとされています。Uberも、関係する省庁と連携しながら組むタクシー会社を選ぶと説明し（2026年3月）、8月に日の丸交通と契約しました。ロボタクシーが地方に広がるときに、どの配車アプリの会社がどの地域のタクシー会社と組むのかは、まだ公表されていません。</p></div><div class="card"><span class="k">4</span><h3>規則の準備が、試験の場所を選ぶ条件になっている</h3><p>カザフスタンの例では、首都アスタナ（人口約170万人）が最初の試験の場所に選ばれ、選んだ主な理由の一つは無人の移動サービスについての国の規則の準備が進んでいることだと、Pony.aiは説明しています（CnEVPost、2026年10月23日）。規則や自治体の受け入れの準備が、場所を選ぶ条件になる可能性があります。</p></div><div class="card"><span class="k">5</span><h3>電話で呼ぶ形は、どの例にも出てこない</h3><p>今回の4つの例は、すべてスマートフォンのアプリで呼ぶ形です。電話の受付でロボタクシーを呼べるようにするかどうかは、どの記事にも書かれていません。</p></div></div>
+  <section class="summary"><div class="hd">実践ラボのまとめ</div><div class="bd"><div><span>今わかったこと</span><p>ロボタクシーは「自動運転の技術の会社＋配車アプリの会社」の組み合わせで新しい国や都市に広がり始めている。日本の2つの例では、さらに東京のタクシー会社が運行を担う</p></div><div><span>地方のタクシー会社・自治体が見るべき点</span><p>運行を担う会社に求められる仕事（運行管理・整備・清掃・充電・営業所の運営）と、配車アプリの会社が地域のタクシー会社と組むときの窓口の動き</p></div><div><span>次に確かめること</span><p>Uberと日の丸交通の試験運行の開始、GO・Waymo・日本交通の完全無人の許可の取得、配車アプリ各社が東京以外の地域でロボタクシーを扱う予定</p></div></div></section>
+  <div class="sources"><b>出典</b><a href="https://cnevpost.com/2026/10/23/pony-ai-enters-central-asia-robotaxi-pilot-kazakhstan/" target="_blank" rel="noopener">CnEVPost「Pony AI enters Central Asia with inDrive robotaxi pilot in Kazakhstan」（2026年10月23日）：https://cnevpost.com/2026/10/23/pony-ai-enters-central-asia-robotaxi-pilot-kazakhstan/</a><a href="https://www.just-auto.com/news/baidu-lines-up-london-robotaxi-launch/" target="_blank" rel="noopener">just-auto「Baidu lines up London robotaxi launch」（2025年12月23日）：https://www.just-auto.com/news/baidu-lines-up-london-robotaxi-launch/</a><a href="https://www.taxi-point.co.uk/post/uber-confirms-latest-autonomous-vehicle-pilot-in-london-with-baidu-apollo-go" target="_blank" rel="noopener">TaxiPoint「Uber confirms latest autonomous vehicle pilot in London with Baidu Apollo Go」（2025年12月22日）：https://www.taxi-point.co.uk/post/uber-confirms-latest-autonomous-vehicle-pilot-in-london-with-baidu-apollo-go</a><a href="https://technode.com/2026/07/29/chinas-robotaxi-enters-london-for-first-time-as-baidus-apollo-go-begins-uk-road-tests-with-uber-and-lyft" target="_blank" rel="noopener">TechNode「China&#x27;s Robotaxi enters London for first time as Baidu&#x27;s Apollo Go begins UK road tests with Uber and Lyft」（2026年7月29日）：https://technode.com/2026/07/29/chinas-robotaxi-enters-london-for-first-time-as-baidus-apollo-go-begins-uk-road-tests-with-uber-and-lyft</a><a href="https://evwire.com/p/freenow-baidu-apollo-go-london-robotaxi" target="_blank" rel="noopener">EVwire「Baidu Apollo Go robotaxis hit London streets with Freenow by Lyft」（2026年7月28日）：https://evwire.com/p/freenow-baidu-apollo-go-london-robotaxi</a><a href="https://monoist.itmedia.co.jp/mn/articles/2609/16/news049.html" target="_blank" rel="noopener">MONOist「2027年内に東京で完全無人の自動運転タクシーが運行開始、当初は100台規模で」（2026年9月16日）：https://monoist.itmedia.co.jp/mn/articles/2609/16/news049.html</a><a href="https://www.techno-edge.net/article/2026/09/15/5500.html" target="_blank" rel="noopener">テクノエッジ「東京に無人タクシー Google系WaymoとGO・日本交通が協業、2027年にレベル4完全無人運転で商用化目指す」（2026年9月15日）：https://www.techno-edge.net/article/2026/09/15/5500.html</a><a href="https://gendai.media/articles/-/172281" target="_blank" rel="noopener">現代ビジネス（マネー現代）「GO・Waymo・日本交通の無人タクシー始動へ…現役ドライバーが「それでも人が要る」と断言する瞬間」（2026年10月26日）：https://gendai.media/articles/-/172281</a><a href="https://www.itmedia.co.jp/aiplus/articles/2603/12/news074.html" target="_blank" rel="noopener">ITmedia AI＋「Uberと日産、日本でロボタクシー展開へ　2026年後半から検証」（2026年3月12日）：https://www.itmedia.co.jp/aiplus/articles/2603/12/news074.html</a><a href="https://www.watch.impress.co.jp/docs/news/2132583.html" target="_blank" rel="noopener">Impress Watch「Uberと日の丸交通、東京のロボタクシー運行で提携　26年後半開始」（2026年8月13日）：https://www.watch.impress.co.jp/docs/news/2132583.html</a><a href="https://www.sbbit.jp/article/st/186579" target="_blank" rel="noopener">ビジネス＋IT「Uber・日産・Wayve連合、日の丸交通と東京でのロボタクシー試験運行、2026年中」（2026年8月17日）：https://www.sbbit.jp/article/st/186579</a><a href="https://dxmagazine.jp/?p=220978" target="_blank" rel="noopener">DXマガジン「東京に「自動運転タクシー」まもなく登場へ Uberが2026年後半に試験運行、運転手の仕事はどうなる？」（2026年9月11日）：https://dxmagazine.jp/?p=220978</a></div>
+</article>
+</main>
+<aside id="rail">
+  <div class="side">
+    <h4>新着記事</h4>
+    <a class="nl" href="/articles/a22/">佐賀市交通局、自動運転バスの実証で初めて運賃を取る（大人最大180円）。佐賀駅〜SAGAサンライズパーク約1.8kmを毎日6往復、12月22日まで<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a24/">香川県坂出市で自動運転バスの実証が11月28日から30日間。琴参バスが運行し、坂出自動車学校が遠隔監視を担う。2028年のレベル4をめざす<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a31/">Waymo、高速道路の閉鎖車線と警察官の手信号への対応で2件の自主リコール。手信号は修正済み、閉鎖車線は修正中<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a18/">国交省、運転席を前提としない自動運転車を「自動運行用自動車」として区分する省令改正案の意見募集を開始。12月27日施行予定<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a23/">帯広市と米子市、今年度の自動運転バス実証を見送り。帯広は国の補助の条件と積雪が理由、米子は車両を見直す。国の補助は「2027年度までに全区間でレベル4」が条件に<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a19/">維新がロボタクシーの参入・運賃・台数の規制見直しを提言（政府の方針ではない）。規制改革相は自動運転の議論を本格化へと報道<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a32/">テスラ、6〜7人の団体向けにハンドルなしModel Yを計画。2人乗りのCybercabと使い分け<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a25/">Waymo、全米で高速道路の配車を停止。カリフォルニア州が工事区間への進入とパトカーへの対応を理由に無人走行を禁止<small>2026.11.17</small></a>
+    <a class="nl" href="/articles/a27/">Pony.aiとトヨタ、中国・広州でbZ4Xの完全無人ロボタクシーの営業を開始。トヨタとWaymoが2027年に日本で走らせる予定の車と同じ車種<small>2026.11.16</small></a>
+    <a class="nl" href="/articles/a28/">May Mobility、VWのID. Buzzで2031年までに自動運転車1万台超を目指す。車は持たず運行会社と組む。名古屋ではNTTと名鉄タクシー系が実証中<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a30/">米首都ワシントンDCのロボタクシー法案、議会の委員会で3対3となり通らず。運転手の団結権や台数の上限を入れた修正案でも合意できず<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a21/">城崎温泉の自動運転バス、一般客を乗せた初日に石垣へ接触し運休。オペレーターの手動操作はなかったと報道、原因は未公表<small>2026.11.09</small></a>
+    <a class="nl" href="/articles/a20/">KDDIがnewmoに出資し、newmoは208億円を調達。堺市で2028年に自動運転タクシーの商用化を目指し、運行の仕組みを全国の事業者へ出すことも検討<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a26/">Amazon傘下のZoox、2027年初めに米国外で初の試験へ。候補に日本、都市は未定。まずは運転者が乗ってデータ集め<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a17/">国交省、ハンドルやペダルのない自動運転車を12月から一つの基準で認める予定。事故1件でもリコール処分、タクシー会社などの使用者に事故報告を求める案も<small>2026.11.04</small></a>
+  </div>
+  <div class="side">
+    <h4>カテゴリー別の記事</h4>
+    <a class="nl" href="/articles/genzaichi/">数字で見るロボタクシーの現在地<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/news/">第一交通産業とNTTモビリティが連携協定<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/zukan/">Waymo（ウェイモ）<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/navi/">警察の「特定自動運行の許可」とは<small>2026.10.24</small></a>
+  </div>
+  <div class="side pdf">
+    <h4>ロボタクシーの現在地 2026年10月版</h4>
+    <img src="p-01.jpg" alt="ロボタクシーの現在地の表紙">
+    <p style="font-size:13px;line-height:1.7">基本を知りたい方は、まずこのPDFを。図解中心の32ページ。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録でPDFを受け取る</a>
+  </div>
+  <div class="side dark">
+    <h4>許認可チェックリストを無料で配布中</h4>
+    <p>警察・運輸局・自治体との協議で準備すべき資料を、1枚にまとめました。無料会員登録でダウンロードできます。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録</a>
+  </div>
+</aside>
+</div>
+<footer class="site"><div class="wrap"><span><b style="color:var(--brand-text)">ロボタクシー実践ラボ</b>　業界全体のための実践の共有　／　特定のメーカー・システムに偏らない編集方針</span><span>運営：アイベリー株式会社（代表 村田 大）／編集長 池田 将</span><nav class="flinks" aria-label="サイト情報"><a href="/about/">運営者情報</a><a href="/editorial-policy/">編集方針</a><a href="/privacy/">プライバシーポリシー</a><a href="/contact/">お問い合わせ</a><a href="/join/">無料会員登録</a></nav></div></footer>
+</body></html>

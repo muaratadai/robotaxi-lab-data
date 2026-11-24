@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="/">
+<title>ロボタクシーの運行管理とは何か。｜ロボタクシー実践ラボ</title>
+<meta name="description" content="運行管理の主な役割は、安全のための遠隔監視、運転者への助言、緊急時への駆けつけ対応、お客様対応などがあります。事例をまじえてご紹介します。">
+<link rel="canonical" href="https://robotaxi-lab.com/articles/k02/">
+<meta property="og:site_name" content="ロボタクシー実践ラボ"><meta property="og:type" content="article"><meta property="og:title" content="ロボタクシーの運行管理とは何か。｜ロボタクシー実践ラボ"><meta property="og:description" content="運行管理の主な役割は、安全のための遠隔監視、運転者への助言、緊急時への駆けつけ対応、お客様対応などがあります。事例をまじえてご紹介します。"><meta property="og:url" content="https://robotaxi-lab.com/articles/k02/"><meta property="og:image" content="https://robotaxi-lab.com/img/k02_fig1.png"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Roboto+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}a.nl{text-decoration:none}.acard,.iv,.hdr-cta,a.db{text-decoration:none}
+
+/* Layout: site header + category tabs, one article at a time in a reading column with a side rail; navy/amber identity from the lab's site mock */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --ink:#1F3A5F; --muted:#4F6480; --line:#E5E5EA;
+  --brand:#0066D6; --brand-text:#0062CC; --on-brand:#FFFFFF; --amber:#007AFF; --amber-ink:#0062CC;
+  --tint:#F2F6FB; --cream:#EAF3FF; --cream-ink:#004A99; --ph:#E5E5EA; --ph-ink:#4F6480;
+  --bar2:#9CCBFF; --car:#FFFFFF; --glass:#D6E8FF; --tire:#1F3A5F; --good:#0062CC;
+  --f-body:system-ui,-apple-system,'Hiragino Sans','Noto Sans JP','Yu Gothic',Meiryo,sans-serif;
+  --f-num:'Roboto Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.9}
+a{color:var(--brand-text)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.notice{background:var(--cream);color:var(--cream-ink);font-size:12px;text-align:center;padding-block:6px}
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font-size:19px;font-weight:900;color:var(--brand-text)}
+.logo small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+nav.cats{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 420px;justify-content:flex-end}
+nav.cats a.nl{font:inherit;font-size:14px;font-weight:700;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+nav.cats a.nl[aria-current="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+nav.cats a.nl:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.layout{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;padding-block:24px 64px}
+article{flex:999 1 620px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:22px}
+aside{flex:1 1 280px;max-width:100%;display:flex;flex-direction:column;gap:20px}
+@media(min-width:960px){aside{max-width:320px;position:sticky;top:16px}}
+.crumb{font-size:13px;color:var(--muted)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid var(--brand-text);color:var(--brand-text)}
+.tag.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.tag.warn{border-color:var(--amber-ink);color:var(--amber-ink)}
+h1{margin:0;font-size:clamp(24px,3.4vw,32px);line-height:1.45;font-weight:900;color:var(--brand-text);text-wrap:balance}
+.byline{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.byline i{width:34px;height:34px;border-radius:50%;background:var(--ph);flex:0 0 auto}
+.lead{font-size:17px;line-height:2;font-weight:500;margin:0}
+h2{margin:10px 0 0;font-size:22px;font-weight:900;color:var(--brand-text);padding-bottom:8px;border-bottom:3px solid var(--amber);text-wrap:balance;line-height:1.5}
+h3{margin:0;font-size:17px;font-weight:900;color:var(--ink)}
+p{margin:0}
+.fig{margin:0;display:flex;flex-direction:column;gap:8px}
+.fig figcaption{font-size:12.5px;color:var(--muted)}
+.scroll{overflow-x:auto}
+.photo{background:var(--ph);color:var(--ph-ink);border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;padding:16px;aspect-ratio:16/7;max-width:100%;border:1px dashed var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--tint);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:12.5px;font-weight:700;color:var(--muted)}
+.kpi b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);font-variant-numeric:tabular-nums;line-height:1.3}
+.kpi small{font-size:12px;color:var(--muted)}
+.kpi.hl{background:var(--brand)}.kpi.hl span,.kpi.hl small{color:#EAF3FF}.kpi.hl b{color:var(--on-brand)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:700}
+td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{background:var(--tint);font-weight:700;color:var(--brand-text)}
+.na{color:var(--muted)}
+.box{background:var(--tint);border-radius:8px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.box.cream{background:var(--cream)}
+.box .lbl{font-size:13px;font-weight:700;color:var(--brand-text)}
+ul.dots{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
+.card .k{font-size:12px;font-weight:700;color:var(--amber-ink)}
+.summary{border:2px solid var(--brand);border-radius:10px;overflow:hidden}
+.summary .hd{background:var(--brand);color:var(--on-brand);padding:12px 22px;font-weight:900}
+.summary .bd{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.summary .bd div{padding:16px 22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.summary .bd span{font-size:13px;font-weight:700;color:var(--amber-ink)}
+.summary .bd p{font-size:15px;line-height:1.8}
+.pay{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pay .fade{padding:20px 22px;color:var(--muted)}
+.pay .gate{background:var(--cream);border-top:2px dashed var(--amber);padding:22px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+.pay .gate b{color:var(--brand-text)}
+.btn{display:inline-block;padding:11px 24px;background:var(--brand);color:#FFFFFF;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px}
+.sources{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);padding-top:14px}
+.sources a{word-break:break-all}
+.sample{background:var(--cream);color:var(--cream-ink);border-radius:8px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.qa{display:flex;flex-direction:column;gap:14px}
+.qa .q{font-weight:900;color:var(--brand-text)}
+.qa .q::before{content:"―　"}
+.pull{border-left:4px solid var(--amber);padding:6px 0 6px 18px;font-size:20px;font-weight:900;line-height:1.7;color:var(--brand-text)}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.side h4{margin:0;font-size:15px;font-weight:900;color:var(--brand-text)}
+.side a.nl{font:inherit;text-align:left;background:none;border:0;padding:8px 10px;border-radius:6px;color:var(--ink);cursor:pointer;display:flex;gap:8px;font-size:14px;line-height:1.6}
+.side a.nl span{font-size:11px;font-weight:700;color:var(--amber-ink);flex:0 0 74px;padding-top:2px}
+.side a.nl[aria-current="true"]{background:var(--cream);font-weight:700}
+.side a.nl{flex-direction:column;gap:2px}.side a.nl small{font-size:12px;color:var(--muted,#5b6b77);font-weight:400}
+.side.dark{background:var(--brand);border-color:var(--brand);color:#EAF3FF}.side.dark h4{color:var(--on-brand)}
+.side.dark p{font-size:13px;line-height:1.8}
+svg text{font-family:var(--f-body)}
+.s-ink{fill:var(--ink)}.s-muted{fill:var(--muted)}.s-brand{fill:var(--brand)}.s-btext{fill:var(--brand-text)}.s-amber{fill:var(--amber)}
+.s-tint{fill:var(--tint)}.s-surface{fill:var(--surface)}.s-line{stroke:var(--line)}.s-bar2{fill:var(--bar2)}.s-ph{fill:var(--ph)}
+.s-onb{fill:var(--on-brand)}.s-car{fill:var(--car);stroke:var(--muted);stroke-width:2.5}.s-glass{fill:var(--glass)}.s-tire{fill:var(--tire)}
+.top{display:flex;flex-direction:column;gap:28px;width:100%;min-width:0}
+.hero{background:var(--brand);color:#FFFFFF;border-radius:12px;padding:clamp(22px,4vw,44px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.hero-txt{flex:3 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px}
+.hero-txt p{color:#EAF3FF;line-height:1.9}
+.hero-h{margin:0;border:0;padding:0;color:#FFFFFF;font-size:clamp(22px,3.2vw,32px);line-height:1.45}
+.tag.amberfill{background:var(--brand);border-color:var(--brand);color:#FFFFFF}.tag.onb{border-color:#EAF3FF;color:#EAF3FF}
+.hero-fig{flex:2 1 260px;display:grid;gap:10px}
+.hk{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:12px 16px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:0 12px}
+.hk span{font-size:12.5px;color:#EAF3FF;font-weight:700}.hk b{font-family:var(--f-num);font-size:26px;grid-row:span 2;color:#FFFFFF}.hk small{font-size:11.5px;color:#D6E8FF}
+.hk.jp{background:var(--cream);border-color:var(--cream)}.hk.jp span,.hk.jp small,.hk.jp b{color:#1F3A5F}
+button.btn{border:0;cursor:pointer;font:inherit;font-weight:700;font-size:14px}
+.btn.ghost{background:transparent;color:#FFFFFF;border:1px solid #EAF3FF}
+.btn.ghost2{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.sec-hd{display:flex;flex-direction:column;gap:2px}
+.sec-hd h3{font-size:20px;color:var(--brand-text)}
+.eyebrow{font-family:var(--f-num);font-size:11.5px;letter-spacing:.12em;font-weight:700;color:var(--amber-ink)}
+.cards6{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.acard{font:inherit;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:0 0 16px;display:flex;flex-direction:column;gap:6px;color:var(--ink);overflow:hidden}
+.acard:hover{border-color:var(--brand-text)}.acard:focus-visible,.newslist a.nl:focus-visible,.db:focus-visible,.iv:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.acard .thumb{display:block;aspect-ratio:2/1;max-width:100%}
+.acard .thumb svg{width:100%;height:100%;display:block}
+.t1,.t4{background:var(--brand)}.t2,.t5{background:#2E86F0}.t3,.t6{background:#5AA0F2}
+.acard .cat,.acard b,.acard small{padding-inline:16px}
+.acard .cat{font-size:12px;font-weight:700;color:var(--amber-ink);display:flex;gap:6px;align-items:center;padding-top:6px}
+.acard .cat i{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.acard b{font-size:15.5px;line-height:1.6}.acard small{font-size:12px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.newslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.newslist li>*{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);font:inherit;font-size:14px;line-height:1.6;text-align:left;width:100%;background:none;border-left:0;border-right:0;border-top:0;color:var(--ink)}
+.newslist a.nl{cursor:pointer;font-weight:700;color:var(--brand-text)}
+.newslist time{font-family:var(--f-num);font-size:12px;color:var(--muted)}
+.ntag{font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:3px;padding:0 6px;color:var(--muted)}
+.iv{font:inherit;text-align:left;cursor:pointer;background:var(--tint);border:0;border-radius:8px;padding:16px;display:flex;gap:16px;align-items:center;color:var(--ink)}
+.iv b{display:block;font-size:16px;line-height:1.7;color:var(--brand-text)}.iv small{font-size:12px;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.steps li>*,.steps li{display:flex;flex-direction:column;gap:2px}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
+.steps b{font-family:var(--f-num);font-size:18px;color:var(--brand-text)}.steps span{font-weight:700}.steps small{font-size:11.5px;color:var(--muted)}
+.steps li.on{background:var(--brand);border-color:var(--brand);padding:0}
+.steps li.on a.nl{font:inherit;text-align:left;background:none;border:0;padding:14px;cursor:pointer;color:#FFFFFF}
+.steps li.on b,.steps li.on small{color:var(--amber)}
+.db3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.db{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+a.db{cursor:pointer}.db b{font-size:16px}.db small{color:var(--muted);font-size:13px}.db span{font-size:13px;font-weight:700;color:var(--brand-text)}
+.event{background:var(--tint);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:24px 28px;display:flex;flex-direction:column;gap:6px}
+.event h3{color:var(--brand-text);font-size:21px}.event p{color:#4F6480;font-size:14px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.plan.pro{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.price{font-family:var(--f-num);font-size:24px}.price small{font-size:12px;font-family:var(--f-body)}
+footer.site{background:var(--surface);border-top:1px solid var(--line)}
+footer.site .wrap{padding-block:24px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:13px;color:var(--muted)}
+
+
+.hdr-cta{display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--cream);color:var(--ink);border-radius:8px;padding:6px 12px 6px 6px;font:inherit;font-weight:700;font-size:13px;border:0;cursor:pointer;line-height:1.3;text-align:left}
+.hdr-cta img{width:54px;height:auto;border-radius:3px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.hdr-cta small{display:block;font-size:10.5px;font-weight:500}
+.hdr-cta:focus-visible{outline:3px solid var(--brand-text);outline-offset:2px}
+.core{background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:clamp(18px,3vw,32px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.core-cover{flex:1 1 280px;max-width:420px;position:relative}
+.core-cover img{width:100%;display:block;border-radius:6px;border:1px solid var(--line);box-shadow:8px 8px 0 var(--tint),16px 16px 0 var(--ph)}
+.core-txt{flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.core-txt h3{font-size:clamp(20px,2.6vw,26px);color:var(--brand-text);line-height:1.4}
+.core-txt .meta{font-size:12.5px;color:var(--muted)}
+.core-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:6px 16px;margin:0;padding:0;list-style:none;font-size:14px}
+.core-list li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--amber);margin-right:8px;vertical-align:1px}
+.core-btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn.line{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.dl-msg{font-size:12.5px;color:var(--muted)}
+.previews{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.previews figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.previews img{width:100%;border-radius:4px;border:1px solid var(--line);display:block}
+.previews figcaption{font-size:12px;color:var(--muted)}
+.side.pdf{background:var(--cream);border-color:var(--amber)}
+.side.pdf img{width:100%;border-radius:4px;border:1px solid var(--line)}
+
+.phero{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1536/660;min-height:340px;background:#C7C7CC url(hero.jpg) center top/cover no-repeat;display:flex;align-items:flex-start;padding:clamp(16px,3vw,36px)}
+.phero .card{max-width:640px;background:rgba(255,255,255,.38);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:8px;border-top:6px solid var(--amber);padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 24px rgba(31,58,95,.16)}
+.phero h2{margin:0;border:0;padding:0;font-size:clamp(24px,3.4vw,40px);line-height:1.4;font-weight:900;color:var(--ink)}
+.phero .card p{color:var(--muted)}
+.phero .eb{font-size:13px;font-weight:700;color:var(--brand-text)}
+.kpi3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;background:var(--tint);border-radius:10px;padding:20px}
+.kpi3 div{background:#FFFFFF;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi3 span{font-size:12.5px;font-weight:700;color:var(--muted)}.kpi3 b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);line-height:1.3}.kpi3 b.jp{color:var(--ink)}.kpi3 small{font-size:12px;color:var(--muted)}
+.field{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:760px){.field{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.field{grid-template-columns:minmax(0,1fr)}}
+.field figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.field img{width:100%;height:170px;object-fit:cover;border-radius:6px;display:block}
+.field figcaption{font-size:14px;font-weight:700}
+.field figure.go{cursor:pointer}.field figure.go:hover img{opacity:.85}.field .more{font-size:12px;font-weight:600;color:var(--brand-text,#0b5cad);margin-left:6px}
+.acard .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.eye{margin:0;display:flex;flex-direction:column;gap:6px}
+.eye img{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:8px;display:block;background:var(--tint)}.eye img[src^="img/r"]{aspect-ratio:16/9;object-fit:contain}
+.eye figcaption{font-size:12px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.acard .own{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.vcard{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:10px;overflow:hidden;padding-bottom:16px}
+.vcard:hover{border-color:var(--brand-text)}.vcard:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.vcard .vth{position:relative;display:block;aspect-ratio:16/9;background:var(--tint) center/cover no-repeat}
+.vcard .vth::after{content:"";position:absolute;left:50%;top:50%;width:68px;height:48px;margin:-24px 0 0 -34px;border-radius:12px;background:rgba(31,58,95,.82)}
+.vcard .vth::before{content:"";position:absolute;left:50%;top:50%;margin:-11px 0 0 -6px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #FFFFFF;z-index:1}
+.vcard .vh{font-size:18px;font-weight:900;color:var(--brand-text);padding-inline:16px}
+.vcard .vt{font-size:14px;font-weight:700;padding-inline:16px;line-height:1.6}
+.vcard .vd{font-size:13px;color:var(--muted);padding-inline:16px;line-height:1.7}
+.vcard .vm{font-size:12px;color:var(--muted);padding-inline:16px}
+.core-samples{flex:1 1 100%;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:18px}
+.core-samples h4{margin:0;font-size:16px;font-weight:900;color:var(--brand-text)}
+.core-samples p{font-size:13px;color:var(--muted)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:no-preference){article{animation:rise .35s ease-out both}@keyframes rise{from{transform:translateY(6px)}to{transform:none}}}
+
+nav.cats{order:3;flex:1 1 100%;justify-content:flex-start}nav.cats a.nl{white-space:nowrap}header.site .hdr-cta{margin-left:auto}
+
+.spage{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px clamp(18px,4vw,44px);max-width:860px;margin:0 auto}
+.spage h1{font-size:26px;line-height:1.5;margin:0 0 14px;color:var(--ink)}
+.spage h2{font-size:19px;margin:34px 0 12px;padding-left:10px;border-left:4px solid var(--brand);color:var(--ink)}
+.spage p,.spage li,.spage td,.spage th{font-size:15px;line-height:1.9}
+.spage .lead{font-size:16px}
+.spage .note{font-size:13px;color:var(--muted)}
+.spage ul.small li{font-size:13px;color:var(--muted)}
+.spage ol.steps{padding-left:1.4em}.spage ol.steps li{margin:6px 0}
+.spage table.info{width:100%;border-collapse:collapse;margin:8px 0}
+.spage table.info th,.spage table.info td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.spage table.info th{width:28%;background:#F5F8FC;font-weight:700;white-space:nowrap}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.person{border:1px solid var(--line);border-radius:10px;padding:18px}
+.person .role{display:block;font-size:12px;font-weight:700;color:var(--brand-text)}
+.person .name{display:block;font-size:22px;margin:4px 0 8px}
+.person .duty{font-size:13px;color:var(--muted)}
+.formbox{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.formbox.prep{padding:24px;text-align:center;background:#F5F8FC}
+.joinwrap{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:24px;align-items:start;margin-top:10px}
+.joincover img{width:100%;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+@media (max-width:640px){.joinwrap{grid-template-columns:1fr}.joincover{max-width:200px}.spage table.info th{white-space:normal;width:34%}}
+footer.site .flinks{display:flex;flex-wrap:wrap;gap:6px 18px;width:100%}
+footer.site .flinks a{color:inherit;font-size:13px}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ロボタクシーの運行管理とは何か。","description":"運行管理の主な役割は、安全のための遠隔監視、運転者への助言、緊急時への駆けつけ対応、お客様対応などがあります。事例をまじえてご紹介します。","datePublished":"2026-11-03T09:00:00+09:00","dateModified":"2026-11-03T09:00:00+09:00","image":["https://robotaxi-lab.com/img/k02_fig1.png"],"author":{"@type":"Organization","name":"ロボタクシー実践ラボ編集部","url":"https://robotaxi-lab.com/"},"publisher":{"@type":"Organization","name":"アイベリー株式会社","url":"https://aiberry.co.jp/"},"mainEntityOfPage":"https://robotaxi-lab.com/articles/k02/","inLanguage":"ja"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://robotaxi-lab.com/"},{"@type":"ListItem","position":2,"name":"ロボタクシーの運行管理とは何か。","item":"https://robotaxi-lab.com/articles/k02/"}]}</script>
+</head><body>
+<div class="notice">公開準備中のサイトです。実証実験レポートとキーマン・インタビューは仮の原稿です。</div>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="ロボタクシー実践ラボ トップへ">
+      <svg width="34" height="34" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="#1F3A5F"/><path d="M12 30 L16 6 M24 30 L20 6" stroke="#FFFFFF" stroke-width="2.2" fill="none"/><path d="M14 18 L18 22 L26 12" stroke="#007AFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>ロボタクシー実践ラボ</b><small>ロボタクシーを始める人のための、実践メディア</small></span>
+    </a>
+    <nav class="cats" aria-label="カテゴリー">
+      <a class="nl" href="/articles/genzaichi/">業界の現在地</a>
+      <a class="nl" href="/articles/news/">業界ニュース</a>
+      <a class="nl" href="/articles/zukan/">ロボタクシー図鑑</a>
+      <a class="nl" href="/articles/navi/">許認可ナビ</a>
+      <a class="nl" href="/articles/jissho/">実証実験レポート</a>
+      <a class="nl" href="/articles/interview/">キーマン・インタビュー</a>
+      <a class="nl" href="/zakkuri/">ざっくりニュース</a>
+      <a class="nl" href="/hojokin/">あなたが使える補助金</a>
+    </nav>
+    <a class="hdr-cta" href="/join/" aria-label="無料会員登録で「ロボタクシーの現在地」PDFを受け取る"><img src="p-01.jpg" alt=""><span>ロボタクシーの現在地<small>2026年10月版 無料PDF</small></span></a>
+  </div>
+</header>
+<div class="wrap layout">
+<main style="flex:999 1 620px;min-width:0;display:flex">
+<article id="k02" data-cat="基礎解説">
+  <div class="crumb"><a href="/">トップ</a>　›　ロボタクシーの基本　›　② 運行管理</div>
+  <div class="tags"><span class="tag solid">② 運行管理</span><span class="tag">世界・日本</span><span class="tag">基礎解説</span></div>
+  <div class="kiso-hero" style="position:relative;margin:10px 0 18px;border-radius:10px;overflow:hidden;border-bottom:5px solid #0062CC"><img src="img/k02_hero.jpg" alt="運行管理室で車を見守る担当者のイメージ" style="width:100%;display:block"><div style="position:absolute;left:0;top:0;right:0;background:rgba(255,255,255,.9);right:auto;border-radius:0 0 12px 0;padding:22px 26px;display:flex;align-items:center;gap:16px"><span style="flex:none;width:58px;height:58px;border-radius:50%;background:#0062CC;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-weight:700;font-size:28px;box-shadow:0 2px 8px rgba(0,0,0,.15)">02</span><span><span style="display:block;font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:700;letter-spacing:.2em;color:#1a1a1a">ロボタクシーの基本　BASICS 02</span><span style="display:block;font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;font-weight:700;font-size:36px;line-height:1.3;color:#0062CC;letter-spacing:.16em;text-shadow:0 1px 6px rgba(255,255,255,.8)">運行管理</span></span></div></div>
+  <h1 style="font-size:22px;line-height:1.6;color:#1a1a1a;font-weight:700;margin:6px 0 14px">ロボタクシーの運行管理とは何か。</h1>
+  <p class="lead">運行管理の主な役割は、安全のための遠隔監視、運転者への助言、緊急時への駆けつけ対応、お客様対応などがあります。事例をまじえてご紹介します。</p>
+  <div class="byline"><i></i>ロボタクシー実践ラボ編集部（編集責任：池田 将）　／　2026.11.03</div>
+  <h2>1. 運転手の代わりに必要な4つの仕事</h2>
+  <p>運転手が車内でしていた仕事を、ロボタクシーでは車の外の人が受け持ちます。</p>
+  <p><b>① 安全のための遠隔監視</b>　離れた場所から、車の周りと車内の映像・音声を見守ります。異常があれば車を止め、事故は消防と警察へ連絡します。4つの中でいちばん大事な仕事です。</p>
+  <p><b>② 遠隔の助言</b>　工事中の道や警察官の手信号など、車が迷ったときに進み方を助言します。</p>
+  <p><b>③ 駆けつけ</b>　事故や故障の現場へ行き、危険を防いで車を安全な場所へ移します。</p>
+  <p><b>④ お客様対応</b>　車内のボタンやアプリで、問い合わせ、忘れ物、体調不良などに対応します。</p>
+  <figure class="eye"><img src="img/k02_fig1.png" alt="図1"></figure>
+  <div class="gloss" style="display:block;width:auto;max-width:none;float:none;border:1.5px dashed #8fa6b8;border-radius:8px;background:#f7fafc;padding:12px 16px;margin:18px 0"><div style="font-weight:700;font-size:13px;color:#0062CC;margin-bottom:6px">用語メモ</div><ul style="margin:0;padding-left:1.2em;font-size:14px;line-height:1.7"><li><b>遠隔監視</b>：車に乗らず、離れた場所で車の周りや車内を見守ること</li></ul></div>
+  <h2>2. 運転手のいない運行に必要な実施体制</h2>
+  <p>日本でレベル4の車を走らせるには、都道府県の公安委員会の許可が要ります（改正道路交通法、2023年4月1日施行）。許可を得るには、次の担当者をそろえた体制を作ります。</p>
+  <h3>警察の許可に必要な担当者（道路交通法）</h3>
+  <p>警察庁の記載要領（2026年3月）で決められた仕事です。</p>
+  <p><b>遠隔監視の責任者（法律の名前：特定自動運行主任者）</b>　車の周りと車内を映像と音声で見守り、装置に異常があれば運行をやめます。事故のときの流れは図2のとおりです。1人が見てよい台数の基準はありません。</p>
+  <p><b>現場に駆けつける担当者（法律の名前：現場措置業務実施者）</b>　事故の現場で危険を防ぎ、車や散らばった荷物を安全な場所へ移します。審査では、待機場所から現場までの移動時間が見られます。「何分以内」という基準はありません。</p>
+  <p><b>運行する会社（法律の名前：特定自動運行実施者）</b>　計画を作って許可を申請し、上の2つの担当者を選んで教育します。</p>
+  <figure class="eye"><img src="img/k02_fig2.png" alt="図2"></figure>
+  <h3>タクシー事業として必要な担当者（道路運送法）</h3>
+  <p>旅客を運ぶ会社は、運行の安全を確かめる担当者（法律の名前：特定自動運行保安員）を選びます（2023年4月1日施行）。この担当者の点呼は運行管理者などが行い、装置があれば遠隔でも行えます（国土交通省の告示、2026年6月改正後）。</p>
+  <p>国土交通省のガイドライン（2019年6月26日）は、次のことも求めています。</p>
+  <ul class="dots"><li>けが人が出たら、すぐに現場へ向かえる体制</li><li>車内へのアナウンス、通話、お客様が通報できる装置</li><li>苦情の受け付け、高齢者や障害のある方の手助けも、運転手なしで行える体制</li></ul>
+  <div class="gloss" style="display:block;width:auto;max-width:none;float:none;border:1.5px dashed #8fa6b8;border-radius:8px;background:#f7fafc;padding:12px 16px;margin:18px 0"><div style="font-weight:700;font-size:13px;color:#0062CC;margin-bottom:6px">用語メモ</div><ul style="margin:0;padding-left:1.2em;font-size:14px;line-height:1.7"><li><b>レベル4</b>：決められた地域・条件の中で、人が運転にかかわらずに車が走る段階。ロボタクシーはレベル4。法律では「特定自動運行」と呼ぶ</li></ul></div>
+  <h2>3. 主な会社の比較：遠隔の担当者の人数と4つの仕事</h2>
+  <figure style="margin:20px 0"><div style="font-weight:800;font-size:18px;margin-bottom:2px">主な会社の運行管理の比較</div><div style="font-size:13px;color:#5b6b77;margin-bottom:8px">各社の発表・報道・国の資料による（2026年11月3日時点）。くわしい出典は下の各社の説明と記事末の出典を参照</div><div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;min-width:1040px;font-size:13px;line-height:1.55"><tr><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">写真</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">会社</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">車の台数と遠隔の担当者の人数</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">運行する場所</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">① 安全・遠隔監視</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">② 遠隔の助言</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">③ 駆けつけ</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top;background:#eef3f7;white-space:nowrap">④ お客様対応</th></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><img src="img/k02_p01.jpg" alt="Waymo" style="width:130px;height:86px;object-fit:cover;border-radius:4px;display:block"></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>Waymo</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">車 約3,000台に対して、遠隔の担当は常に約70人（事故対応チームを含む。2026年2月の公式ブログ）。1人あたり約43台（3,000台÷70人で実践ラボが計算。常に見張る仕事ではない）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">米国</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">事故対応は米国内の専門チーム（Event Response Team）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">車からの質問に助言だけ。運転はしない。担当の約半分がフィリピン（報道）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">Roadside Assistanceが現場へ行き、運転して目的地まで</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">24時間。車内のボタン・アプリの電話とチャット・メール</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><img src="img/k02_p04.jpg" alt="Zoox（Amazon傘下）" style="width:130px;height:86px;object-fit:cover;border-radius:4px;display:block"></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>Zoox（Amazon傘下）</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">公表されていない</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">米国</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">Mission Control（車の監視・トラブル対応）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">TeleGuidance（道の助言。運転はしない）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">現地のサポートチーム。Mission Controlが手配</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">Zoox Support（車内の映像・音声と通話）</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><img src="img/k02_p05.jpg" alt="百度 Apollo Go" style="width:130px;height:86px;object-fit:cover;border-radius:4px;display:block"></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>百度 Apollo Go</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">遠隔の安全担当1人あたり1〜3台（地域の決まりによる。2024年7月の報道）。全体の人数は公表されていない</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">中国</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">遠隔の安全担当。特定の場面では操作を引き継げる（報道）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">—</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">分からない</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">車内のSOSボタン（報道）</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><div style="width:130px;height:86px;background:#eef3f7;border-radius:4px;font-size:11px;color:#5b6b77;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px">自由に使える写真が見つからなかった</div></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>テスラ</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">公表されていない</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">米国オースティン</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">最初は助手席に安全監視員。2026年1月から一部の車で監視員なし（報道）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">最後の手段として遠隔で運転できる（時速約3.2km以下の車を、時速約16km以下で）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">現場に駆けつける担当者を募集（2025年10月の報道）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">分からない</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><div style="width:130px;height:86px;background:#eef3f7;border-radius:4px;font-size:11px;color:#5b6b77;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px">自由に使える写真が見つからなかった</div></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>BOLDLY（ソフトバンクの子会社）</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">1人で複数台を見守れる。台数と人数は公表されていない</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">日本（羽田・上士幌町・多気町など）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">運行管理システム「Dispatcher」で、車の状態・位置・異常を離れた場所で確認</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">—</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">運行する地域ごとの体制（分からない）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">車内カメラとAIで着席を確かめてから発車の指示（2021年の報道）</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><img src="img/k02_p03.jpg" alt="永平寺町 ZEN drive（ZENコネクト）" style="width:130px;height:86px;object-fit:cover;border-radius:4px;display:block"></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top"><b>永平寺町 ZEN drive（ZENコネクト）</b></td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">遠隔監視員など1人あたり3台（国の事例ページ。レベル4とレベル2の区間をまとめた記載）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">日本・福井県</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">遠隔監視員など</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">—</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">1便ごとに現場に駆けつける担当者（現場措置業務実施者）1人（国の事例ページ）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">分からない</td></tr></table></div><figcaption style="font-size:12px;color:#5b6b77;margin-top:6px">「—」は、その役目を別に置いていることが確かめられなかったもの。遠隔の担当者の人数・台数は、会社によって「何をする人の数か」が違うため、そのまま比べられない。写真の撮影者とライセンスは記事末の「写真の出典」を参照</figcaption></figure>
+
+  <h2>4. 海外の会社：遠隔の担当者は何をしているか</h2>
+  <h3>Waymo（ウェイモ）：遠隔は助言だけ</h3>
+  <ul class="dots"><li><b><b>遠隔の助言</b></b>：車の質問に助言するだけで、運転はしません（2026年2月17日の公式ブログ）。担当者は全員、運転免許を持っています</li><li><b><b>場所</b></b>：拠点はフィリピンに2か所、米国に2か所。拠点の場所はロイター（2026年2月18日）、担当者の約半分がフィリピンにいることはTechCrunch（2026年3月31日）が報じています</li><li><b><b>事故対応</b></b>：米国内だけに置く事故対応の専門チームが受け持ちます</li><li><b><b>駆けつけ</b></b>：車が動けないときは担当者が現場へ行き、運転して目的地まで運びます（Waymoのヘルプページ）</li><li><b><b>お客様対応</b></b>：24時間。車内のボタン、アプリの電話・チャット、メールで受け付けます</li></ul>
+  <figure class="eye"><img src="img/k02_p01.jpg" alt="米国サンフランシスコのWaymoの車両基地（Bayshore Depot）に並ぶ、Zeekr製の新しい車" loading="lazy"><figcaption style="font-size:12px;color:#5b6b77;margin-top:6px">米国サンフランシスコのWaymoの車両基地（Bayshore Depot）に並ぶ、Zeekr製の新しい車（写真：Dllu (Daniel Lu)／Wikimedia Commons／CC BY-SA 4.0）</figcaption></figure>
+  <h3>Zoox（ズークス、Amazon傘下）：遠隔を3つの班に分ける</h3>
+  <p>Zooxがテキサス州の公安局に出した救急隊向け資料（2026年6月版）によると、遠隔の班は3つで、どれも米国内にあります。</p>
+  <ul class="dots"><li><b><b>車の監視班（Mission Control）</b></b>：車の監視とトラブル対応。現場の担当とレッカーを手配する</li><li><b><b>道の助言班（TeleGuidance）</b></b>：進む道を助言する。運転はしない</li><li><b><b>お客様対応班（Zoox Support）</b></b>：車内の映像・音声と通話で対応する</li></ul>
+  <figure class="eye"><img src="img/k02_p04.jpg" alt="米国ラスベガスを走るZooxのロボタクシー（2025年1月）" loading="lazy"><figcaption style="font-size:12px;color:#5b6b77;margin-top:6px">米国ラスベガスを走るZooxのロボタクシー（2025年1月）（写真：Tomás Del Coro／Wikimedia Commons／CC BY-SA 2.0）</figcaption></figure>
+  <h3>百度（バイドゥ）「Apollo Go（アポロ・ゴー）」：遠隔の担当が操作を引き継げる</h3>
+  <p>必要な場面では、遠隔の担当が車の操作を引き継げると報じられています（澎湃新聞、2024年7月14日）。お客様は車内のSOSボタンで連絡できます（2024年7月12日の報道）。</p>
+  <figure class="eye"><img src="img/k02_p05.jpg" alt="中国・武漢を走る百度 Apollo Go のRT6" loading="lazy"><figcaption style="font-size:12px;color:#5b6b77;margin-top:6px">中国・武漢を走る百度 Apollo Go のRT6（写真：S5A-0043／Wikimedia Commons／CC BY 4.0）</figcaption></figure>
+  <h3>テスラ：最後の手段として遠隔で運転</h3>
+  <p>テスラは2025年6月、米国オースティンで助手席に安全監視員を乗せて運行を始めました。2026年1月22日からは、一部の車で監視員なしの運行を始めたと報じられています（TechCrunch）。テスラは米国の上院議員への回答で、最後の手段として、遠隔の担当者が車を運転できると説明しました。運転できるのは、時速約3.2km以下の車を時速約16km以下で動かすときです（TechCrunch、2026年3月31日。1マイル＝約1.609kmで換算）。</p>
+  <h3>参考：Cruise（クルーズ）</h3>
+  <p>GM傘下だったCruiseは、運転手なしの運行を止める前、遠隔の担当1人で約15〜20台を受け持っていたと説明しました（2023年11月6日の報道）。</p>
+  <h2>5. 遠隔監視のシステム・センターを提供する日本の会社</h2>
+  <div style="overflow-x:auto"><table class="tbl" style="border-collapse:collapse;width:100%;font-size:14px"><tr><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">会社</th><th style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">提供しているもの</th></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">BOLDLY（ボードリー、ソフトバンクの子会社）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">運行管理システム「Dispatcher」。車の状態・位置・異常を離れた場所で確かめられる</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">東海理化（愛知県の自動車部品メーカー）</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">遠隔監視のシステム。複数のカメラ映像を1つにまとめ、遅れを小さくして送る</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">電脳交通</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">遠隔監視センター（2026年1月に開設）</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">マクニカ</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">遠隔監視センター（茨城県常陸太田市に開設したと2025年10月に発表）</td></tr><tr><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">アイサンテクノロジー</td><td style="border:1px solid #d5dde3;padding:6px 8px;text-align:left;vertical-align:top">遠隔監視センター（名古屋市内に開設すると2025年11月に発表）</td></tr></table></div>
+  <ul class="dots"><li><b><b>BOLDLY</b></b>：30種類以上の車とつながり、実証実験は140回以上（2024年2月13日時点、ソフトバンクの資料）。乗客が座ったのをカメラとAIで確かめてから発車させる機能もあります（2021年の報道）</li><li><b><b>東海理化</b></b>：2023年10月に東京・西新宿で京王バスが走らせた自動運転バスに参加すると報じられました（ベストカーWeb、2023年9月25日）。製品名と最近の導入先は分かりません</li><li><b><b>遠隔監視センター</b></b>：料金と1人あたりの台数は、どの会社も公表していません（自動運転ラボ、2026年1月13日）</li></ul>
+  <h2>6. 日本の事例：誰が、何台を受け持っているか</h2>
+  <h3>福井県永平寺町「ZEN drive」　遠隔の1人で3台</h3>
+  <ul class="dots"><li>2021年3月25日、遠隔の1人が3台を受け持つ形で運行を始めました。2023年5月21日にレベル4の運行を始めています</li><li>1便ごとに、現場に駆けつける担当者が1人つきます。地元のZENコネクトが受け持ちます（国土交通省の資料、2024年6月）</li></ul>
+  <figure class="eye"><img src="img/k02_p03.jpg" alt="永平寺町で走るZEN driveの車（Japan Mobility Show 2023での展示）" loading="lazy"><figcaption style="font-size:12px;color:#5b6b77;margin-top:6px">永平寺町で走るZEN driveの車（Japan Mobility Show 2023での展示）（写真：SuFlyer／Wikimedia Commons／CC0）</figcaption></figure>
+  <figure class="eye"><img src="img/k02_p02.jpg" alt="福井県永平寺町のZEN driveの荒谷の事務所（運行を担うZENコネクトの看板がある）" loading="lazy"><figcaption style="font-size:12px;color:#5b6b77;margin-top:6px">福井県永平寺町のZEN driveの荒谷の事務所（運行を担うZENコネクトの看板がある）（写真：ブルーノ・プラス／Wikimedia Commons／CC BY 4.0）</figcaption></figure>
+  <h3>羽田・北海道上士幌町・三重県多気町　BOLDLYのシステムでレベル4の許可</h3>
+  <ul class="dots"><li>BOLDLYは、この3か所で道路交通法のレベル4の許可を得たと報じられています（自動運転ラボ、2026年2月3日）</li><li>上士幌町のレベル4は2024年10〜11月の実証で、遠隔の担当1人で1台でした。今はレベル2で走っています（国の事例ページ）</li></ul>
+  <h3>東京のWaymo・日本交通・GO　整備と運用をタクシー会社が担う</h3>
+  <ul class="dots"><li>2027年中に無人の営業を始め、100台規模にする計画です。国の許可が前提です（Business Insider Japan、2026年9月16日）</li><li>日本交通が車の整備と運用を担います（Impress Watch、2025年4月10日）</li><li>2027年中は、GOアプリとWaymoアプリの両方から呼べるようにする計画です（Business Insider Japan、2026年9月16日）</li><li>遠隔監視の体制は公表されていません</li></ul>
+  <h2>7. 遠隔の担当者1人で、車を何台受け持っているか</h2>
+  <p>1人あたりの台数は人件費を通じて、費用に大きく影響する可能性があります。ただし、会社ごとに数えた人の範囲が違うため、そのまま比べられません。</p>
+  <ul class="dots"><li>国の事例ページ（2026年11月確認）では、永平寺町が1人3台、上士幌町（2024年の実証）と長野県塩尻市（2026年3月の実証）が1人1台です</li><li>英国コベントリー大学の研究では、5〜7台は監視の成績が安定し（いちばん良いのは約5台）、9台で大きく落ちました（2025年9月の報道）</li><li>海外の会社の数字は、3章の表のとおりです</li></ul>
+  <h2>8. 運行管理にかかる費用</h2>
+  <ul class="dots"><li>BOLDLYのDispatcherは、デジタル庁のカタログで約6,530万円と報じられています（日進市の2023年度の運行事業費。内訳は不明。自動運転ラボ、2023年9月7日）</li><li>遠隔監視センターと海外の会社の費用は、公表されていません</li></ul>
+  <h2>実践ラボの視点：地方のタクシー会社・自治体にとっての意味</h2>
+  <ul class="dots"><li><b><b>体制は地域ごとに作る</b></b>：車をどこから買っても、遠隔監視の責任者と現場に駆けつける担当者は、運行する地域ごとにそろえる必要があります</li><li><b><b>タクシー会社の経験が活きる可能性がある</b></b>：点呼、事故時の指示、お客様対応は、運行管理者が日々行ってきた仕事です</li><li><b><b>駆けつけは地元の拠点が強み</b></b>：遠隔監視は遠くのセンターでもできますが、駆けつけには近くに人と拠点が要ります。営業所を持つタクシー会社が担える可能性があります</li><li><b><b>台数と料金を聞く</b></b>：国の事例は1人1〜3台。システムの会社や遠隔監視センターには、台数と料金を確かめる必要があります</li></ul>
+  <section class="summary"><div class="hd">実践ラボのまとめ</div><div class="bd"><div><span><b>見るべき点</b></span><p>1人あたりの台数、駆けつけの時間、お客様対応の体制</p></div><div><span><b>次に確かめること</b></span><p>東京のWaymo・日本交通の遠隔監視の体制</p></div></div></section>
+  <h2>写真の出典</h2>
+  <ul class="dots"><li><b>P01</b>：米国サンフランシスコのWaymoの車両基地（Bayshore Depot）に並ぶ、Zeekr製の新しい車　撮影：Dllu (Daniel Lu)　ライセンス：CC BY-SA 4.0　<a href="https://commons.wikimedia.org/wiki/File:Waymo_Zeekr_Vehicle_at_Bayshore_Depot_oblique_view_dllu.jpg" target="_blank" rel="noopener">https://commons.wikimedia.org/wiki/File:Waymo_Zeekr_Vehicle_at_Bayshore_Depot_oblique_view_dllu.jpg</a></li><li><b>P02</b>：福井県永平寺町のZEN driveの荒谷の事務所（運行を担うZENコネクトの看板がある）　撮影：ブルーノ・プラス　ライセンス：CC BY 4.0　<a href="https://commons.wikimedia.org/wiki/File:Zen_drive_aratani_office.jpg" target="_blank" rel="noopener">https://commons.wikimedia.org/wiki/File:Zen_drive_aratani_office.jpg</a></li><li><b>P03</b>：永平寺町で走るZEN driveの車（Japan Mobility Show 2023での展示）　撮影：SuFlyer　ライセンス：CC0　<a href="https://commons.wikimedia.org/wiki/File:ZEN_Drive_at_Japan_Mobility_Show_2023.jpg" target="_blank" rel="noopener">https://commons.wikimedia.org/wiki/File:ZEN_Drive_at_Japan_Mobility_Show_2023.jpg</a></li><li><b>P04</b>：米国ラスベガスを走るZooxのロボタクシー（2025年1月）　撮影：Tomás Del Coro　ライセンス：CC BY-SA 2.0　<a href="https://commons.wikimedia.org/wiki/File:ZOOX_Robotaxi_(54248543677" target="_blank" rel="noopener">https://commons.wikimedia.org/wiki/File:ZOOX_Robotaxi_(54248543677</a>).jpg</li><li><b>P05</b>：中国・武漢を走る百度 Apollo Go のRT6　撮影：S5A-0043　ライセンス：CC BY 4.0　<a href="https://commons.wikimedia.org/wiki/File:(CHN-Hubei" target="_blank" rel="noopener">https://commons.wikimedia.org/wiki/File:(CHN-Hubei</a>)_Apollo_Go_Apollo_RT6_Temporary-鄂A1395试_2025-12-17.jpg</li></ul>
+  <div class="sources"><b>出典</b><a href="https://www.npa.go.jp/bureau/traffic/selfdriving/kouki29269325-2.pdf" target="_blank" rel="noopener">警察庁「特定自動運行許可に係る申請書等の記載要領」（2026年3月）：https://www.npa.go.jp/bureau/traffic/selfdriving/kouki29269325-2.pdf</a><a href="https://www.npa.go.jp/bureau/traffic/selfdriving/index.html" target="_blank" rel="noopener">警察庁「自動運転」のページ：https://www.npa.go.jp/bureau/traffic/selfdriving/index.html</a><a href="https://www.mlit.go.jp/jidosha/content/001749836.pdf" target="_blank" rel="noopener">国土交通省 資料（特定自動運行の実施者・主任者・保安員などの役割、2024年6月）：https://www.mlit.go.jp/jidosha/content/001749836.pdf</a><a href="https://www.mlit.go.jp/report/press/jidosha02_hh_000561.html" target="_blank" rel="noopener">国土交通省 報道発表（道路運送法施行規則などの改正、2023年3月31日）：https://www.mlit.go.jp/report/press/jidosha02_hh_000561.html</a><a href="https://www.mlit.go.jp/jidosha/content/001904753.pdf" target="_blank" rel="noopener">国土交通省 点呼に関する告示（2026年6月改正）：https://www.mlit.go.jp/jidosha/content/001904753.pdf</a><a href="https://www.road-to-the-l4.go.jp/case/" target="_blank" rel="noopener">国土交通省・経済産業省「RoAD to the L4」レベル4の事例：https://www.road-to-the-l4.go.jp/case/</a><a href="https://www.road-to-the-l4.go.jp/case/eiheiji/" target="_blank" rel="noopener">同 永平寺町の事例ページ：https://www.road-to-the-l4.go.jp/case/eiheiji/</a><a href="https://www.road-to-the-l4.go.jp/case/kamishihoro/" target="_blank" rel="noopener">同 上士幌町の事例ページ：https://www.road-to-the-l4.go.jp/case/kamishihoro/</a><a href="https://www.road-to-the-l4.go.jp/case/shiojiri/" target="_blank" rel="noopener">同 塩尻市の事例ページ：https://www.road-to-the-l4.go.jp/case/shiojiri/</a><a href="https://www.mlit.go.jp/report/press/jidosha02_hh_000379.html" target="_blank" rel="noopener">国土交通省 報道発表（無人自動運転移動サービスを導入するバス・タクシー事業者のためのガイドライン、2019年6月26日）：https://www.mlit.go.jp/report/press/jidosha02_hh_000379.html</a><a href="https://www.mlit.go.jp/common/001295527.pdf" target="_blank" rel="noopener">同ガイドライン本文：https://www.mlit.go.jp/common/001295527.pdf</a><a href="https://www.mlit.go.jp/jidosha/content/001447238.pdf" target="_blank" rel="noopener">国土交通省 資料（永平寺町の遠隔型自動運転、1名で3台の運用）：https://www.mlit.go.jp/jidosha/content/001447238.pdf</a><a href="https://waymo.com/blog/shorts/advice-not-control-the-role-of-remote-assistance/" target="_blank" rel="noopener">Waymo公式ブログ（遠隔支援の役割、2026年2月17日）：https://waymo.com/blog/shorts/advice-not-control-the-role-of-remote-assistance/</a><a href="https://support.google.com/waymo/answer/9699657" target="_blank" rel="noopener">Waymo ヘルプ（ロードサイド・アシスタンス）：https://support.google.com/waymo/answer/9699657</a><a href="https://support.google.com/waymo/answer/9059344" target="_blank" rel="noopener">Waymo ヘルプ（サポートへの連絡）：https://support.google.com/waymo/answer/9059344</a><a href="https://www.thestar.com.my/tech/tech-news/2026/02/18/waymo-defends-use-of-remote-assistance-workers-in-robotaxi-operations" target="_blank" rel="noopener">The Star（ロイター配信）「Waymo defends use of remote assistance workers in robotaxi operations」（2026年2月18日）：https://www.thestar.com.my/tech/tech-news/2026/02/18/waymo-defends-use-of-remote-assistance-workers-in-robotaxi-operations</a><a href="https://techcrunch.com/2026/03/31/robotaxi-companies-refuse-to-say-how-often-their-avs-need-remote-help/" target="_blank" rel="noopener">TechCrunch「Robotaxi companies refuse to say how often their AVs need remote help」（2026年3月31日）：https://techcrunch.com/2026/03/31/robotaxi-companies-refuse-to-say-how-often-their-avs-need-remote-help/</a><a href="https://www.axios.com/2026/03/31/autonomous-vehicles-remote-av-federal-markey" target="_blank" rel="noopener">Axios（2026年3月31日）：https://www.axios.com/2026/03/31/autonomous-vehicles-remote-av-federal-markey</a><a href="https://www.dps.texas.gov/sites/default/files/documents/highwaypatrol/cav/plans/zoox_robotaxi.pdf" target="_blank" rel="noopener">Zoox 救急隊向け資料（テキサス州公安局の掲載、2026年6月版）：https://www.dps.texas.gov/sites/default/files/documents/highwaypatrol/cav/plans/zoox_robotaxi.pdf</a><a href="https://www.thepaper.cn/newsDetail_forward_28069803" target="_blank" rel="noopener">澎湃新聞（百度Apollo Goの遠隔安全担当、2024年7月14日）：https://www.thepaper.cn/newsDetail_forward_28069803</a><a href="https://www.gamersky.com/tech/202407/1786756.shtml" target="_blank" rel="noopener">游民星空（2024年7月12日）：https://www.gamersky.com/tech/202407/1786756.shtml</a><a href="https://techcrunch.com/2026/01/22/tesla-launches-robotaxi-rides-in-austin-with-no-human-safety-driver/" target="_blank" rel="noopener">TechCrunch「Tesla launches robotaxi rides in Austin with no human safety driver」（2026年1月22日）：https://techcrunch.com/2026/01/22/tesla-launches-robotaxi-rides-in-austin-with-no-human-safety-driver/</a><a href="https://driveteslacanada.ca/news/tesla-hiring-rapid-response-field-operators-in-austin-to-replace-robotaxi-safety-monitors/" target="_blank" rel="noopener">Drive Tesla Canada（2025年10月2日）：https://driveteslacanada.ca/news/tesla-hiring-rapid-response-field-operators-in-austin-to-replace-robotaxi-safety-monitors/</a><a href="https://www.nbcnewyork.com/news/business/money-report/cruise-confirms-robotaxis-rely-on-human-assistance-every-four-to-five-miles/4836824/" target="_blank" rel="noopener">NBC New York（CNBC配信）「Cruise confirms robotaxis rely on human assistance every four to five miles」（2023年11月6日）：https://www.nbcnewyork.com/news/business/money-report/cruise-confirms-robotaxis-rely-on-human-assistance-every-four-to-five-miles/4836824/</a><a href="https://www.transportxtra.com/publications/new-transit/news/79362/how-many-autonomous-vehicles-can-one-person-monitor-" target="_blank" rel="noopener">TransportXtra「How many autonomous vehicles can one person monitor?」（2025年9月2日）：https://www.transportxtra.com/publications/new-transit/news/79362/how-many-autonomous-vehicles-can-one-person-monitor-</a><a href="https://www.softbank.jp/drive/set/data/press/2024/shared/20240213_01.pdf" target="_blank" rel="noopener">ソフトバンク 報道資料（2024年2月13日）：https://www.softbank.jp/drive/set/data/press/2024/shared/20240213_01.pdf</a><a href="https://newswitch.jp/p/27919" target="_blank" rel="noopener">ニュースイッチ（BOLDLYのDispatcher、2021年）：https://newswitch.jp/p/27919</a><a href="https://jidounten-lab.com/u_59339" target="_blank" rel="noopener">自動運転ラボ（BOLDLY、2026年2月3日）：https://jidounten-lab.com/u_59339</a><a href="https://jidounten-lab.com/?p=43032" target="_blank" rel="noopener">自動運転ラボ（デジタル庁カタログ、2023年9月7日）：https://jidounten-lab.com/?p=43032</a><a href="https://jidounten-lab.com/u_58960" target="_blank" rel="noopener">自動運転ラボ（遠隔監視センター、2026年1月13日）：https://jidounten-lab.com/u_58960</a><a href="https://bestcarweb.jp/?p=712911" target="_blank" rel="noopener">ベストカーWeb（東海理化の遠隔監視、2023年9月25日）：https://bestcarweb.jp/?p=712911</a><a href="https://www.logi-today.com/426352" target="_blank" rel="noopener">LOGISTICS TODAY（永平寺町のレベル3、2021年3月23日）：https://www.logi-today.com/426352</a><a href="https://www.businessinsider.jp/article/2609-waymo-driverless-taxi-tokyo-2027/" target="_blank" rel="noopener">Business Insider Japan（Waymoの東京、2026年9月16日）：https://www.businessinsider.jp/article/2609-waymo-driverless-taxi-tokyo-2027/</a><a href="https://www.watch.impress.co.jp/docs/news/2005638.html" target="_blank" rel="noopener">Impress Watch（Waymo・日本交通・GO、2025年4月）：https://www.watch.impress.co.jp/docs/news/2005638.html</a></div>
+</article>
+</main>
+<aside id="rail">
+  <div class="side">
+    <h4>新着記事</h4>
+    <a class="nl" href="/articles/a22/">佐賀市交通局、自動運転バスの実証で初めて運賃を取る（大人最大180円）。佐賀駅〜SAGAサンライズパーク約1.8kmを毎日6往復、12月22日まで<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a24/">香川県坂出市で自動運転バスの実証が11月28日から30日間。琴参バスが運行し、坂出自動車学校が遠隔監視を担う。2028年のレベル4をめざす<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a31/">Waymo、高速道路の閉鎖車線と警察官の手信号への対応で2件の自主リコール。手信号は修正済み、閉鎖車線は修正中<small>2026.11.20</small></a>
+    <a class="nl" href="/articles/a18/">国交省、運転席を前提としない自動運転車を「自動運行用自動車」として区分する省令改正案の意見募集を開始。12月27日施行予定<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a23/">帯広市と米子市、今年度の自動運転バス実証を見送り。帯広は国の補助の条件と積雪が理由、米子は車両を見直す。国の補助は「2027年度までに全区間でレベル4」が条件に<small>2026.11.19</small></a>
+    <a class="nl" href="/articles/a19/">維新がロボタクシーの参入・運賃・台数の規制見直しを提言（政府の方針ではない）。規制改革相は自動運転の議論を本格化へと報道<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a32/">テスラ、6〜7人の団体向けにハンドルなしModel Yを計画。2人乗りのCybercabと使い分け<small>2026.11.18</small></a>
+    <a class="nl" href="/articles/a25/">Waymo、全米で高速道路の配車を停止。カリフォルニア州が工事区間への進入とパトカーへの対応を理由に無人走行を禁止<small>2026.11.17</small></a>
+    <a class="nl" href="/articles/a27/">Pony.aiとトヨタ、中国・広州でbZ4Xの完全無人ロボタクシーの営業を開始。トヨタとWaymoが2027年に日本で走らせる予定の車と同じ車種<small>2026.11.16</small></a>
+    <a class="nl" href="/articles/a28/">May Mobility、VWのID. Buzzで2031年までに自動運転車1万台超を目指す。車は持たず運行会社と組む。名古屋ではNTTと名鉄タクシー系が実証中<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a30/">米首都ワシントンDCのロボタクシー法案、議会の委員会で3対3となり通らず。運転手の団結権や台数の上限を入れた修正案でも合意できず<small>2026.11.12</small></a>
+    <a class="nl" href="/articles/a21/">城崎温泉の自動運転バス、一般客を乗せた初日に石垣へ接触し運休。オペレーターの手動操作はなかったと報道、原因は未公表<small>2026.11.09</small></a>
+    <a class="nl" href="/articles/a20/">KDDIがnewmoに出資し、newmoは208億円を調達。堺市で2028年に自動運転タクシーの商用化を目指し、運行の仕組みを全国の事業者へ出すことも検討<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a26/">Amazon傘下のZoox、2027年初めに米国外で初の試験へ。候補に日本、都市は未定。まずは運転者が乗ってデータ集め<small>2026.11.06</small></a>
+    <a class="nl" href="/articles/a17/">国交省、ハンドルやペダルのない自動運転車を12月から一つの基準で認める予定。事故1件でもリコール処分、タクシー会社などの使用者に事故報告を求める案も<small>2026.11.04</small></a>
+  </div>
+  <div class="side">
+    <h4>カテゴリー別の記事</h4>
+    <a class="nl" href="/articles/genzaichi/">数字で見るロボタクシーの現在地<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/news/">第一交通産業とNTTモビリティが連携協定<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/zukan/">Waymo（ウェイモ）<small>2026.10.24</small></a>
+    <a class="nl" href="/articles/navi/">警察の「特定自動運行の許可」とは<small>2026.10.24</small></a>
+  </div>
+  <div class="side pdf">
+    <h4>ロボタクシーの現在地 2026年10月版</h4>
+    <img src="p-01.jpg" alt="ロボタクシーの現在地の表紙">
+    <p style="font-size:13px;line-height:1.7">基本を知りたい方は、まずこのPDFを。図解中心の32ページ。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録でPDFを受け取る</a>
+  </div>
+  <div class="side dark">
+    <h4>許認可チェックリストを無料で配布中</h4>
+    <p>警察・運輸局・自治体との協議で準備すべき資料を、1枚にまとめました。無料会員登録でダウンロードできます。</p>
+    <a class="btn" href="/join/" style="text-align:center">無料会員登録</a>
+  </div>
+</aside>
+</div>
+<footer class="site"><div class="wrap"><span><b style="color:var(--brand-text)">ロボタクシー実践ラボ</b>　業界全体のための実践の共有　／　特定のメーカー・システムに偏らない編集方針</span><span>運営：アイベリー株式会社（代表 村田 大）／編集長 池田 将</span><nav class="flinks" aria-label="サイト情報"><a href="/about/">運営者情報</a><a href="/editorial-policy/">編集方針</a><a href="/privacy/">プライバシーポリシー</a><a href="/contact/">お問い合わせ</a><a href="/join/">無料会員登録</a></nav></div></footer>
+</body></html>

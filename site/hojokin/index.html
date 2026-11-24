@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="/">
+<title>あなたが使える補助金｜ロボタクシー実践ラボ</title>
+<meta name="description" content="タクシー会社と自治体が使える補助金を、国・都道府県・市町村ごとに検索できます。自動運転、EVタクシー、配車アプリ、運転手の確保、UDタクシーなど。ロボタクシーに向けた使い方も解説します。">
+<link rel="canonical" href="https://robotaxi-lab.com/hojokin/">
+<meta property="og:site_name" content="ロボタクシー実践ラボ"><meta property="og:type" content="website"><meta property="og:title" content="あなたが使える補助金｜ロボタクシー実践ラボ"><meta property="og:description" content="タクシー会社と自治体が使える補助金を、国・都道府県・市町村ごとに検索できます。自動運転、EVタクシー、配車アプリ、運転手の確保、UDタクシーなど。ロボタクシーに向けた使い方も解説します。"><meta property="og:url" content="https://robotaxi-lab.com/hojokin/"><meta property="og:image" content="https://robotaxi-lab.com/hero.jpg"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Roboto+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}a.nl{text-decoration:none}.acard,.iv,.hdr-cta,a.db{text-decoration:none}
+
+/* Layout: site header + category tabs, one article at a time in a reading column with a side rail; navy/amber identity from the lab's site mock */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --ink:#1F3A5F; --muted:#4F6480; --line:#E5E5EA;
+  --brand:#0066D6; --brand-text:#0062CC; --on-brand:#FFFFFF; --amber:#007AFF; --amber-ink:#0062CC;
+  --tint:#F2F6FB; --cream:#EAF3FF; --cream-ink:#004A99; --ph:#E5E5EA; --ph-ink:#4F6480;
+  --bar2:#9CCBFF; --car:#FFFFFF; --glass:#D6E8FF; --tire:#1F3A5F; --good:#0062CC;
+  --f-body:system-ui,-apple-system,'Hiragino Sans','Noto Sans JP','Yu Gothic',Meiryo,sans-serif;
+  --f-num:'Roboto Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.9}
+a{color:var(--brand-text)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.notice{background:var(--cream);color:var(--cream-ink);font-size:12px;text-align:center;padding-block:6px}
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font-size:19px;font-weight:900;color:var(--brand-text)}
+.logo small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+nav.cats{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 420px;justify-content:flex-end}
+nav.cats a.nl{font:inherit;font-size:14px;font-weight:700;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+nav.cats a.nl[aria-current="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+nav.cats a.nl:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.layout{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;padding-block:24px 64px}
+article{flex:999 1 620px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:22px}
+aside{flex:1 1 280px;max-width:100%;display:flex;flex-direction:column;gap:20px}
+@media(min-width:960px){aside{max-width:320px;position:sticky;top:16px}}
+.crumb{font-size:13px;color:var(--muted)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:3px;border:1px solid var(--brand-text);color:var(--brand-text)}
+.tag.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.tag.warn{border-color:var(--amber-ink);color:var(--amber-ink)}
+h1{margin:0;font-size:clamp(24px,3.4vw,32px);line-height:1.45;font-weight:900;color:var(--brand-text);text-wrap:balance}
+.byline{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.byline i{width:34px;height:34px;border-radius:50%;background:var(--ph);flex:0 0 auto}
+.lead{font-size:17px;line-height:2;font-weight:500;margin:0}
+h2{margin:10px 0 0;font-size:22px;font-weight:900;color:var(--brand-text);padding-bottom:8px;border-bottom:3px solid var(--amber);text-wrap:balance;line-height:1.5}
+h3{margin:0;font-size:17px;font-weight:900;color:var(--ink)}
+p{margin:0}
+.fig{margin:0;display:flex;flex-direction:column;gap:8px}
+.fig figcaption{font-size:12.5px;color:var(--muted)}
+.scroll{overflow-x:auto}
+.photo{background:var(--ph);color:var(--ph-ink);border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;padding:16px;aspect-ratio:16/7;max-width:100%;border:1px dashed var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--tint);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:12.5px;font-weight:700;color:var(--muted)}
+.kpi b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);font-variant-numeric:tabular-nums;line-height:1.3}
+.kpi small{font-size:12px;color:var(--muted)}
+.kpi.hl{background:var(--brand)}.kpi.hl span,.kpi.hl small{color:#EAF3FF}.kpi.hl b{color:var(--on-brand)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:700}
+td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{background:var(--tint);font-weight:700;color:var(--brand-text)}
+.na{color:var(--muted)}
+.box{background:var(--tint);border-radius:8px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.box.cream{background:var(--cream)}
+.box .lbl{font-size:13px;font-weight:700;color:var(--brand-text)}
+ul.dots{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
+.card .k{font-size:12px;font-weight:700;color:var(--amber-ink)}
+.summary{border:2px solid var(--brand);border-radius:10px;overflow:hidden}
+.summary .hd{background:var(--brand);color:var(--on-brand);padding:12px 22px;font-weight:900}
+.summary .bd{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.summary .bd div{padding:16px 22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.summary .bd span{font-size:13px;font-weight:700;color:var(--amber-ink)}
+.summary .bd p{font-size:15px;line-height:1.8}
+.pay{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pay .fade{padding:20px 22px;color:var(--muted)}
+.pay .gate{background:var(--cream);border-top:2px dashed var(--amber);padding:22px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+.pay .gate b{color:var(--brand-text)}
+.btn{display:inline-block;padding:11px 24px;background:var(--brand);color:#FFFFFF;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px}
+.sources{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);padding-top:14px}
+.sources a{word-break:break-all}
+.sample{background:var(--cream);color:var(--cream-ink);border-radius:8px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.qa{display:flex;flex-direction:column;gap:14px}
+.qa .q{font-weight:900;color:var(--brand-text)}
+.qa .q::before{content:"―　"}
+.pull{border-left:4px solid var(--amber);padding:6px 0 6px 18px;font-size:20px;font-weight:900;line-height:1.7;color:var(--brand-text)}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.side h4{margin:0;font-size:15px;font-weight:900;color:var(--brand-text)}
+.side a.nl{font:inherit;text-align:left;background:none;border:0;padding:8px 10px;border-radius:6px;color:var(--ink);cursor:pointer;display:flex;gap:8px;font-size:14px;line-height:1.6}
+.side a.nl span{font-size:11px;font-weight:700;color:var(--amber-ink);flex:0 0 74px;padding-top:2px}
+.side a.nl[aria-current="true"]{background:var(--cream);font-weight:700}
+.side a.nl{flex-direction:column;gap:2px}.side a.nl small{font-size:12px;color:var(--muted,#5b6b77);font-weight:400}
+.side.dark{background:var(--brand);border-color:var(--brand);color:#EAF3FF}.side.dark h4{color:var(--on-brand)}
+.side.dark p{font-size:13px;line-height:1.8}
+svg text{font-family:var(--f-body)}
+.s-ink{fill:var(--ink)}.s-muted{fill:var(--muted)}.s-brand{fill:var(--brand)}.s-btext{fill:var(--brand-text)}.s-amber{fill:var(--amber)}
+.s-tint{fill:var(--tint)}.s-surface{fill:var(--surface)}.s-line{stroke:var(--line)}.s-bar2{fill:var(--bar2)}.s-ph{fill:var(--ph)}
+.s-onb{fill:var(--on-brand)}.s-car{fill:var(--car);stroke:var(--muted);stroke-width:2.5}.s-glass{fill:var(--glass)}.s-tire{fill:var(--tire)}
+.top{display:flex;flex-direction:column;gap:28px;width:100%;min-width:0}
+.hero{background:var(--brand);color:#FFFFFF;border-radius:12px;padding:clamp(22px,4vw,44px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.hero-txt{flex:3 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px}
+.hero-txt p{color:#EAF3FF;line-height:1.9}
+.hero-h{margin:0;border:0;padding:0;color:#FFFFFF;font-size:clamp(22px,3.2vw,32px);line-height:1.45}
+.tag.amberfill{background:var(--brand);border-color:var(--brand);color:#FFFFFF}.tag.onb{border-color:#EAF3FF;color:#EAF3FF}
+.hero-fig{flex:2 1 260px;display:grid;gap:10px}
+.hk{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:12px 16px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:0 12px}
+.hk span{font-size:12.5px;color:#EAF3FF;font-weight:700}.hk b{font-family:var(--f-num);font-size:26px;grid-row:span 2;color:#FFFFFF}.hk small{font-size:11.5px;color:#D6E8FF}
+.hk.jp{background:var(--cream);border-color:var(--cream)}.hk.jp span,.hk.jp small,.hk.jp b{color:#1F3A5F}
+button.btn{border:0;cursor:pointer;font:inherit;font-weight:700;font-size:14px}
+.btn.ghost{background:transparent;color:#FFFFFF;border:1px solid #EAF3FF}
+.btn.ghost2{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.sec-hd{display:flex;flex-direction:column;gap:2px}
+.sec-hd h3{font-size:20px;color:var(--brand-text)}
+.eyebrow{font-family:var(--f-num);font-size:11.5px;letter-spacing:.12em;font-weight:700;color:var(--amber-ink)}
+.cards6{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.acard{font:inherit;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:0 0 16px;display:flex;flex-direction:column;gap:6px;color:var(--ink);overflow:hidden}
+.acard:hover{border-color:var(--brand-text)}.acard:focus-visible,.newslist a.nl:focus-visible,.db:focus-visible,.iv:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.acard .thumb{display:block;aspect-ratio:2/1;max-width:100%}
+.acard .thumb svg{width:100%;height:100%;display:block}
+.t1,.t4{background:var(--brand)}.t2,.t5{background:#2E86F0}.t3,.t6{background:#5AA0F2}
+.acard .cat,.acard b,.acard small{padding-inline:16px}
+.acard .cat{font-size:12px;font-weight:700;color:var(--amber-ink);display:flex;gap:6px;align-items:center;padding-top:6px}
+.acard .cat i{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.acard b{font-size:15.5px;line-height:1.6}.acard small{font-size:12px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.newslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.newslist li>*{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);font:inherit;font-size:14px;line-height:1.6;text-align:left;width:100%;background:none;border-left:0;border-right:0;border-top:0;color:var(--ink)}
+.newslist a.nl{cursor:pointer;font-weight:700;color:var(--brand-text)}
+.newslist time{font-family:var(--f-num);font-size:12px;color:var(--muted)}
+.ntag{font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:3px;padding:0 6px;color:var(--muted)}
+.iv{font:inherit;text-align:left;cursor:pointer;background:var(--tint);border:0;border-radius:8px;padding:16px;display:flex;gap:16px;align-items:center;color:var(--ink)}
+.iv b{display:block;font-size:16px;line-height:1.7;color:var(--brand-text)}.iv small{font-size:12px;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.steps li>*,.steps li{display:flex;flex-direction:column;gap:2px}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
+.steps b{font-family:var(--f-num);font-size:18px;color:var(--brand-text)}.steps span{font-weight:700}.steps small{font-size:11.5px;color:var(--muted)}
+.steps li.on{background:var(--brand);border-color:var(--brand);padding:0}
+.steps li.on a.nl{font:inherit;text-align:left;background:none;border:0;padding:14px;cursor:pointer;color:#FFFFFF}
+.steps li.on b,.steps li.on small{color:var(--amber)}
+.db3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.db{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+a.db{cursor:pointer}.db b{font-size:16px}.db small{color:var(--muted);font-size:13px}.db span{font-size:13px;font-weight:700;color:var(--brand-text)}
+.event{background:var(--tint);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:24px 28px;display:flex;flex-direction:column;gap:6px}
+.event h3{color:var(--brand-text);font-size:21px}.event p{color:#4F6480;font-size:14px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.plan.pro{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.price{font-family:var(--f-num);font-size:24px}.price small{font-size:12px;font-family:var(--f-body)}
+footer.site{background:var(--surface);border-top:1px solid var(--line)}
+footer.site .wrap{padding-block:24px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:13px;color:var(--muted)}
+
+
+.hdr-cta{display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--cream);color:var(--ink);border-radius:8px;padding:6px 12px 6px 6px;font:inherit;font-weight:700;font-size:13px;border:0;cursor:pointer;line-height:1.3;text-align:left}
+.hdr-cta img{width:54px;height:auto;border-radius:3px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.hdr-cta small{display:block;font-size:10.5px;font-weight:500}
+.hdr-cta:focus-visible{outline:3px solid var(--brand-text);outline-offset:2px}
+.core{background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:clamp(18px,3vw,32px);display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.core-cover{flex:1 1 280px;max-width:420px;position:relative}
+.core-cover img{width:100%;display:block;border-radius:6px;border:1px solid var(--line);box-shadow:8px 8px 0 var(--tint),16px 16px 0 var(--ph)}
+.core-txt{flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.core-txt h3{font-size:clamp(20px,2.6vw,26px);color:var(--brand-text);line-height:1.4}
+.core-txt .meta{font-size:12.5px;color:var(--muted)}
+.core-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:6px 16px;margin:0;padding:0;list-style:none;font-size:14px}
+.core-list li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--amber);margin-right:8px;vertical-align:1px}
+.core-btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn.line{background:transparent;color:var(--brand-text);border:1px solid var(--brand-text)}
+.dl-msg{font-size:12.5px;color:var(--muted)}
+.previews{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.previews figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.previews img{width:100%;border-radius:4px;border:1px solid var(--line);display:block}
+.previews figcaption{font-size:12px;color:var(--muted)}
+.side.pdf{background:var(--cream);border-color:var(--amber)}
+.side.pdf img{width:100%;border-radius:4px;border:1px solid var(--line)}
+
+.phero{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1536/660;min-height:340px;background:#C7C7CC url(hero.jpg) center top/cover no-repeat;display:flex;align-items:flex-start;padding:clamp(16px,3vw,36px)}
+.phero .card{max-width:640px;background:rgba(255,255,255,.38);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:8px;border-top:6px solid var(--amber);padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 24px rgba(31,58,95,.16)}
+.phero h2{margin:0;border:0;padding:0;font-size:clamp(24px,3.4vw,40px);line-height:1.4;font-weight:900;color:var(--ink)}
+.phero .card p{color:var(--muted)}
+.phero .eb{font-size:13px;font-weight:700;color:var(--brand-text)}
+.kpi3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;background:var(--tint);border-radius:10px;padding:20px}
+.kpi3 div{background:#FFFFFF;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi3 span{font-size:12.5px;font-weight:700;color:var(--muted)}.kpi3 b{font-family:var(--f-num);font-size:28px;color:var(--brand-text);line-height:1.3}.kpi3 b.jp{color:var(--ink)}.kpi3 small{font-size:12px;color:var(--muted)}
+.field{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:760px){.field{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.field{grid-template-columns:minmax(0,1fr)}}
+.field figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.field img{width:100%;height:170px;object-fit:cover;border-radius:6px;display:block}
+.field figcaption{font-size:14px;font-weight:700}
+.field figure.go{cursor:pointer}.field figure.go:hover img{opacity:.85}.field .more{font-size:12px;font-weight:600;color:var(--brand-text,#0b5cad);margin-left:6px}
+.acard .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.eye{margin:0;display:flex;flex-direction:column;gap:6px}
+.eye img{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:8px;display:block;background:var(--tint)}.eye img[src^="img/r"]{aspect-ratio:16/9;object-fit:contain}
+.eye figcaption{font-size:12px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.acard .own{font-style:normal;font-size:10.5px;background:var(--cream);color:var(--cream-ink);padding:1px 6px;border-radius:3px}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.vcard{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--ink);background:#FFFFFF;border:1px solid var(--line);border-radius:10px;overflow:hidden;padding-bottom:16px}
+.vcard:hover{border-color:var(--brand-text)}.vcard:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.vcard .vth{position:relative;display:block;aspect-ratio:16/9;background:var(--tint) center/cover no-repeat}
+.vcard .vth::after{content:"";position:absolute;left:50%;top:50%;width:68px;height:48px;margin:-24px 0 0 -34px;border-radius:12px;background:rgba(31,58,95,.82)}
+.vcard .vth::before{content:"";position:absolute;left:50%;top:50%;margin:-11px 0 0 -6px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #FFFFFF;z-index:1}
+.vcard .vh{font-size:18px;font-weight:900;color:var(--brand-text);padding-inline:16px}
+.vcard .vt{font-size:14px;font-weight:700;padding-inline:16px;line-height:1.6}
+.vcard .vd{font-size:13px;color:var(--muted);padding-inline:16px;line-height:1.7}
+.vcard .vm{font-size:12px;color:var(--muted);padding-inline:16px}
+.core-samples{flex:1 1 100%;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:18px}
+.core-samples h4{margin:0;font-size:16px;font-weight:900;color:var(--brand-text)}
+.core-samples p{font-size:13px;color:var(--muted)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:no-preference){article{animation:rise .35s ease-out both}@keyframes rise{from{transform:translateY(6px)}to{transform:none}}}
+
+nav.cats{order:3;flex:1 1 100%;justify-content:flex-start}nav.cats a.nl{white-space:nowrap}header.site .hdr-cta{margin-left:auto}
+
+.spage{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px clamp(18px,4vw,44px);max-width:860px;margin:0 auto}
+.spage h1{font-size:26px;line-height:1.5;margin:0 0 14px;color:var(--ink)}
+.spage h2{font-size:19px;margin:34px 0 12px;padding-left:10px;border-left:4px solid var(--brand);color:var(--ink)}
+.spage p,.spage li,.spage td,.spage th{font-size:15px;line-height:1.9}
+.spage .lead{font-size:16px}
+.spage .note{font-size:13px;color:var(--muted)}
+.spage ul.small li{font-size:13px;color:var(--muted)}
+.spage ol.steps{padding-left:1.4em}.spage ol.steps li{margin:6px 0}
+.spage table.info{width:100%;border-collapse:collapse;margin:8px 0}
+.spage table.info th,.spage table.info td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.spage table.info th{width:28%;background:#F5F8FC;font-weight:700;white-space:nowrap}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.person{border:1px solid var(--line);border-radius:10px;padding:18px}
+.person .role{display:block;font-size:12px;font-weight:700;color:var(--brand-text)}
+.person .name{display:block;font-size:22px;margin:4px 0 8px}
+.person .duty{font-size:13px;color:var(--muted)}
+.formbox{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.formbox.prep{padding:24px;text-align:center;background:#F5F8FC}
+.joinwrap{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:24px;align-items:start;margin-top:10px}
+.joincover img{width:100%;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+@media (max-width:640px){.joinwrap{grid-template-columns:1fr}.joincover{max-width:200px}.spage table.info th{white-space:normal;width:34%}}
+footer.site .flinks{display:flex;flex-wrap:wrap;gap:6px 18px;width:100%}
+footer.site .flinks a{color:inherit;font-size:13px}
+/* ===== 補助金コーナー ===== */
+.hj{width:100%}
+.hj .eyebrow2{font-size:13px;font-weight:700;color:var(--brand-text)}
+.hj h2{font-size:28px;line-height:1.4;margin:6px 0 8px}
+.hj .lead{font-size:15px;line-height:1.8;color:#4a5568;margin:0}
+.hj-panel{margin-top:20px;background:#fff;border:1px solid #dbe6f7;border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.hj-row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+.hj-row label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:#4a5568}
+.hj-row select,.hj-row input{min-height:44px;min-width:170px;padding:0 12px;border:1px solid #b9cbe6;border-radius:6px;font:inherit;font-size:15px;color:#1a2433;background:#fff}
+.hj-row input{min-width:240px}
+.hj-chips{display:flex;gap:8px;flex-wrap:wrap}
+.hj-chips button{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #b9cbe6;background:#fff;color:#1a2433;font:inherit;font-size:14px;cursor:pointer}
+.hj-chips button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.hj-count{font-size:14px;color:#4a5568;margin:0}
+.hj-sec{margin-top:30px}
+.hj-sec>h3{display:flex;gap:10px;align-items:baseline;border-bottom:2px solid var(--brand);padding-bottom:8px;margin:0;font-size:21px}
+.hj-sec>h3 small{font-size:13px;color:#4a5568;font-weight:400}
+.hj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:14px}
+.hj-card{background:#fff;border:1px solid #dbe6f7;border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:9px}
+.hj-card .nm{font-size:16px;font-weight:700;color:#1a2433;text-decoration:none;line-height:1.5}
+.hj-card .nm:hover{color:var(--brand-text);text-decoration:underline}
+.hj-card dl{margin:0;display:grid;grid-template-columns:5.5em 1fr;gap:3px 10px;font-size:13.5px;line-height:1.6}
+.hj-card dt{color:#4a5568}.hj-card dd{margin:0}
+.hj-use{margin:0;padding:9px 11px;background:#f0f6ff;border-radius:6px;font-size:13.5px;line-height:1.6}
+.hj-use b{color:#0848a8}
+.hj-badges{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.hj-st{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.hj-st.s1{background:#0a6cff;color:#fff}.hj-st.s2{background:#e3eeff;color:#0848a8}.hj-st.s3{background:#fff1e0;color:#8a4b00}.hj-st.s4{background:#eceff3;color:#4a5568}
+.hj-tg{display:inline-block;padding:2px 8px;border:1px solid #dbe6f7;border-radius:4px;font-size:12px;color:#4a5568}
+.hj-empty{padding:24px;background:#fff;border:1px dashed #b9cbe6;border-radius:10px;color:#4a5568;font-size:14px;line-height:1.7;margin-top:14px}
+.hj-d{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:22px;align-items:start;margin-top:14px}
+.hj-d .main{grid-column:1/-1;display:flex;flex-direction:column;gap:20px;min-width:0}
+.hj-box{background:#fff;border:1px solid #dbe6f7;border-radius:10px;padding:20px}
+.hj-box h3{margin:0 0 12px;font-size:19px}
+.hj-box.use{background:#f0f6ff;border-color:#b9cbe6}.hj-box.use h3{color:#0848a8}
+.hj-kv{margin:0}
+.hj-kv div{display:grid;grid-template-columns:8.5em 1fr;gap:12px;padding:12px 0;border-bottom:1px solid #e6edf8;font-size:15px;line-height:1.7}
+.hj-kv div:last-child{border-bottom:0}
+.hj-kv dt{color:#4a5568}.hj-kv dd{margin:0;overflow-wrap:anywhere}
+.hj-steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;counter-reset:st}
+.hj-steps li{display:flex;gap:14px;align-items:flex-start;font-size:15px;line-height:1.7;counter-increment:st}
+.hj-steps li::before{content:counter(st);flex:none;width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.hj-note{font-size:13px;color:#4a5568;line-height:1.7;margin:12px 0 0}
+.hj-back{min-height:44px;padding:0 14px;border:1px solid #b9cbe6;background:#fff;border-radius:6px;font:inherit;font-size:14px;cursor:pointer;align-self:flex-start}
+.hj-cta{margin-top:34px;background:#0a2a5c;color:#fff;border-radius:12px;padding:24px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.hj-cta p{margin:0}.hj-cta .t{font-size:19px;font-weight:700}.hj-cta .s{margin-top:4px;font-size:14px;line-height:1.7;color:#dbe6f7}
+.hj-cta span.soon{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;background:#fff;color:#0a2a5c;border-radius:8px;font-weight:700}
+.hj-banner{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#fff;border:2px solid var(--brand);border-radius:12px;padding:20px 22px;margin:18px 0;cursor:pointer}
+.hj-banner b{font-size:28px;line-height:1.4;color:#1a2433}.hj-banner p{margin:4px 0 0;font-size:14px;line-height:1.7;color:#4a5568}
+.hj-banner .go2{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;background:var(--brand);color:#fff;border-radius:8px;font-weight:700;white-space:nowrap}
+
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"あなたが使える補助金","description":"タクシー会社と自治体が使える補助金を、国・都道府県・市町村ごとに検索できます。自動運転、EVタクシー、配車アプリ、運転手の確保、UDタクシーなど。ロボタクシーに向けた使い方も解説します。","url":"https://robotaxi-lab.com/hojokin/","inLanguage":"ja","publisher":{"@type":"Organization","name":"アイベリー株式会社","url":"https://aiberry.co.jp/"}}</script>
+</head><body>
+<div class="notice">公開準備中のサイトです。実証実験レポートとキーマン・インタビューは仮の原稿です。</div>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="ロボタクシー実践ラボ トップへ">
+      <svg width="34" height="34" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="#1F3A5F"/><path d="M12 30 L16 6 M24 30 L20 6" stroke="#FFFFFF" stroke-width="2.2" fill="none"/><path d="M14 18 L18 22 L26 12" stroke="#007AFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>ロボタクシー実践ラボ</b><small>ロボタクシーを始める人のための、実践メディア</small></span>
+    </a>
+    <nav class="cats" aria-label="カテゴリー">
+      <a class="nl" href="/articles/genzaichi/">業界の現在地</a>
+      <a class="nl" href="/articles/news/">業界ニュース</a>
+      <a class="nl" href="/articles/zukan/">ロボタクシー図鑑</a>
+      <a class="nl" href="/articles/navi/">許認可ナビ</a>
+      <a class="nl" href="/articles/jissho/">実証実験レポート</a>
+      <a class="nl" href="/articles/interview/">キーマン・インタビュー</a>
+      <a class="nl" href="/zakkuri/">ざっくりニュース</a>
+      <a class="nl" href="/hojokin/" aria-current="true">あなたが使える補助金</a>
+    </nav>
+    <a class="hdr-cta" href="/join/" aria-label="無料会員登録で「ロボタクシーの現在地」PDFを受け取る"><img src="p-01.jpg" alt=""><span>ロボタクシーの現在地<small>2026年10月版 無料PDF</small></span></a>
+  </div>
+</header>
+<div class="wrap" style="padding-block:28px">
+<section id="hojo" class="hj" aria-label="あなたが使える補助金">
+  <div id="hj-list">
+    <span class="eyebrow2">あなたが使える補助金</span>
+    <h1 style="font-size:28px;line-height:1.4;margin:6px 0 8px">ロボタクシーとタクシー会社に使える補助金</h1>
+    <p class="lead">エリアと立場を選ぶと、国・都道府県・市町村の補助金をまとめて確認できます。各補助金に「ロボタクシーに向けて何を準備できるか」を書いています。</p>
+    <div class="hj-panel" role="search">
+      <div class="hj-row">
+        <label>都道府県<select id="hj-pref"><option value="">すべて</option></select></label>
+        <label>市町村<select id="hj-city"><option value="">すべての市町村</option></select></label>
+        <label>立場<select id="hj-role"><option value="">すべて</option><option>タクシー会社</option><option>バス会社</option><option>自治体</option><option>その他</option></select></label>
+        <label>状態<select id="hj-status"><option value="">すべて</option><option>受付中</option><option>来年度の見込み</option><option>受付時期を確認中</option><option>終了（次回の参考）</option></select></label>
+        <label>並べ替え<select id="hj-sort"><option value="st">受付中を先に</option><option value="dl">締め切りが近い順</option><option value="nm">名前順</option></select></label>
+        <label>キーワード<input id="hj-q" type="search" placeholder="例：EV、キャッシュレス、札幌"></label>
+      </div>
+      <div class="hj-chips" id="hj-fields" aria-label="分野"></div>
+      <p class="hj-count" id="hj-count" aria-live="polite">読み込み中…</p>
+    </div>
+    <div id="hj-results"></div>
+    <div class="hj-cta"><div><p class="t">新しい公募を見逃さない</p><p class="s">エリアを登録すると、新しい補助金が出たときにメールでお知らせする機能を準備中です。</p></div><span class="soon">準備中</span></div>
+  </div>
+  <div id="hj-detail" hidden></div>
+</section>
+</div>
+<script>
+(function(){
+  var ST={'受付中':'s1','来年度の見込み':'s2','受付時期を確認中':'s3','終了（次回の参考）':'s4'};
+  var STORD={'受付中':0,'来年度の見込み':1,'受付時期を確認中':2,'終了（次回の参考）':3};
+  var FIELDS=['自動運転','EV・充電','配車・DX','人材','バリアフリー','経営支援'];
+  var LV=[['国','全国で使える'],['都道府県','都道府県の補助金'],['市町村','市町村の補助金']];
+  var items=[],updated='',field='',pending=null,ready=false;
+  var $=function(i){return document.getElementById(i);};
+  function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function badge(st){return '<span class="hj-st '+(ST[st]||'s4')+'">'+esc(st)+'</span>';}
+  function full(x){return x.name+'（'+x.org+'）';}
+  function fillSel(sel,vals,first){var cur=sel.value;sel.innerHTML='<option value="">'+first+'</option>'+vals.map(function(v){return '<option>'+esc(v)+'</option>';}).join('');if(vals.indexOf(cur)>=0)sel.value=cur;}
+  function cities(){var p=$('hj-pref').value;var c={};items.forEach(function(x){if(x.city&&(!p||x.pref===p))c[x.city]=1;});fillSel($('hj-city'),Object.keys(c).sort(),'すべての市町村');}
+  function chips(){$('hj-fields').innerHTML=['すべての分野'].concat(FIELDS).map(function(f,i){var v=i?f:'';return '<button type="button" data-f="'+esc(v)+'" aria-pressed="'+(v===field)+'">'+esc(f)+'</button>';}).join('');
+    $('hj-fields').querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){field=b.getAttribute('data-f');chips();render();});});}
+  function match(x){var p=$('hj-pref').value,c=$('hj-city').value,r=$('hj-role').value,s=$('hj-status').value,q=$('hj-q').value.trim().toLowerCase();
+    if(p&&x.level!=='国'&&x.pref!==p)return false;
+    if(c&&x.level==='市町村'&&x.city!==c)return false;
+    if(r&&(x.roles||[]).indexOf(r)<0)return false;
+    if(s&&x.status!==s)return false;
+    if(field&&(x.fields||[]).indexOf(field)<0)return false;
+    if(q){var t=[x.name,x.org,x.pref,x.city,x.who,x.amount,x.period,x.use,(x.fields||[]).join(' ')].join(' ').toLowerCase();if(q.split(/\s+/).some(function(w){return t.indexOf(w)<0;}))return false;}
+    return true;}
+  function sortf(a,b){var m=$('hj-sort').value;
+    if(m==='dl'){var da=a.deadline||'9999',db=b.deadline||'9999';if(da!==db)return da<db?-1:1;}
+    if(m!=='nm'){var d=(STORD[a.status]||9)-(STORD[b.status]||9);if(d)return d;}
+    return a.name.localeCompare(b.name,'ja');}
+  function card(x){return '<article class="hj-card"><div class="hj-badges">'+badge(x.status)+(x.fields||[]).map(function(f){return '<span class="hj-tg">'+esc(f)+'</span>';}).join('')+'</div>'+
+    '<a class="nm" href="/hojokin/#'+esc(x.id)+'">'+esc(full(x))+'</a><dl><dt>対象</dt><dd>'+esc(x.who)+'</dd><dt>金額・率</dt><dd>'+esc(x.amount)+'</dd><dt>時期</dt><dd>'+esc(x.period)+'</dd></dl>'+
+    '<p class="hj-use"><b>'+esc(x.useKind||'ロボタクシーでの使い方')+'：</b>'+esc(x.use)+'</p><a href="/hojokin/#'+esc(x.id)+'" style="font-size:14px;font-weight:700">詳しく見る →</a></article>';}
+  function render(){if(!ready)return;var hit=items.filter(match).sort(sortf);var n={};hit.forEach(function(x){n[x.status]=(n[x.status]||0)+1;});
+    $('hj-count').textContent='該当 '+hit.length+'件'+(hit.length?'（'+Object.keys(STORD).filter(function(k){return n[k];}).map(function(k){return k+' '+n[k]+'件';}).join('／')+'）':'')+'　データ更新日：'+updated;
+    var h='';LV.forEach(function(l){var g=hit.filter(function(x){return x.level===l[0];});if(!g.length)return;var t=l[0]==='都道府県'&&$('hj-pref').value?$('hj-pref').value:l[0];h+='<section class="hj-sec"><h3>'+esc(t)+'<small>'+esc(l[1])+'</small></h3><div class="hj-grid">'+g.map(card).join('')+'</div></section>';});
+    if(!hit.length)h='<div class="hj-empty">条件に合う補助金は、いまデータベースにありません。条件をゆるめるか、キーワードを変えてください。補助金は地域ごとに順次追加しています。</div>';
+    $('hj-results').innerHTML=h;}
+  var GEN=['公式ページと公募要領を読み、対象者と対象になる費用を確かめる','導入したい設備やサービスの見積もりを取る','自治体と組む必要がある補助金は、早めに担当課に相談する','公募期間に申請書を出す','交付が決まってから発注・導入し、実績を報告する'];
+  function detail(id){var x=items.filter(function(i){return i.id===id;})[0];var d=$('hj-detail');
+    if(!x){d.innerHTML='<button type="button" class="hj-back" data-hjback>← 一覧に戻る</button><div class="hj-empty">この補助金は見つかりませんでした。</div>';}
+    else{var st=(x.steps&&x.steps.length)?x.steps:GEN;var rel=items.filter(function(i){return i.id!==x.id&&(i.pref===x.pref||i.level==='国')&&(i.fields||[]).some(function(f){return (x.fields||[]).indexOf(f)>=0;});}).slice(0,4);
+    d.innerHTML='<div class="hj-d"><div class="main"><button type="button" class="hj-back" data-hjback>← 一覧に戻る</button>'+
+    '<div class="hj-badges">'+badge(x.status)+'<span class="hj-tg">'+esc(x.level==='国'?'国':x.pref+(x.city?' '+x.city:''))+'</span>'+(x.fields||[]).map(function(f){return '<span class="hj-tg">'+esc(f)+'</span>';}).join('')+'</div>'+
+    '<h2 style="margin:0">'+esc(full(x))+'</h2>'+
+    '<div class="hj-box"><dl class="hj-kv"><div><dt>出している所</dt><dd>'+esc(x.org)+'</dd></div><div><dt>対象</dt><dd>'+esc(x.who)+'</dd></div><div><dt>金額・補助率</dt><dd>'+esc(x.amount)+'</dd></div><div><dt>時期</dt><dd>'+esc(x.period)+'</dd></div><div><dt>状態</dt><dd>'+esc(x.status)+'</dd></div></dl></div>'+
+    '<div class="hj-box use"><h3>ロボタクシーでの使い方（'+esc(x.useKind||'')+'）</h3><p style="margin:0;font-size:15px;line-height:1.8">'+esc(x.use)+'</p></div>'+
+    '<div class="hj-box"><h3>申請までの段取り'+((x.steps&&x.steps.length)?'':'（共通）')+'</h3><ol class="hj-steps">'+st.map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ol><p class="hj-note">申請書の作成代行は行政書士の仕事です。ラボは情報の提供までを行います。申請の前に必ず公募要領を確認してください。</p></div>'+
+    '<p class="hj-note" style="margin:0">'+(x.url?'公式ページ・出典： <a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.url)+'</a> ':'公式ページ：確認中 ')+'（ラボが最後に確認した日：'+esc(x.checked)+'）</p>'+
+    (rel.length?'<div class="hj-box"><h3>一緒に見たい補助金</h3><ul style="margin:0;padding-left:18px;font-size:14px;line-height:2">'+rel.map(function(r){return '<li><a href="/hojokin/#'+esc(r.id)+'">'+esc(full(r))+'</a></li>';}).join('')+'</ul></div>':'')+
+    '</div></div>';}
+    d.querySelectorAll('[data-hjback]').forEach(function(b){b.addEventListener('click',function(){location.hash='';});});}
+  window.hjOpen=function(sub){if(!ready){pending=sub||'';return;}
+    $('hj-list').hidden=!!sub;$('hj-detail').hidden=!sub;if(sub)detail(sub);else render();};
+  function load(data){items=(data.items||[]).filter(function(x){return x&&x.id&&x.name;});updated=data.updated||'';
+    var pr={};items.forEach(function(x){if(x.level!=='国'&&x.pref)pr[x.pref]=1;});fillSel($('hj-pref'),Object.keys(pr),'すべて');cities();chips();ready=true;
+    if(pending!==null){var p=pending;pending=null;window.hjOpen(p||null);}else render();}
+  ['hj-pref','hj-city','hj-role','hj-status','hj-sort'].forEach(function(i){$(i).addEventListener('change',function(){if(i==='hj-pref')cities();render();});});
+  $('hj-q').addEventListener('input',render);
+  fetch('https://raw.githubusercontent.com/muaratadai/robotaxi-lab-data/main/hojokin.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).catch(function(){return fetch('/hojokin/hojokin.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();});}).then(load).catch(function(){$('hj-count').textContent='補助金データを読み込めませんでした。ページを再読み込みしてください。';});
+  pending=location.hash.slice(1);window.addEventListener('hashchange',function(){window.hjOpen(location.hash.slice(1)||null);window.scrollTo({top:0});});
+})();
+</script>
+<footer class="site"><div class="wrap"><span><b style="color:var(--brand-text)">ロボタクシー実践ラボ</b>　業界全体のための実践の共有　／　特定のメーカー・システムに偏らない編集方針</span><span>運営：アイベリー株式会社（代表 村田 大）／編集長 池田 将</span><nav class="flinks" aria-label="サイト情報"><a href="/about/">運営者情報</a><a href="/editorial-policy/">編集方針</a><a href="/privacy/">プライバシーポリシー</a><a href="/contact/">お問い合わせ</a><a href="/join/">無料会員登録</a></nav></div></footer>
+</body></html>
